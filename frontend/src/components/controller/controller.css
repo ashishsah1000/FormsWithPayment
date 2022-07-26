@@ -10,3 +10,8 @@ select option {
     padding: 10px 20px;
     transition: 1s ease;
 }
+
+.options-box input {
+    /* border: ; */
+    outline: none;
+}

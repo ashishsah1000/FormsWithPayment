@@ -6,11 +6,11 @@ export default function Navbar({
 }) {
   return (
     <div className="shadow-lg max-w-full h-16 bg-blue-500 flex navbar">
-      <div class="flex-none w-14 h-14 logo">
+      <div className="flex-none w-14 h-14 logo">
         <h1>LOGO</h1>
       </div>
-      <div class="grow h-14 options">Publish / Unpublish</div>
-      <div class="flex-none w-14 h-14 profile">
+      <div className="grow h-14 options">Publish / Unpublish</div>
+      <div className="flex-none w-14 h-14 profile">
         <img src={profileImage} className="h-12 rounded-full"></img>
       </div>
     </div>
