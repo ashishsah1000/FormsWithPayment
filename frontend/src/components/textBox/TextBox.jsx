@@ -10,7 +10,7 @@ export default function TextBox({
   const editView = false;
   if (mode == "edit") {
     return (
-      <div className="inputBox max-w-full shadow-lg py-8 px-8  ">
+      <div className="inputBox max-w-full  py-8 px-8  ">
         <input
           type="text"
           name="question"

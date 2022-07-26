@@ -4,3 +4,4 @@ export { default as Navbar } from "./navbar/Navbar.jsx";
 // textboxs
 
 export { default as TextBox } from "./textBox/TextBox.jsx";
+export { default as Contorller } from "./controller/Controller.jsx";
