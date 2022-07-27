@@ -15,3 +15,7 @@ select option {
     /* border: ; */
     outline: none;
 }
+
+.deleteInputIcon {
+    cursor: pointer;
+}
