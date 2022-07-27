@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { MinusCircleIcon } from "@heroicons/react/solid/";
+import { TrashIcon } from "@heroicons/react/solid/";
+import "./options.css";
 
 export default function Options() {
   const [options, setOptions] = useState([
@@ -31,7 +32,7 @@ export default function Options() {
                 placeholder={i + 1}
                 required
               ></input>
-              <MinusCircleIcon
+              <TrashIcon
                 className="text-red-300 h-6 deleteInputIcon mt-5"
                 onClick={() => removeOption(i)}
               />{" "}
