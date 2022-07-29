@@ -19,3 +19,12 @@ select option {
 .deleteInputIcon {
     cursor: pointer;
 }
+
+.active {
+    background-color: rgb(34, 34, 59);
+    color: white;
+}
+
+.options>button {
+    margin: 10px 10px;
+}

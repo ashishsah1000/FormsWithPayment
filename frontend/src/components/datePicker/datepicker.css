@@ -1,0 +1,4 @@
+.datepick>input {
+    position: relative;
+    left: -100px;
+}

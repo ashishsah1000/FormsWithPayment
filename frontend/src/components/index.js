@@ -14,4 +14,7 @@ export { default as Textarea } from "./textarea/Textarea.jsx";
 // Rating component
 export { default as Rating } from "./rating/Rating.jsx";
 
+//date picker area
+export { default as DatePick } from "./datePicker/DatePick.jsx";
+
 export { default as Contorller } from "./controller/Controller.jsx";
