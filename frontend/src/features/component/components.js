@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedComponent: "",
+  question: "",
+  type: "",
+  previewComponents: [],
 };
 
 export const componentSlice = createSlice({
@@ -9,12 +12,21 @@ export const componentSlice = createSlice({
   initialState,
   reducers: {
     selectComponent: (state, action) => {
-      console.log("was called from redux", state.selectedComponent);
       state.selectedComponent = action.payload;
+    },
+    addComponent: (state, action) => {
+      state.previewComponents = state.previewComponents.push(action.payload);
+    },
+    addQuestion: (state, action) => {
+      state.question = action.payload;
+    },
+    addType: (state, action) => {
+      state.type = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { selectComponent } = componentSlice.actions;
+export const { selectComponent, addComponent, addQuestion, addType } =
+  componentSlice.actions;
 export default componentSlice.reducer;

@@ -6,17 +6,19 @@ export default function TextBox({
   mode = "edit",
   question = "this is the question that we gonna ask?",
   answer = "Answer goes here",
+  callback = () => {},
 }) {
   const editView = false;
   if (mode == "edit") {
     return (
-      <div className="inputBox max-w-full  py-8 px-8  ">
+      <div className="inputBox max-w-full   px-8  ">
         <input
           type="text"
           name="question"
           id=""
           className="w-full px-3 py-3 border-solid border-2 border-blue-500 rounded"
           placeholder="Start typing here..."
+          onKeyUp={(e) => callback(e.target.value)}
         />
       </div>
     );

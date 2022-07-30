@@ -5,6 +5,7 @@ import {
   EmojiHappyIcon,
   PencilAltIcon,
   PlusCircleIcon,
+  CalendarIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
 import { selectComponent } from "../../features/component/components";
@@ -13,22 +14,25 @@ import { Rating, Options, Textarea, DatePick, Chips } from "../";
 export default function Controller() {
   // use of redux
   const dispatch = useDispatch();
+  // selected contains the data of the selected element
   const selected = useSelector((state) => state.component.selectedComponent);
-  console.log("from selected component useSelector", selected);
+  // question contains the data of the question stored in redux
+  const question = useSelector((state) => state.component.question);
+
+  // function that adds and verify the element and question to redux
+  const addElement = () => {
+    if (selected == "" || question == "") {
+      console.log("error either question or type", question, "type=", selected);
+    } else {
+      console.log("dispatch will be called");
+    }
+  };
+
   let created = document.querySelector(".element-holder");
 
   // handle active button
   const handleActive = (e) => {
     let created = document.querySelector(".element-holder");
-
-    created.innerHTML = "";
-    if (e.target.classList.contains("active")) {
-      // console.log("true");
-      e.target.classList.remove("active");
-    } else {
-      e.target.classList.add("active");
-      // console.log(false);
-    }
   };
   const [change, setchange] = useState(false);
   const dynamicElement = (element, reffer) => {
@@ -76,61 +80,67 @@ export default function Controller() {
         ""
       )}
 
-      <div className="options flex flex-wrap">
-        <button
-          className="drop-shadow-sm bg-gray-50 mx-6"
-          onClick={(e) => {
-            dispatch(selectComponent("options"));
-            handleActive(e);
-          }}
-        >
-          <CheckCircleIcon className="h-6 " /> &nbsp;Options
-        </button>
-        <button
-          className="drop-shadow-sm bg-gray-50 mx-6"
-          onClick={(e) => {
-            dispatch(selectComponent("rating"));
-            handleActive(e);
-          }}
-        >
-          <EmojiHappyIcon className="h-6 " /> &nbsp;Rating
-        </button>
-        <button
-          className="drop-shadow-sm bg-gray-50 mx-6"
-          onClick={(e) => {
-            dispatch(selectComponent("textarea"));
-            handleActive(e);
-          }}
-        >
-          <PencilAltIcon className="h-6 " /> &nbsp;Text Box
-        </button>
-        <button
-          className="drop-shadow-sm bg-gray-50 mx-6"
-          onClick={(e) => {
-            dispatch(selectComponent("datepick"));
-            setchange(!change);
-          }}
-        >
-          <PencilAltIcon className="h-6 " /> &nbsp;Date Picker
-        </button>
-
-        <select>
-          <option value="Other Elements">Select Element</option>
-          <option
-            value="Other Elements"
-            onClick={() => {
-              dispatch(selectComponent("datepick"));
+      <div className="options flex">
+        <div className="flex grow">
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("options"));
+              handleActive(e);
             }}
           >
-            Date Picker
-          </option>
-          <option value="Other Elements">Time Picker</option>
-          <option value="Other Elements">Yes or No</option>
-          <option value="Other Elements">Element 3</option>
-        </select>
-        <button className="text-blue-900 m-full">
-          <PlusCircleIcon className="h-6 " /> &nbsp; Add Element
-        </button>
+            <CheckCircleIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("rating"));
+              handleActive(e);
+            }}
+          >
+            <EmojiHappyIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("textarea"));
+              handleActive(e);
+            }}
+          >
+            <PencilAltIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("datepick"));
+              setchange(!change);
+            }}
+          >
+            <CalendarIcon className="h-6 " />
+          </button>
+          <select>
+            <option value="Other Elements">Select Element</option>
+            <option
+              value="Other Elements"
+              onClick={() => {
+                dispatch(selectComponent("datepick"));
+              }}
+            >
+              Date Picker
+            </option>
+            <option value="Other Elements">Time Picker</option>
+            <option value="Other Elements">Yes or No</option>
+            <option value="Other Elements">Element 3</option>
+          </select>
+        </div>
+        <div>
+          <button
+            className="text-blue-900 m-full items-end mr-10"
+            onClick={() => addElement()}
+          >
+            <PlusCircleIcon className="h-6 " /> &nbsp; Add Element
+          </button>
+        </div>
       </div>
     </div>
   );

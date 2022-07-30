@@ -3,7 +3,7 @@ import "./textarea.css";
 
 export default function Textarea() {
   return (
-    <div className="textarea-component">
+    <div className="textarea-component mt-6">
       <textarea
         placeholder="Enter your response here"
         cols="90"

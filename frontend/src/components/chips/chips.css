@@ -1,9 +1,13 @@
 .basic-grad {
-    background: #FF5F6D;
-    /* fallback for old browsers */
+    /* background: #FF5F6D;
     background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);
+    background: linear-gradient(to right, #FFC371, #FF5F6D); */
+    background: #4B79A1;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #283E51, #4B79A1);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFC371, #FF5F6D);
+    background: linear-gradient(to right, #283E51, #4B79A1);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 
 }

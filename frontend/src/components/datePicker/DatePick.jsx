@@ -7,7 +7,7 @@ export default function DatePick() {
   const [startDate, setStartDate] = useState(new Date());
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
-      className="example-custom-input  bg-lime-700 text-gray-100"
+      className="example-custom-input  bg-gray-100 text-gray-900"
       onClick={onClick}
       ref={ref}
     >

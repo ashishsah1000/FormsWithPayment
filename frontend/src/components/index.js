@@ -20,4 +20,6 @@ export { default as DatePick } from "./datePicker/DatePick.jsx";
 //exporting the chips
 export { default as Chips } from "./chips/Chips.jsx";
 
+// controller and preview section
 export { default as Contorller } from "./controller/Controller.jsx";
+export { default as Preview } from "./preview/Preview";
