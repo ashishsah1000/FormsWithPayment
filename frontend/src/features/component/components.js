@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  components: [],
+  selectedComponent: "",
 };
 
 export const componentSlice = createSlice({
-  name: "components",
+  name: "component",
   initialState,
   reducers: {
-    addComponents: (data) => {
-      this.components = data;
+    selectComponent: (state, action) => {
+      console.log("was called from redux", state.selectedComponent);
+      state.selectedComponent = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addComponents } = componentSlice.actions;
+export const { selectComponent } = componentSlice.actions;
 export default componentSlice.reducer;

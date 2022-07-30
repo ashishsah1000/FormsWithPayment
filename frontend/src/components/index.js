@@ -17,4 +17,7 @@ export { default as Rating } from "./rating/Rating.jsx";
 //date picker area
 export { default as DatePick } from "./datePicker/DatePick.jsx";
 
+//exporting the chips
+export { default as Chips } from "./chips/Chips.jsx";
+
 export { default as Contorller } from "./controller/Controller.jsx";

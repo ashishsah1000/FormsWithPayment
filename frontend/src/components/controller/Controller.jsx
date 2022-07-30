@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import { useSelector, useDispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   CheckCircleIcon,
   EmojiHappyIcon,
@@ -7,17 +7,14 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
-import { components } from "../../features/components";
-import { Rating, Options, Textarea, DatePick } from "../";
+import { selectComponent } from "../../features/component/components";
+import { Rating, Options, Textarea, DatePick, Chips } from "../";
 
 export default function Controller() {
-  const [showOption, setshowOption] = useState(false);
-  const [showTextArea, setshowTextArea] = useState(false);
-  const [showRatingArea, setshowRatingArea] = useState(false);
-  const [showDateArea, setDateArea] = useState(false);
-
-  let oneOpen = false;
-
+  // use of redux
+  const dispatch = useDispatch();
+  const selected = useSelector((state) => state.component.selectedComponent);
+  console.log("from selected component useSelector", selected);
   let created = document.querySelector(".element-holder");
 
   // handle active button
@@ -42,44 +39,49 @@ export default function Controller() {
 
   return (
     <div className="w-full mx-12  text-gray-500 ">
-      {change ? <div className="w-full">{dynamicElement()}</div> : ""}
-      <div className="w-full element-holder">
-        {showOption ? (
-          <div className=" ">
-            <Options />
-          </div>
-        ) : (
-          ""
-        )}
-        {showTextArea ? (
-          <div className=" ">
-            <Textarea />
-          </div>
-        ) : (
-          ""
-        )}
-        {showRatingArea ? (
-          <div className=" ">
-            <Rating />
-          </div>
-        ) : (
-          ""
-        )}
-        {showDateArea ? (
-          <div className=" ">
-            <DatePick />
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
+      {selected == "" ? (
+        <div className="w-full">
+          {" "}
+          <Chips text="Select the type of question or info !" />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "datepick" ? (
+        <div className="w-full">
+          <DatePick />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "options" ? (
+        <div className="w-full">
+          <Options />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "textarea" ? (
+        <div className="w-full">
+          <Textarea />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "rating" ? (
+        <div className="w-full">
+          <Rating />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="options flex flex-wrap">
         <button
           className="drop-shadow-sm bg-gray-50 mx-6"
           onClick={(e) => {
+            dispatch(selectComponent("options"));
             handleActive(e);
-            setshowOption(!showOption);
           }}
         >
           <CheckCircleIcon className="h-6 " /> &nbsp;Options
@@ -87,8 +89,8 @@ export default function Controller() {
         <button
           className="drop-shadow-sm bg-gray-50 mx-6"
           onClick={(e) => {
+            dispatch(selectComponent("rating"));
             handleActive(e);
-            setshowRatingArea(!showRatingArea);
           }}
         >
           <EmojiHappyIcon className="h-6 " /> &nbsp;Rating
@@ -96,8 +98,8 @@ export default function Controller() {
         <button
           className="drop-shadow-sm bg-gray-50 mx-6"
           onClick={(e) => {
+            dispatch(selectComponent("textarea"));
             handleActive(e);
-            setshowTextArea(!showTextArea);
           }}
         >
           <PencilAltIcon className="h-6 " /> &nbsp;Text Box
@@ -105,15 +107,7 @@ export default function Controller() {
         <button
           className="drop-shadow-sm bg-gray-50 mx-6"
           onClick={(e) => {
-            setDateArea(!showDateArea);
-          }}
-        >
-          <PencilAltIcon className="h-6 " /> &nbsp;Date Picker
-        </button>
-        <button
-          className="drop-shadow-sm bg-gray-50 mx-6"
-          onClick={(e) => {
-            dynamicElement(<DatePick />, true);
+            dispatch(selectComponent("datepick"));
             setchange(!change);
           }}
         >
@@ -125,8 +119,7 @@ export default function Controller() {
           <option
             value="Other Elements"
             onClick={() => {
-              setDateArea(true);
-              console.log("was called");
+              dispatch(selectComponent("datepick"));
             }}
           >
             Date Picker
