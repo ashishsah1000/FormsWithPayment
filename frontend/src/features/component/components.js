@@ -15,7 +15,7 @@ export const componentSlice = createSlice({
       state.selectedComponent = action.payload;
     },
     addComponent: (state, action) => {
-      state.previewComponents = state.previewComponents.push(action.payload);
+      state.previewComponents = [...state.previewComponents, action.payload];
     },
     addQuestion: (state, action) => {
       state.question = action.payload;

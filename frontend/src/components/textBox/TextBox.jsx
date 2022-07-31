@@ -11,12 +11,12 @@ export default function TextBox({
   const editView = false;
   if (mode == "edit") {
     return (
-      <div className="inputBox max-w-full   px-8  ">
+      <div className="inputBox max-w-full px-8  ">
         <input
           type="text"
           name="question"
           id=""
-          className="w-full px-3 py-3 border-solid border-2 border-blue-500 rounded"
+          className="w-full px-3 py-3 border-solid border-2 border-grey-500 rounded"
           placeholder="Start typing here..."
           onKeyUp={(e) => callback(e.target.value)}
         />

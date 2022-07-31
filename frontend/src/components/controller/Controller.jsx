@@ -8,7 +8,10 @@ import {
   CalendarIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
-import { selectComponent } from "../../features/component/components";
+import {
+  addComponent,
+  selectComponent,
+} from "../../features/component/components";
 import { Rating, Options, Textarea, DatePick, Chips } from "../";
 
 export default function Controller() {
@@ -25,6 +28,7 @@ export default function Controller() {
       console.log("error either question or type", question, "type=", selected);
     } else {
       console.log("dispatch will be called");
+      dispatch(addComponent({ question: question, type: selected }));
     }
   };
 
