@@ -2,13 +2,17 @@ import React from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Rating, Textarea, DatePick } from "../";
+import { Rating, Textarea, DatePick, OptionView, Files } from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
 export default function Preview() {
   const dispatch = useDispatch();
   const preview = useSelector((state) => state.component.previewComponents);
-  console.log("from preview", preview);
+  //   onchange function for options
+  const optionsSelected = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="w-full bg-grey-100 shadow-lg p-6">
       <div className="title">
@@ -17,7 +21,7 @@ export default function Preview() {
       </div>
       <div className="form-data"></div>
       {preview.length > 0 ? (
-        <div>
+        <form>
           {preview.map((x, i) => {
             if (x.type == "rating") {
               return (
@@ -46,6 +50,27 @@ export default function Preview() {
                 </div>
               );
             }
+            if (x.type == "file") {
+              return (
+                <div className=" my-6">
+                  <h1 className="font-bold">Question {i + 1}</h1>
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <Files />
+                </div>
+              );
+            }
+            if (x.type == "options") {
+              return (
+                <div className=" my-6">
+                  <h1 className="font-bold">Question {i + 1}</h1>
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <OptionView
+                    array={x.options.data}
+                    callback={optionsSelected}
+                  />
+                </div>
+              );
+            }
           })}
           <button
             className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
@@ -54,7 +79,7 @@ export default function Preview() {
             Submit &nbsp;
             <LockClosedIcon className="h-6 " />
           </button>
-        </div>
+        </form>
       ) : (
         <Chips text="Added questions will appear here" />
       )}

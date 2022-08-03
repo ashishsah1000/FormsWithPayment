@@ -1,0 +1,11 @@
+.custom-check {
+    accent-color: rgb(13, 64, 114);
+    height: 24px;
+    width: 24px;
+}
+
+.custom-check-lable {
+    position: relative;
+    top: -5px;
+    left: 15px;
+}

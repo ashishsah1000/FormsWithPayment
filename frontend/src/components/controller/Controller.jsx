@@ -5,14 +5,16 @@ import {
   EmojiHappyIcon,
   PencilAltIcon,
   PlusCircleIcon,
+  PaperClipIcon,
   CalendarIcon,
+  ClipboardCheckIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
 import {
   addComponent,
   selectComponent,
 } from "../../features/component/components";
-import { Rating, Options, Textarea, DatePick, Chips } from "../";
+import { Rating, Options, Textarea, DatePick, Chips, Files, Radio } from "../";
 
 export default function Controller() {
   // use of redux
@@ -26,10 +28,38 @@ export default function Controller() {
   const addElement = () => {
     if (selected == "" || question == "") {
       console.log("error either question or type", question, "type=", selected);
+    } else if (selected == "options") {
+      console.log("dispatching the options");
+      // check if options data in missing
+      let flag = 0;
+      optionData.data.map((x) => {
+        if (x.text == "") flag = 1;
+      });
+      if (flag == 0) {
+        dispatch(
+          addComponent({
+            question: question,
+            type: selected,
+            options: optionData,
+          })
+        );
+      } else {
+        console.log("options are missing");
+      }
     } else {
       console.log("dispatch will be called");
       dispatch(addComponent({ question: question, type: selected }));
+      // for options dispatch it in some other way
     }
+  };
+
+  // check the data of options
+  let optionData = {};
+  const getOptions = (array) => {
+    optionData = {
+      type: "single",
+      data: array,
+    };
   };
 
   let created = document.querySelector(".element-holder");
@@ -38,11 +68,7 @@ export default function Controller() {
   const handleActive = (e) => {
     let created = document.querySelector(".element-holder");
   };
-  const [change, setchange] = useState(false);
-  const dynamicElement = (element, reffer) => {
-    console.log("was called from dynamic");
-    return <div>{element}</div>;
-  };
+
   useEffect(() => {}, []);
 
   return (
@@ -64,7 +90,7 @@ export default function Controller() {
       )}
       {selected == "options" ? (
         <div className="w-full">
-          <Options />
+          <Options getData={getOptions} />
         </div>
       ) : (
         ""
@@ -72,6 +98,20 @@ export default function Controller() {
       {selected == "textarea" ? (
         <div className="w-full">
           <Textarea />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "file" ? (
+        <div className="w-full">
+          <Files />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "radio" ? (
+        <div className="w-full">
+          <Radio />
         </div>
       ) : (
         ""
@@ -84,7 +124,7 @@ export default function Controller() {
         ""
       )}
 
-      <div className="options flex">
+      <div className="options flex flex-wrap">
         <div className="flex grow">
           <button
             className="drop-shadow-sm bg-gray-50 mx-6"
@@ -94,6 +134,15 @@ export default function Controller() {
             }}
           >
             <CheckCircleIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("radio"));
+              handleActive(e);
+            }}
+          >
+            <ClipboardCheckIcon className="h-6 " />
           </button>
           <button
             className="drop-shadow-sm bg-gray-50 mx-6"
@@ -117,10 +166,17 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6"
             onClick={(e) => {
               dispatch(selectComponent("datepick"));
-              setchange(!change);
             }}
           >
             <CalendarIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6"
+            onClick={(e) => {
+              dispatch(selectComponent("file"));
+            }}
+          >
+            <PaperClipIcon className="h-6 " />
           </button>
           <select>
             <option value="Other Elements">Select Element</option>
