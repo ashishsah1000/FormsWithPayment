@@ -7,13 +7,15 @@ import {
   PlusCircleIcon,
   PaperClipIcon,
   CalendarIcon,
-  ClipboardCheckIcon,
+  StopIcon,
   PencilIcon,
+  CollectionIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
 import {
   addComponent,
   selectComponent,
+  createError,
 } from "../../features/component/components";
 import {
   Rating,
@@ -38,6 +40,12 @@ export default function Controller() {
   const addElement = () => {
     if (selected == "" || question == "") {
       console.log("error either question or type", question, "type=", selected);
+      dispatch(
+        createError({
+          type: "warning",
+          text: "Please enter the question / options",
+        })
+      );
     } else if (selected == "options" || selected == "radio") {
       // check if options data in missing
       let flag = 0;
@@ -84,7 +92,6 @@ export default function Controller() {
     <div className="controller lg:w-full sm:w-full md:w-full   text-gray-700 ">
       {selected == "" ? (
         <div className="w-full">
-          {" "}
           <Chips text="Select the type of question or info !" />
         </div>
       ) : (
@@ -148,6 +155,12 @@ export default function Controller() {
             onClick={(e) => {
               dispatch(selectComponent("options"));
               handleActive(e);
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "Options Component Selected",
+                })
+              );
             }}
           >
             <CheckCircleIcon className="h-6 " />
@@ -156,16 +169,20 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("radio"));
+              dispatch(
+                createError({ type: "cold", text: "Radio Component Selected" })
+              );
               handleActive(e);
             }}
           >
-            <ClipboardCheckIcon className="h-6 " />
+            <StopIcon className="h-6 " />
           </button>
           <button
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("rating"));
               handleActive(e);
+              createError({ type: "cold", text: "Rating Component Selected" });
             }}
           >
             <EmojiHappyIcon className="h-6 " />
@@ -203,6 +220,14 @@ export default function Controller() {
             }}
           >
             <PaperClipIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
+            onClick={(e) => {
+              dispatch(selectComponent("section"));
+            }}
+          >
+            <CollectionIcon className="h-6 " />
           </button>
           {/* <select>
             <option value="Other Elements">Select Element</option>

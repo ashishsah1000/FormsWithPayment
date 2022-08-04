@@ -37,3 +37,17 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+
+.fade-in {
+    opacity: 1;
+    transition: 1s ease;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: 1s ease;
+}
+
+.blank {
+    display: none;
+}

@@ -1,8 +1,8 @@
-import React from "react";
-import { Navbar, TextBox, Contorller, Preview } from "../../components";
+import React, { useEffect } from "react";
+import { Navbar, TextBox, Contorller, Preview, Chips } from "../../components";
 import Controller from "../../components/controller/Controller";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuestion } from "../../features/component/components";
+import { addQuestion, createError } from "../../features/component/components";
 import "./home.css";
 export default function Home() {
   // all the essentials of redux
@@ -12,9 +12,36 @@ export default function Home() {
   const question = (value) => {
     dispatch(addQuestion(value)); // this will dispatch the question value to redux
   };
+  const errors = useSelector((state) => state.component.errors);
+  const preErros = errors;
+  const mountError = () => {
+    return (
+      <Chips
+        destroy={true}
+        type={errors[errors.length - 1].type}
+        text={errors[errors.length - 1].text}
+      />
+    );
+  };
+  useEffect(() => {
+    console.log("error was changed", errors);
+  }, []);
 
   return (
     <div className="home">
+      <div className="home-error">
+        {errors.map((x, i) => {
+          if (errors.length - 1 == i) {
+            return (
+              <Chips
+                destroy={true}
+                type={errors[errors.length - 1].type}
+                text={errors[errors.length - 1].text}
+              />
+            );
+          }
+        })}
+      </div>
       <div>
         <Navbar />
       </div>
@@ -22,7 +49,7 @@ export default function Home() {
         <div className="flex flex-wrap my-6">
           <div className="grow  mx-6">
             <div className="controller shadow-lg bg-blue-900 controller-home w-full p-6 rounded">
-              <TextBox callback={question} />
+              <TextBox padding={3} callback={question} />
               <div className="flex">
                 <div className="grow p-2">
                   <Controller />

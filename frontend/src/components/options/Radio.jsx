@@ -27,7 +27,6 @@ export default function Radio({ getData = () => {} }) {
 
   return (
     <div className="w-full">
-      <Chips text="This is radio options" />
       <div className="flex flex-wrap options-box">
         {options.map((x, i) => {
           return (
@@ -57,6 +56,7 @@ export default function Radio({ getData = () => {} }) {
       </div>
 
       <button
+        className="text-red-200"
         onClick={() => {
           setOptions([...options, { sno: options.length + 1, text: "" }]);
           getData(options);

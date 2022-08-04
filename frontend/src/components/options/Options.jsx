@@ -53,6 +53,7 @@ export default function Options({ getData = () => {} }) {
       </div>
 
       <button
+        className="text-red-200"
         onClick={() => {
           setOptions([...options, { sno: options.length + 1, text: "" }]);
           getData(options);

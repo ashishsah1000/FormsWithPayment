@@ -5,6 +5,7 @@ const initialState = {
   question: "",
   type: "",
   previewComponents: [],
+  errors: [{ type: "blank", text: "" }],
 };
 
 export const componentSlice = createSlice({
@@ -23,10 +24,18 @@ export const componentSlice = createSlice({
     addType: (state, action) => {
       state.type = action.payload;
     },
+    createError: (state, action) => {
+      state.errors = [...state.errors, action.payload];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { selectComponent, addComponent, addQuestion, addType } =
-  componentSlice.actions;
+export const {
+  selectComponent,
+  addComponent,
+  addQuestion,
+  addType,
+  createError,
+} = componentSlice.actions;
 export default componentSlice.reducer;
