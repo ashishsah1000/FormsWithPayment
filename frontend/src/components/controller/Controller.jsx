@@ -8,13 +8,23 @@ import {
   PaperClipIcon,
   CalendarIcon,
   ClipboardCheckIcon,
+  PencilIcon,
 } from "@heroicons/react/solid/";
 import "./controller.css";
 import {
   addComponent,
   selectComponent,
 } from "../../features/component/components";
-import { Rating, Options, Textarea, DatePick, Chips, Files, Radio } from "../";
+import {
+  Rating,
+  Options,
+  Textarea,
+  DatePick,
+  Chips,
+  Files,
+  Radio,
+  TextBox,
+} from "../";
 
 export default function Controller() {
   // use of redux
@@ -29,7 +39,6 @@ export default function Controller() {
     if (selected == "" || question == "") {
       console.log("error either question or type", question, "type=", selected);
     } else if (selected == "options") {
-      console.log("dispatching the options");
       // check if options data in missing
       let flag = 0;
       optionData.data.map((x) => {
@@ -72,7 +81,7 @@ export default function Controller() {
   useEffect(() => {}, []);
 
   return (
-    <div className="w-full mx-12  text-gray-500 ">
+    <div className="controller lg:w-full sm:w-full md:w-full   text-gray-700 ">
       {selected == "" ? (
         <div className="w-full">
           {" "}
@@ -84,6 +93,13 @@ export default function Controller() {
       {selected == "datepick" ? (
         <div className="w-full">
           <DatePick />
+        </div>
+      ) : (
+        ""
+      )}
+      {selected == "textbox" ? (
+        <div className="w-full mb-3">
+          <TextBox width={48} padding={2} placeholder={"Enter your answer"} />
         </div>
       ) : (
         ""
@@ -125,9 +141,9 @@ export default function Controller() {
       )}
 
       <div className="options flex flex-wrap">
-        <div className="flex grow">
+        <div className="flex grow text-blue-900 flex-wrap">
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("options"));
               handleActive(e);
@@ -136,7 +152,7 @@ export default function Controller() {
             <CheckCircleIcon className="h-6 " />
           </button>
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("radio"));
               handleActive(e);
@@ -145,7 +161,7 @@ export default function Controller() {
             <ClipboardCheckIcon className="h-6 " />
           </button>
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("rating"));
               handleActive(e);
@@ -154,7 +170,16 @@ export default function Controller() {
             <EmojiHappyIcon className="h-6 " />
           </button>
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
+            onClick={(e) => {
+              dispatch(selectComponent("textbox"));
+              handleActive(e);
+            }}
+          >
+            <PencilIcon className="h-6 " />
+          </button>
+          <button
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("textarea"));
               handleActive(e);
@@ -163,7 +188,7 @@ export default function Controller() {
             <PencilAltIcon className="h-6 " />
           </button>
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("datepick"));
             }}
@@ -171,14 +196,14 @@ export default function Controller() {
             <CalendarIcon className="h-6 " />
           </button>
           <button
-            className="drop-shadow-sm bg-gray-50 mx-6"
+            className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("file"));
             }}
           >
             <PaperClipIcon className="h-6 " />
           </button>
-          <select>
+          {/* <select>
             <option value="Other Elements">Select Element</option>
             <option
               value="Other Elements"
@@ -191,11 +216,11 @@ export default function Controller() {
             <option value="Other Elements">Time Picker</option>
             <option value="Other Elements">Yes or No</option>
             <option value="Other Elements">Element 3</option>
-          </select>
+          </select> */}
         </div>
         <div>
           <button
-            className="text-blue-900 m-full items-end mr-10"
+            className="bg-blue-900 text-gray-100 m-full items-end mt-3 justify-items-end align-end"
             onClick={() => addElement()}
           >
             <PlusCircleIcon className="h-6 " /> &nbsp; Add Element

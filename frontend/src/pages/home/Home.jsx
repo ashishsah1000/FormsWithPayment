@@ -3,6 +3,7 @@ import { Navbar, TextBox, Contorller, Preview } from "../../components";
 import Controller from "../../components/controller/Controller";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuestion } from "../../features/component/components";
+import "./home.css";
 export default function Home() {
   // all the essentials of redux
   const dispatch = useDispatch();
@@ -13,14 +14,14 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="home">
       <div>
         <Navbar />
       </div>
       <div>
-        <div className="flex my-6">
+        <div className="flex flex-wrap my-6">
           <div className="grow  mx-6">
-            <div className="controller shadow-lg bg-white-500 w-full p-6">
+            <div className="controller shadow-lg bg-violet-100 w-full p-6 rounded">
               <TextBox callback={question} />
               <div className="flex">
                 <div className="grow p-2">

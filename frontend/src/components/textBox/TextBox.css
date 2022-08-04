@@ -1,3 +1,5 @@
-.inputBox input {
-    outline: none;
-}
+ input {
+     outline: none;
+     font-size: 14px;
+
+ }

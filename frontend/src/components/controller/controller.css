@@ -6,6 +6,10 @@ button {
     font-weight: 500;
 }
 
+.controller {
+    overflow-x: hidden;
+}
+
 select option {
     padding: 10px 20px;
     transition: 1s ease;

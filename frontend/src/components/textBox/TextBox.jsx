@@ -4,23 +4,25 @@ import "./TextBox.css";
 export default function TextBox({
   // mode = edit/show
   mode = "edit",
+  width = "full",
+  placeholder = "Start typing here...",
   question = "this is the question that we gonna ask?",
   answer = "Answer goes here",
+  padding = 3,
+  otherClass = "",
   callback = () => {},
 }) {
   const editView = false;
   if (mode == "edit") {
     return (
-      <div className="inputBox max-w-full px-8  ">
-        <input
-          type="text"
-          name="question"
-          id=""
-          className="w-full px-3 py-3 border-solid border-2 border-grey-500 rounded"
-          placeholder="Start typing here..."
-          onKeyUp={(e) => callback(e.target.value)}
-        />
-      </div>
+      <input
+        type="text"
+        name="question"
+        id=""
+        className={`w-${width} my-2  px-2 py-${padding} border-solid border-2 border-grey-500 rounded ${otherClass}`}
+        placeholder={placeholder}
+        onKeyUp={(e) => callback(e.target.value)}
+      />
     );
   } else {
     return (

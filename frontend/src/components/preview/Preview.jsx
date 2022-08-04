@@ -2,7 +2,7 @@ import React from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Rating, Textarea, DatePick, OptionView, Files } from "../";
+import { Rating, Textarea, DatePick, OptionView, Files, TextBox } from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
 export default function Preview() {
@@ -14,14 +14,14 @@ export default function Preview() {
   };
 
   return (
-    <div className="w-full bg-grey-100 shadow-lg p-6">
+    <div className=" sm:w-24 md:w-24 lg:w-full bg-grey-100 shadow-lg p-6">
       <div className="title">
         <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
         <h3>Some other information</h3>
       </div>
       <div className="form-data"></div>
       {preview.length > 0 ? (
-        <form>
+        <div>
           {preview.map((x, i) => {
             if (x.type == "rating") {
               return (
@@ -71,6 +71,20 @@ export default function Preview() {
                 </div>
               );
             }
+            if (x.type == "textbox") {
+              return (
+                <div className=" my-6">
+                  <h1 className="font-bold">Question {i + 1}</h1>
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <TextBox
+                    width={"1/3"}
+                    padding={2}
+                    placeholder={"Enter your answer"}
+                    otherClass={"mx-3"}
+                  />
+                </div>
+              );
+            }
           })}
           <button
             className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
@@ -79,7 +93,7 @@ export default function Preview() {
             Submit &nbsp;
             <LockClosedIcon className="h-6 " />
           </button>
-        </form>
+        </div>
       ) : (
         <Chips text="Added questions will appear here" />
       )}
