@@ -2,7 +2,15 @@ import React from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Rating, Textarea, DatePick, OptionView, Files, TextBox } from "../";
+import {
+  Rating,
+  Textarea,
+  DatePick,
+  OptionView,
+  Files,
+  TextBox,
+  RadioView,
+} from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
 export default function Preview() {
@@ -65,6 +73,18 @@ export default function Preview() {
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <OptionView
+                    array={x.options.data}
+                    callback={optionsSelected}
+                  />
+                </div>
+              );
+            }
+            if (x.type == "radio") {
+              return (
+                <div className=" my-6">
+                  <h1 className="font-bold">Question {i + 1}</h1>
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <RadioView
                     array={x.options.data}
                     callback={optionsSelected}
                   />

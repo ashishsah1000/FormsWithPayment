@@ -21,7 +21,7 @@ export default function Home() {
       <div>
         <div className="flex flex-wrap my-6">
           <div className="grow  mx-6">
-            <div className="controller shadow-lg bg-violet-100 w-full p-6 rounded">
+            <div className="controller shadow-lg bg-blue-900 controller-home w-full p-6 rounded">
               <TextBox callback={question} />
               <div className="flex">
                 <div className="grow p-2">

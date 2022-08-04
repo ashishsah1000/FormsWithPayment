@@ -9,6 +9,7 @@ export { default as TextBox } from "./textBox/TextBox.jsx";
 export { default as Options } from "./options/Options.jsx";
 export { default as OptionView } from "./options/OptionView.jsx";
 export { default as Radio } from "./options/Radio.jsx";
+export { default as RadioView } from "./options/RadioView.jsx";
 
 // Text area component
 export { default as Textarea } from "./textarea/Textarea.jsx";

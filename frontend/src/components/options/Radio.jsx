@@ -40,14 +40,14 @@ export default function Radio({ getData = () => {} }) {
                   required
                   onChange={(e) => {
                     newOptions[i].text = e.target.value;
-                    //   getData(newOptions);
+                    getData(newOptions);
                   }}
                 ></input>
                 <TrashIcon
                   className="text-red-500 h-6 deleteInputIcon mt-5"
                   onClick={() => {
                     removeOption(i);
-                    //   getData(newOptions);
+                    getData(newOptions);
                   }}
                 />
               </div>
@@ -59,7 +59,7 @@ export default function Radio({ getData = () => {} }) {
       <button
         onClick={() => {
           setOptions([...options, { sno: options.length + 1, text: "" }]);
-          //   getData(options);
+          getData(options);
         }}
       >
         Add Option

@@ -38,7 +38,7 @@ export default function Controller() {
   const addElement = () => {
     if (selected == "" || question == "") {
       console.log("error either question or type", question, "type=", selected);
-    } else if (selected == "options") {
+    } else if (selected == "options" || selected == "radio") {
       // check if options data in missing
       let flag = 0;
       optionData.data.map((x) => {
@@ -111,6 +111,13 @@ export default function Controller() {
       ) : (
         ""
       )}
+      {selected == "radio" ? (
+        <div className="w-full">
+          <Radio getData={getOptions} />
+        </div>
+      ) : (
+        ""
+      )}
       {selected == "textarea" ? (
         <div className="w-full">
           <Textarea />
@@ -125,13 +132,7 @@ export default function Controller() {
       ) : (
         ""
       )}
-      {selected == "radio" ? (
-        <div className="w-full">
-          <Radio />
-        </div>
-      ) : (
-        ""
-      )}
+
       {selected == "rating" ? (
         <div className="w-full">
           <Rating />
