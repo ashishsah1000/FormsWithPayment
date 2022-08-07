@@ -26,6 +26,9 @@ export { default as Chips } from "./chips/Chips.jsx";
 // ecpoting files
 export { default as Files } from "./upload/Files";
 
+// exporting sections
+export { default as HeaderPara } from "./sections/HeaderPara.jsx";
+
 // controller and preview section
 export { default as Contorller } from "./controller/Controller.jsx";
 export { default as Preview } from "./preview/Preview";

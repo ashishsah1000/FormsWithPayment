@@ -1,0 +1,10 @@
+.sectionPreview {
+    position: relative;
+    left: 0px;
+    right: 40px;
+    padding: 40px 40px;
+}
+
+.preview {
+    overflow-x: hidden;
+}

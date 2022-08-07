@@ -16,9 +16,9 @@ export default function Chips({
   const destroyElement = () => {
     const interval1 = setInterval(() => {
       const element = document.querySelector(".info-chip");
-      element.remove();
+      // element.remove();
       clearInterval(interval1);
-    }, 2000);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Chips({
         }
         destroyElement();
         clearInterval(interval);
-      }, 1000);
+      }, 2000);
     }
   }, []);
 

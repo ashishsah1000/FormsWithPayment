@@ -6,7 +6,7 @@ export default function Files() {
     <div className="my-6 mx-6">
       <input type="file" name="uploadFile"></input>
       <label for="uploadFile">
-        <span className="flex my-2">
+        <span className="flex my-2 text-red-100">
           <PaperClipIcon className="h-6 " /> &nbsp;Select your file
         </span>
       </label>

@@ -22,7 +22,7 @@ export default function Preview() {
   };
 
   return (
-    <div className=" sm:w-24 md:w-24 lg:w-full bg-grey-100 shadow-lg p-6">
+    <div className=" sm:w-24 md:w-24 lg:w-full bg-grey-100 shadow-lg p-6 preview">
       <div className="title">
         <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
         <h3>Some other information</h3>
@@ -102,6 +102,17 @@ export default function Preview() {
                     placeholder={"Enter your answer"}
                     otherClass={"mx-3"}
                   />
+                </div>
+              );
+            }
+            if (x.type == "section") {
+              return (
+                <div
+                  className={`my-6  sectionPreview `}
+                  style={{ background: x.data.properties.background }}
+                >
+                  <h1 className="text-4xl font-bold"> {x.question}</h1>
+                  <h1 className="my-4 mx-3">{x.data.lable}</h1>
                 </div>
               );
             }

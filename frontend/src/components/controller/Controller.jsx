@@ -26,6 +26,7 @@ import {
   Files,
   Radio,
   TextBox,
+  HeaderPara,
 } from "../";
 
 export default function Controller() {
@@ -36,6 +37,25 @@ export default function Controller() {
   // question contains the data of the question stored in redux
   const question = useSelector((state) => state.component.question);
 
+  // check the data of options this will only be used in radio and options time
+  let optionData = {};
+  const getOptions = (array) => {
+    optionData = {
+      type: "single",
+      data: array,
+    };
+  };
+
+  // functions for getting the section data
+  let sectionData = {};
+  let getSection = (data) => {
+    sectionData = {
+      lable: data.lable,
+      properties: data.properties,
+    };
+    console.log("from controller", sectionData);
+  };
+
   // function that adds and verify the element and question to redux
   const addElement = () => {
     if (selected == "" || question == "") {
@@ -44,6 +64,14 @@ export default function Controller() {
         createError({
           type: "warning",
           text: "Please enter the question / options",
+        })
+      );
+    } else if (selected == "section") {
+      dispatch(
+        addComponent({
+          type: selected,
+          question: question,
+          data: sectionData,
         })
       );
     } else if (selected == "options" || selected == "radio") {
@@ -68,15 +96,6 @@ export default function Controller() {
       dispatch(addComponent({ question: question, type: selected }));
       // for options dispatch it in some other way
     }
-  };
-
-  // check the data of options
-  let optionData = {};
-  const getOptions = (array) => {
-    optionData = {
-      type: "single",
-      data: array,
-    };
   };
 
   let created = document.querySelector(".element-holder");
@@ -147,6 +166,13 @@ export default function Controller() {
       ) : (
         ""
       )}
+      {selected == "section" ? (
+        <div className="w-full">
+          <HeaderPara callback={getSection} />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="options flex flex-wrap">
         <div className="flex grow text-blue-900 flex-wrap">
@@ -182,7 +208,9 @@ export default function Controller() {
             onClick={(e) => {
               dispatch(selectComponent("rating"));
               handleActive(e);
-              createError({ type: "cold", text: "Rating Component Selected" });
+              dispatch(
+                createError({ type: "cold", text: "Rating Component Selected" })
+              );
             }}
           >
             <EmojiHappyIcon className="h-6 " />
@@ -191,6 +219,13 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("textbox"));
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "Text-Box Component Selected",
+                })
+              );
+
               handleActive(e);
             }}
           >
@@ -200,6 +235,12 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("textarea"));
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "Text-Area Component Selected",
+                })
+              );
               handleActive(e);
             }}
           >
@@ -209,6 +250,12 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("datepick"));
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "Date Picker Component Selected",
+                })
+              );
             }}
           >
             <CalendarIcon className="h-6 " />
@@ -217,6 +264,12 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("file"));
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "File Component Selected",
+                })
+              );
             }}
           >
             <PaperClipIcon className="h-6 " />
@@ -225,6 +278,12 @@ export default function Controller() {
             className="drop-shadow-sm bg-gray-50 mx-6 my-3"
             onClick={(e) => {
               dispatch(selectComponent("section"));
+              dispatch(
+                createError({
+                  type: "cold",
+                  text: "Section Component Selected",
+                })
+              );
             }}
           >
             <CollectionIcon className="h-6 " />
