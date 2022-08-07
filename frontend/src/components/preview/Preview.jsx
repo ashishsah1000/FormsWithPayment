@@ -10,6 +10,7 @@ import {
   Files,
   TextBox,
   RadioView,
+  Delete,
 } from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
@@ -22,18 +23,22 @@ export default function Preview() {
   };
 
   return (
-    <div className=" sm:w-24 md:w-24 lg:w-full bg-grey-100 shadow-lg p-6 preview">
+    <div className="  md:max-w-3xl lg:max-w-6xl bg-grey-100 shadow-lg p-6 preview ">
       <div className="title">
         <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
         <h3>Some other information</h3>
       </div>
       <div className="form-data"></div>
+
       {preview.length > 0 ? (
         <div>
           {preview.map((x, i) => {
             if (x.type == "rating") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <Rating />
@@ -42,7 +47,10 @@ export default function Preview() {
             }
             if (x.type == "textarea") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <Textarea />
@@ -51,7 +59,10 @@ export default function Preview() {
             }
             if (x.type == "datepick") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <DatePick />
@@ -60,7 +71,10 @@ export default function Preview() {
             }
             if (x.type == "file") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <Files />
@@ -69,7 +83,10 @@ export default function Preview() {
             }
             if (x.type == "options") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <OptionView
@@ -81,7 +98,10 @@ export default function Preview() {
             }
             if (x.type == "radio") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <RadioView
@@ -93,7 +113,10 @@ export default function Preview() {
             }
             if (x.type == "textbox") {
               return (
-                <div className=" my-6">
+                <div className="preview-elements my-6">
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <TextBox
@@ -108,9 +131,12 @@ export default function Preview() {
             if (x.type == "section") {
               return (
                 <div
-                  className={`my-6  sectionPreview `}
+                  className={`my-6 preview-elements  sectionPreview `}
                   style={{ background: x.data.properties.background }}
                 >
+                  <div className="delete-holder">
+                    <Delete id={i} />
+                  </div>
                   <h1 className="text-4xl font-bold"> {x.question}</h1>
                   <h1 className="my-4 mx-3">{x.data.lable}</h1>
                 </div>

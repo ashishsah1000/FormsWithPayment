@@ -7,4 +7,19 @@
 
 .preview {
     overflow-x: hidden;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+.delete-holder {
+    height: 0px;
+    opacity: 0;
+    position: relative;
+}
+
+.preview-elements:hover .delete-holder {
+    display: block;
+    opacity: 1;
+    background-color: blueviolet;
+    transition: 1s ease;
 }

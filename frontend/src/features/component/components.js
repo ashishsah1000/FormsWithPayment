@@ -27,6 +27,9 @@ export const componentSlice = createSlice({
     createError: (state, action) => {
       state.errors = [...state.errors, action.payload];
     },
+    changePreviewComponents: (state, action) => {
+      state.previewComponents = action.payload;
+    },
   },
 });
 
@@ -37,5 +40,6 @@ export const {
   addQuestion,
   addType,
   createError,
+  changePreviewComponents,
 } = componentSlice.actions;
 export default componentSlice.reducer;
