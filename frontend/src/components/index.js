@@ -32,5 +32,5 @@ export { default as HeaderPara } from "./sections/HeaderPara.jsx";
 // export the delete button
 export { default as Delete } from "./delete/Delete";
 // controller and preview section
-export { default as Contorller } from "./controller/Controller.jsx";
+export { default as Controller } from "./controller/Controller.jsx";
 export { default as Preview } from "./preview/Preview";

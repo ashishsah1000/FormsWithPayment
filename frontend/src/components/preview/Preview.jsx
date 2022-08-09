@@ -14,24 +14,32 @@ import {
 } from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
-export default function Preview() {
+export default function Preview({ data = [] }) {
+  let preview = [];
   const dispatch = useDispatch();
-  const preview = useSelector((state) => state.component.previewComponents);
+  preview = useSelector((state) => state.component.previewComponents);
+
+  if (data.length != 0) {
+    console.log("data is being passed");
+    preview = data;
+  }
   //   onchange function for options
   const optionsSelected = (data) => {
     console.log(data);
   };
 
   return (
-    <div className="  md:max-w-3xl lg:max-w-6xl bg-grey-100 shadow-lg p-6 preview ">
+    <div className=" w-11/12 lg:max-w-6xl bg-grey-100 shadow-lg   preview ">
       <div className="title">
-        <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
-        <h3>Some other information</h3>
+        <div className="content">
+          <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
+          <h3>Some other information</h3>
+        </div>
       </div>
       <div className="form-data"></div>
 
       {preview.length > 0 ? (
-        <div>
+        <div className="p-6">
           {preview.map((x, i) => {
             if (x.type == "rating") {
               return (
