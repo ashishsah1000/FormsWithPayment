@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <!-- <h1><%= title %></h1> -->
+  <!-- <p>Welcome to <%= title %></p> -->
+  <form action="/users/signin" method="post" class="login">
+    <h1>Login</h1>
+
+    <input type="email" name="email" placeholder="email" required="true">
+    <input type="password" name="password" placeholder="password" required="true">
+    <button type="submit">LogIn</button>
+    <a href="users/signup">Register Now</a>
+  </form>
+</body>
+
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <!-- <h1><%= title %></h1> -->
+    <!-- <p>Welcome to <%= title %></p> -->
+    <form action="/users/signup" method="post" class="signup">
+        <h1>Register</h1>
+        <input type="email" name="email" placeholder="email" required="true">
+        <input type="password" name="password" placeholder="password" required="true">
+        <button type="submit">Register</button>
+        <a href="users/">Already Have Account</a>
+    </form>
+</body>
+
+</html>

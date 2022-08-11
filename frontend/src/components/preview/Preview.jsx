@@ -2,6 +2,8 @@ import React from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
+import { createForm } from "../../axios/forms";
+
 import {
   Rating,
   Textarea,
@@ -14,13 +16,14 @@ import {
 } from "../";
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
-export default function Preview({ data = [] }) {
+// mode : preview,edit,customize
+export default function Preview({ data = [], mode = "" }) {
   let preview = [];
   const dispatch = useDispatch();
   preview = useSelector((state) => state.component.previewComponents);
 
-  if (data.length != 0) {
-    console.log("data is being passed");
+  if (data.length > 0) {
+    console.log("data is being passed", data);
     preview = data;
   }
   //   onchange function for options
@@ -153,9 +156,12 @@ export default function Preview({ data = [] }) {
           })}
           <button
             className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
-            onClick={(e) => {}}
+            onClick={(e) => {
+              console.log("create form was called");
+              console.log(createForm(preview));
+            }}
           >
-            Submit &nbsp;
+            Create Form &nbsp;
             <LockClosedIcon className="h-6 " />
           </button>
         </div>
