@@ -4,7 +4,7 @@ import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import { Route, Routes } from "react-router-dom";
-import { MainPreview } from "../";
+import { MainPreview, Login } from "../";
 export default function Home() {
   // // all the essentials of redux
   // const dispatch = useDispatch();
@@ -54,9 +54,11 @@ export default function Home() {
       <div className="my-6" style={{ marginTop: "90px" }}>
         <Routes>
           <Route path="/create" element={<Creator />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/preview/:id" element={<MainPreview />} />
           <Route path="/preview" element={<MainPreview data={preview} />} />
-          <Route path="/" element={<Forms />} />
+          <Route path="/forms" element={<Forms />} />
           <Route path="*" element={<Forms />} />
         </Routes>
         {/* <Creator /> */}

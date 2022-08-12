@@ -17,6 +17,10 @@ import {
 import { LockClosedIcon } from "@heroicons/react/solid/";
 
 // mode : preview,edit,customize
+// preview : delete options and submit button to change response system to be added
+// edit : inline edit options to be provied
+// create : [] array and starts with redu
+// submit : may be we will make another page for this
 export default function Preview({ data = [], mode = "" }) {
   let preview = [];
   const dispatch = useDispatch();
@@ -143,7 +147,10 @@ export default function Preview({ data = [], mode = "" }) {
               return (
                 <div
                   className={`my-6 preview-elements  sectionPreview `}
-                  style={{ background: x.data.properties.background }}
+                  style={{
+                    background: x.data.properties.background,
+                    color: x.data.properties.color,
+                  }}
                 >
                   <div className="delete-holder">
                     <Delete id={i} />

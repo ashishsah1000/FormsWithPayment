@@ -5,11 +5,13 @@ import "./sections.css";
 export default function HeaderPara({ callback = () => {} }) {
   const [lable, setLable] = useState("");
   const [background, setBackground] = useState("dodgerblue");
+  const [textColor, settextColor] = useState("slate-gray");
   const callCallback = () => {
     callback({
       lable: lable,
       properties: {
         background: background,
+        color: textColor,
       },
     });
   };
@@ -27,14 +29,34 @@ export default function HeaderPara({ callback = () => {} }) {
             callCallback();
           }}
         ></textarea>
-        <input
-          type="color"
-          onChange={(e) => {
-            console.log(e.target.value);
-            setBackground(e.target.value);
-            callCallback();
-          }}
-        ></input>
+        <div className="flex my-3 text-gray-200">
+          <div className="mx-6">
+            <label htmlFor="bgcolor"> Select background color</label>
+            <input
+              className="mx-2"
+              type="color"
+              name="bgcolor"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setBackground(e.target.value);
+                callCallback();
+              }}
+            ></input>
+          </div>
+          <div className="mx-6">
+            <label htmlFor="textcolor"> Select text color</label>
+            <input
+              className="mx-2"
+              type="color"
+              name="textcolor"
+              onChange={(e) => {
+                console.log(e.target.value);
+                settextColor(e.target.value);
+                callCallback();
+              }}
+            ></input>
+          </div>
+        </div>
       </div>
     </div>
   );

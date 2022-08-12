@@ -71,4 +71,19 @@ router.get("/all", (req, res, next) => {
   });
 });
 
+// delete a form with specific id
+router.get("/delete/:id", (req, res, next) => {
+  // this will drop  row from database
+  var id = req.params.id;
+  var sql = `DELETE FROM allforms WHERE id=${id}`;
+  database.query(sql, 1, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send("error from database");
+    }
+    console.log("deleted the", id);
+    res.send("success");
+  });
+});
+
 module.exports = router;

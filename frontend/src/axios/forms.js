@@ -51,3 +51,19 @@ export const getForm = async (id) => {
   });
   return data;
 };
+
+// delete a form data with a specific id
+export const deleteForm = async (id) => {
+  const url = baseUrl + `/forms/delete/${id}`;
+  var data = false;
+  await axios({
+    method: "GET",
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};

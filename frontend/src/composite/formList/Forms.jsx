@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { getAllForm } from "../../axios/forms";
+import { getAllForm, deleteForm, getForm } from "../../axios/forms";
 import {
   PencilIcon,
   TrashIcon,
@@ -10,6 +10,7 @@ import {
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { previewSlice, setPreviewFor } from "../../features/preview/preview";
+import { createError } from "../../features/component/components";
 
 export default function Forms() {
   const [loggedin, setloggedin] = useState(false);
@@ -18,8 +19,17 @@ export default function Forms() {
 
   const getforms = async () => {
     var newData = await getAllForm();
-    console.log("🚀 ~ file: Forms.jsx ~ line 13 ~ getforms ~ newData", newData);
-    setData(newData.data);
+    setData([...newData.data]);
+  };
+
+  // this function will handle the delete of form
+  const handleDelete = async (id) => {
+    var res = await deleteForm(id);
+    console.log("🚀 ~ file: Forms.jsx ~ line 27 ~ handleDelete ~ res", res);
+    if (res.data == "success") {
+      dispatch(createError({ text: " deleted successfully", type: "warning" }));
+      getforms();
+    }
   };
   useEffect(() => {
     getforms();
@@ -37,7 +47,7 @@ export default function Forms() {
           </button>
         </Link>
       </div>
-      {data.length > 0 ? (
+      {data != "error" ? (
         <div className="container w-full mx-auto p-8">
           {data.map((x) => {
             return (
@@ -68,21 +78,21 @@ export default function Forms() {
                       <PrinterIcon className="h-6 " />
                     </button>
                   </Link>
-                  <Link to="">
-                    <button
-                      className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
-                      onClick={(e) => {}}
-                    >
-                      <TrashIcon className="h-6 " />
-                    </button>
-                  </Link>
+                  <button
+                    className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
+                    onClick={(e) => {
+                      handleDelete(x.id);
+                    }}
+                  >
+                    <TrashIcon className="h-6 " />
+                  </button>
                 </div>
               </div>
             );
           })}
         </div>
       ) : (
-        <>Fetching your data</>
+        <div className="p-6">Fetching your data</div>
       )}
     </div>
   );
