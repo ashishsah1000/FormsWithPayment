@@ -1,11 +1,14 @@
 import React from "react";
 import { TextBox, Controller, Preview } from "../../components/";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuestion } from "../../features/component/components";
+import { addQuestion, createError } from "../../features/component/components";
 
-export default function Creator() {
+export default function Creator({ mode = "create" }) {
   // all the essentials of redux
   const dispatch = useDispatch();
+  if (mode != "") {
+    // dispatch(createError({ text: `you are in ${mode}`, type: "cold" }));
+  }
 
   // function to update question in redux;
   const question = (value) => {
@@ -25,7 +28,7 @@ export default function Creator() {
             </div>
           </div>
           <div className="preview w-full my-6 bg-white-500 my-6">
-            <Preview />
+            <Preview mode={mode} />
           </div>
         </div>
         <div className="flex-none w-1/5 h-14 bg-blue-300 mx-6">03</div>

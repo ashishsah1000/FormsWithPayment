@@ -60,14 +60,6 @@ export default function Forms() {
                   </span>
                 </div>
                 <div className="index-button flex felx-wrap">
-                  <Link to="">
-                    <button
-                      className="drop-shadow-sm bg-gray-50 mx-1 my-3"
-                      onClick={(e) => {}}
-                    >
-                      <PencilIcon className="h-6 " />
-                    </button>
-                  </Link>
                   <Link to={`/preview/${x.id}`}>
                     <button
                       className="drop-shadow-sm bg-gray-50 mx-1 my-3"
@@ -78,6 +70,15 @@ export default function Forms() {
                       <PrinterIcon className="h-6 " />
                     </button>
                   </Link>
+                  <Link to={`/edit/${x.id}`}>
+                    <button
+                      className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
+                      onClick={(e) => {}}
+                    >
+                      <PencilIcon className="h-6 " />
+                    </button>
+                  </Link>
+
                   <button
                     className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
                     onClick={(e) => {

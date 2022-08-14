@@ -35,7 +35,7 @@ export default function MainPreview() {
         <div>We are fetching the data</div>
       ) : (
         <>
-          <Preview data={data} mode="preview" />
+          <Preview data={data} mode="submit" />
         </>
       )}
     </div>

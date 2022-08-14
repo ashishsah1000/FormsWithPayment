@@ -11,25 +11,31 @@ router.get("/", function (req, res, next) {
 router.post("/create", function (req, res, next) {
   // start saving data into form
   var email = "designer@gmail.com";
-
-  console.log("here in forms", JSON.stringify(req.body));
+  var createdId = "";
+  console.log("here in forms", req.body);
   var sql = `INSERT INTO allforms (email,forms,createon) VALUES ('${email}','${JSON.stringify(
     req.body
   )}',NOW());`;
   database.query(sql, (err, results) => {
     if (err) {
       throw err;
-      res.send("Some error happened");
+      res.status(404).send({ data: "error", text: "some error happened" });
+    } else {
+      createdId = results.insertId;
+      console.log("send via sql after inserting", createdId);
     }
-    console.log("record added to the forms database");
-    res.send("successData added successfully!");
+    res.status(200).send({
+      status: "success",
+      text: "added to forms",
+      id: createdId,
+      data: req.body,
+    });
   });
 });
 
 /* GET home page. */
 router.post("/create", function (req, res, next) {
   console.log(req.body);
-  //   res.render("index", { title: "Express" });
 
   //   add index to the form and save the data
   res.send("recive the form data");
@@ -49,6 +55,24 @@ router.get("/edit/:id", (req, res, next) => {
     } else {
       console.log("fetched data", doc);
       res.send(doc);
+    }
+  });
+});
+// modify the existing form
+
+router.post("/edit/save/:id", (req, res, next) => {
+  console.log(req.body);
+  const id = req.params.id;
+  var sql = `UPDATE allforms SET forms = '${JSON.stringify(
+    req.body
+  )}' WHERE id=${id};`;
+  database.query(sql, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send({ status: "error" });
+    } else {
+      console.log("fetched data", doc);
+      res.send({ status: "success", data: doc });
     }
   });
 });

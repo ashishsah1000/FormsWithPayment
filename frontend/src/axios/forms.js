@@ -18,6 +18,21 @@ export const createForm = async (data) => {
   });
   return response;
 };
+// modify form
+export const modifyForm = async (id, data) => {
+  const url = baseUrl + `/forms/edit/save/${id}`;
+  let response = "something should be there";
+  await axios({
+    method: "POST",
+    withCredentials: true,
+    data: data,
+    url: url,
+  }).then((res) => {
+    response = res.data;
+    return response;
+  });
+  return response;
+};
 
 // get all the forms
 // get the data of specific form with id

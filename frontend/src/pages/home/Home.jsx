@@ -54,6 +54,7 @@ export default function Home() {
       <div className="my-6" style={{ marginTop: "90px" }}>
         <Routes>
           <Route path="/create" element={<Creator />} />
+          <Route path="/edit/:id" element={<Creator mode="edit" />} />
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/preview/:id" element={<MainPreview />} />
