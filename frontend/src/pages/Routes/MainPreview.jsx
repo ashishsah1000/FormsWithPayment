@@ -18,7 +18,7 @@ export default function MainPreview() {
     var res = await getForm(id);
 
     if (res !== "error") {
-      newData = JSON.parse(res.data[0].forms);
+      newData = res.data[0].forms;
       setData(newData);
       setfetching(false);
     } else {

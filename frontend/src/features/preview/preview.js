@@ -16,7 +16,8 @@ export const previewSlice = createSlice({
       state.responses = action.payload;
     },
     updateResponse: (state, action) => {
-      state.responses = action.payload;
+      console.log(action.payload);
+      state.responses[action.payload.id] = action.payload;
     },
   },
 });

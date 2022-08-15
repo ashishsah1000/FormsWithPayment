@@ -19,13 +19,18 @@ export default function Forms() {
 
   const getforms = async () => {
     var newData = await getAllForm();
+    console.log("🚀 ~ file: Forms.jsx ~ line 22 ~ getforms ~ newData", newData);
+
     setData([...newData.data]);
   };
 
   // this function will handle the delete of form
   const handleDelete = async (id) => {
     var res = await deleteForm(id);
-    console.log("🚀 ~ file: Forms.jsx ~ line 27 ~ handleDelete ~ res", res);
+    console.log(
+      "🚀 ~ file: Forms.jsx ~ line 27 ~ handleDelete ~ res",
+      res.data
+    );
     if (res.data == "success") {
       dispatch(createError({ text: " deleted successfully", type: "warning" }));
       getforms();

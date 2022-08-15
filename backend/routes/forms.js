@@ -1,6 +1,18 @@
 var express = require("express");
 var router = express.Router();
-var database = require("../database/database");
+var database = require("../database/pgdatabase");
+
+// connect to database
+const createConnection = () => {
+  database.connect((err) => {
+    if (err) console.log(err);
+    else console.log("connected");
+  });
+};
+// disconect to database
+const disconnect = () => {
+  database.end();
+};
 
 /* . */
 router.get("/", function (req, res, next) {
@@ -10,6 +22,7 @@ router.get("/", function (req, res, next) {
 /* GET home page. */
 router.post("/create", function (req, res, next) {
   // start saving data into form
+  createConnection();
   var email = "designer@gmail.com";
   var createdId = "";
   console.log("here in forms", req.body);
@@ -21,8 +34,8 @@ router.post("/create", function (req, res, next) {
       throw err;
       res.status(404).send({ data: "error", text: "some error happened" });
     } else {
-      createdId = results.insertId;
-      console.log("send via sql after inserting", createdId);
+      createdId = results.rowCount;
+      console.log("send via sql after inserting", results);
     }
     res.status(200).send({
       status: "success",
@@ -53,8 +66,8 @@ router.get("/edit/:id", (req, res, next) => {
       console.log(err);
       res.send("error");
     } else {
-      console.log("fetched data", doc);
-      res.send(doc);
+      console.log("fetched data", doc.rows);
+      res.send(doc.rows);
     }
   });
 });
@@ -84,13 +97,14 @@ router.get("/all", (req, res, next) => {
   // const email = req.params.id;
   const email = "designer@gmail.com";
   var sql = `SELECT id,forms,createon FROM allforms WHERE email='${email}';`;
+  // createConnection();
   database.query(sql, (err, doc) => {
     if (err) {
       console.log(err);
       res.send("error");
     } else {
       console.log("fetched data", doc);
-      res.send(doc);
+      res.send(doc.rows);
     }
   });
 });
@@ -100,13 +114,14 @@ router.get("/delete/:id", (req, res, next) => {
   // this will drop  row from database
   var id = req.params.id;
   var sql = `DELETE FROM allforms WHERE id=${id}`;
-  database.query(sql, 1, (err, doc) => {
+  database.query(sql, [], (err, doc) => {
     if (err) {
       console.log(err);
       res.send("error from database");
+    } else {
+      console.log("deleted the", id);
+      res.send("success");
     }
-    console.log("deleted the", id);
-    res.send("success");
   });
 });
 

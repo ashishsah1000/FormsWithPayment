@@ -47,7 +47,7 @@ export default function Preview({ data = [], mode = "" }) {
     }
     if (res !== "error") {
       setfetching(false);
-      dispatch(changePreviewComponents(JSON.parse(res.data[0].forms)));
+      dispatch(changePreviewComponents(res.data[0].forms));
     } else {
       console.log("unable to fetch data");
     }
@@ -105,7 +105,7 @@ export default function Preview({ data = [], mode = "" }) {
   // store the form data in redux and update array with every change
 
   //dispatch response when responses array is needed
-  dispatch(setResponses(preview));
+  // dispatch(setResponses(preview));
   const responses = useSelector((state) => state.preview.responses);
   //for textbox response
   let textboxResponse = (index) => {
@@ -140,7 +140,7 @@ export default function Preview({ data = [], mode = "" }) {
                   </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <Rating />
+                  <Rating type={x.type} id={i} />
                 </div>
               );
             }
@@ -152,7 +152,12 @@ export default function Preview({ data = [], mode = "" }) {
                   </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <Textarea id={i} mode="submit" callback={() => {}} />
+                  <Textarea
+                    type={x.type}
+                    id={i}
+                    mode="submit"
+                    callback={() => {}}
+                  />
                 </div>
               );
             }
@@ -164,7 +169,7 @@ export default function Preview({ data = [], mode = "" }) {
                   </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <DatePick />
+                  <DatePick type={x.type} id={i} />
                 </div>
               );
             }
@@ -176,7 +181,7 @@ export default function Preview({ data = [], mode = "" }) {
                   </div>
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <Files />
+                  <Files type={x.type} id={i} />
                 </div>
               );
             }
@@ -191,6 +196,8 @@ export default function Preview({ data = [], mode = "" }) {
                   <OptionView
                     array={x.options.data}
                     callback={optionsSelected}
+                    type={x.type}
+                    id={i}
                   />
                 </div>
               );
@@ -206,6 +213,8 @@ export default function Preview({ data = [], mode = "" }) {
                   <RadioView
                     array={x.options.data}
                     callback={optionsSelected}
+                    type={x.type}
+                    id={i}
                   />
                 </div>
               );
@@ -223,6 +232,10 @@ export default function Preview({ data = [], mode = "" }) {
                     padding={2}
                     placeholder={"Enter your answer"}
                     otherClass={"mx-3"}
+                    type={x.type}
+                    id={i}
+                    question={x.question}
+                    mode="submit"
                   />
                 </div>
               );

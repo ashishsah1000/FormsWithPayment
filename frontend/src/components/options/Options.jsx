@@ -5,10 +5,10 @@ import "./options.css";
 
 export default function Options({ getData = () => {} }) {
   const [options, setOptions] = useState([
-    { sno: "1", text: "" },
-    { sno: "2", text: "" },
-    { sno: "3", text: "" },
-    { sno: "4", text: "" },
+    { sno: "1", text: "", checked: false },
+    { sno: "2", text: "", checked: false },
+    { sno: "3", text: "", checked: false },
+    { sno: "4", text: "", checked: false },
   ]);
   var newOptions = options;
   // declaring dispatch from the redux
@@ -55,7 +55,10 @@ export default function Options({ getData = () => {} }) {
       <button
         className="text-red-200"
         onClick={() => {
-          setOptions([...options, { sno: options.length + 1, text: "" }]);
+          setOptions([
+            ...options,
+            { sno: options.length + 1, text: "", checked: false },
+          ]);
           getData(options);
         }}
       >

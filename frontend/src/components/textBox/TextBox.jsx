@@ -1,9 +1,13 @@
 import React from "react";
 import "./TextBox.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateResponse } from "../../features/preview/preview";
 
 export default function TextBox({
   // mode = edit/show
   mode = "edit",
+  id = "",
+  type = "",
   width = "full",
   placeholder = "Start typing here...",
   question = "this is the question that we gonna ask?",
@@ -12,7 +16,28 @@ export default function TextBox({
   otherClass = "",
   callback = () => {},
 }) {
+  const dispatch = useDispatch();
+  const response = useSelector((state) => state.preview.responses);
+  const handleChangeTextBox = (data) => {
+    dispatch(
+      updateResponse({ id: id, type: type, value: data, question: question })
+    );
+    console.log(response);
+  };
+
   const editView = false;
+  if (mode == "submit") {
+    return (
+      <input
+        type="text"
+        name="question"
+        id=""
+        className={`w-${width} my-2  px-2 py-3 py-${padding} border-solid border-2 border-grey-500 rounded ${otherClass}`}
+        placeholder={placeholder}
+        onKeyUp={(e) => handleChangeTextBox(e.target.value)}
+      />
+    );
+  }
   if (mode == "edit") {
     return (
       <input
