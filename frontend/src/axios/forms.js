@@ -82,3 +82,39 @@ export const deleteForm = async (id) => {
   });
   return data;
 };
+
+// submit the response of the form
+
+export const submitForm = async (formData) => {
+  const url = baseUrl + `/forms/submit/response`;
+  console.log("we are reciving this data that has to be sent", formData);
+  var data = false;
+
+  await axios({
+    method: "POST",
+    withCredentials: "true",
+    data: formData,
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    }
+  });
+  return data;
+};
+
+// get all the response on specific form
+export const getAllResponse = async (id) => {
+  const url = baseUrl + `/forms/response/all/${id}`;
+  var data = [];
+  await axios({
+    method: "GET",
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};

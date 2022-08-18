@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createForm, modifyForm } from "../../axios/forms";
+import { createForm, modifyForm, submitForm } from "../../axios/forms";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -92,6 +92,20 @@ export default function Preview({ data = [], mode = "" }) {
     }
     // if error push error
   };
+  //handle the submit method and send id
+  var userResponse = useSelector((state) => state.preview.responses);
+  const handleSubmit = async () => {
+    var res = await submitForm({ formid: id, form: userResponse });
+    console.log("This is the response from reques", res);
+    if (res.data.status == "success") {
+      console.log("pushing into history should be redirect");
+      dispatch(
+        createError({ text: "Your response was submitted!", type: "success" })
+      );
+    }
+    navigate(`/forms`);
+  };
+
   useEffect(() => {
     if (mode == "edit") {
       const something = searchForm(id);
@@ -289,7 +303,7 @@ export default function Preview({ data = [], mode = "" }) {
               className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
               onClick={(e) => {
                 console.log("create form was called");
-                createForm(preview);
+                handleSubmit();
               }}
             >
               Submit &nbsp;

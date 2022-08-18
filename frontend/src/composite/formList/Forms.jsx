@@ -6,6 +6,7 @@ import {
   TrashIcon,
   PrinterIcon,
   FolderAddIcon,
+  EyeIcon,
 } from "@heroicons/react/solid/";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,6 +74,14 @@ export default function Forms() {
                       }}
                     >
                       <PrinterIcon className="h-6 " />
+                    </button>
+                  </Link>
+                  <Link to={`/all/response/${x.id}`}>
+                    <button
+                      className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
+                      onClick={(e) => {}}
+                    >
+                      <EyeIcon className="h-6 " />
                     </button>
                   </Link>
                   <Link to={`/edit/${x.id}`}>

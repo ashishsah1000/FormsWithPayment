@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function Submit() {
+  let { id } = useParams();
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.preview.responses);
   return (
@@ -15,12 +17,12 @@ export default function Submit() {
         </div>
         <div className="p-6">
           {formData.map((x, i) => {
-            if (x.type == "rating") {
+            if (x.type == "textbox") {
               return (
                 <div className="preview-elements my-6">
                   <h1 className="font-bold">Question {i + 1}</h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <Rating type={x.type} id={i} />
+                  <h3>{x.value}</h3>
                 </div>
               );
             }
