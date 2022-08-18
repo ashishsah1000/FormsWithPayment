@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function OptionView({
   array = [],
   id = "",
+  mode = "",
   type = "textarea",
   question = "Question goes here",
   callback = () => {},
@@ -37,7 +38,37 @@ export default function OptionView({
     );
     console.log(response);
   };
+  console.log("we are checking mode", mode);
   useEffect(() => {}, [ind]);
+  if (mode == "response") {
+    return (
+      <div className="p-3">
+        <div>
+          <h1 className="text-xl font-bold">{question}</h1>
+        </div>
+        <br />
+        <div className="flex flex-wrap text-gray-500 ">
+          {array.map((x, i) => {
+            return (
+              <div className="w-1/3 my-3">
+                <input
+                  className="custom-check"
+                  type="checkbox"
+                  name="checkbox1"
+                  value="true"
+                  checked={x.checked}
+                  disabled
+                ></input>
+                <label for="checkbox1" className="custom-check-lable">
+                  {x.text}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-wrap">
       {array.map((x, i) => {
