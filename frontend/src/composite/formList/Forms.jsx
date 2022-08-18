@@ -20,7 +20,6 @@ export default function Forms() {
 
   const getforms = async () => {
     var newData = await getAllForm();
-    console.log("🚀 ~ file: Forms.jsx ~ line 22 ~ getforms ~ newData", newData);
 
     setData([...newData.data]);
   };

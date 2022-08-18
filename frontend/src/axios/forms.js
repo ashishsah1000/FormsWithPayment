@@ -103,9 +103,24 @@ export const submitForm = async (formData) => {
   return data;
 };
 
-// get all the response on specific form
+// get all the responses on specific form
 export const getAllResponse = async (id) => {
   const url = baseUrl + `/forms/response/all/${id}`;
+  var data = [];
+  await axios({
+    method: "GET",
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};
+// get specific response on specific form
+export const getResponse = async (id) => {
+  const url = baseUrl + `/forms/response/${id}`;
   var data = [];
   await axios({
     method: "GET",

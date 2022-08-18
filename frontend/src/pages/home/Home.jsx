@@ -6,6 +6,7 @@ import "./home.css";
 import { Route, Routes } from "react-router-dom";
 import { MainPreview, Login } from "../";
 import AllResponse from "../submit/AllResponse";
+import Response from "../submit/Response";
 export default function Home() {
   // // all the essentials of redux
   // const dispatch = useDispatch();
@@ -62,7 +63,7 @@ export default function Home() {
           <Route path="/preview" element={<MainPreview data={preview} />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/all/response/:id" element={<AllResponse />} />
-          <Route path="/response/:id" element={<AllResponse />} />
+          <Route path="/response/:id" element={<Response />} />
           <Route path="*" element={<Forms />} />
         </Routes>
         {/* <Creator /> */}
