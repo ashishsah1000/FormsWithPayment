@@ -4,13 +4,13 @@ import axios from "axios";
 const baseUrl = "http://localhost:3000";
 
 // create form first step
-export const createForm = async (data) => {
+export const createForm = async (title, description, formArray) => {
   const url = baseUrl + "/forms/create";
   let response = "something should be there";
   await axios({
     method: "POST",
     withCredentials: true,
-    data: data,
+    data: { title: title, description: description, form: formArray },
     url: url,
   }).then((res) => {
     response = res.data;
@@ -133,3 +133,21 @@ export const getResponse = async (id) => {
   });
   return data;
 };
+
+// delete a response data with a specific id
+export const deleteResponse = async (id) => {
+  const url = baseUrl + `/forms/response/delete/${id}`;
+  var data = false;
+  await axios({
+    method: "GET",
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};
+
+// delete all response when a form is deleted

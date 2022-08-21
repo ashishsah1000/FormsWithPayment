@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var database = require("../database/database");
+var database = require("../database/pgdatabase");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   console.log("got a request ");
@@ -17,7 +17,25 @@ router.get("/signup", function (req, res, next) {
 // hear the post request for login
 router.post("/signin", (req, res, next) => {
   console.log("In Signup data", req.body);
-  res.send("Got the login data");
+  var sql = `SELECT * FROM users WHERE email='${req.body.username}'`;
+  database.query(sql, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.send({ status: "failure", text: "Some server error!" });
+    } else {
+      console.log("password matching", results);
+      // if(req.body.password==="")
+      if (results.rowCount == 1) {
+        if (req.body.password === results.rows[0].password) {
+          res.send({ status: "success", text: "Successfully logged in!" });
+        } else {
+          res.send({ status: "failure", text: "Wrong password!" });
+        }
+      } else {
+        res.send({ status: "failure", text: "User was not found!" });
+      }
+    }
+  });
 });
 
 // hear the post request from signup

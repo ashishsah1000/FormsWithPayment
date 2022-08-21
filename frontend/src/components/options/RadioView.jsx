@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function OptionView({
   id = "",
   type = "textarea",
+  mode = "",
   question = "Question goes here",
   array = [],
   callback = () => {},
@@ -26,6 +27,31 @@ export default function OptionView({
   useEffect(() => {
     handleAnswer(changed);
   }, [changed]);
+  if (mode == "response") {
+    return (
+      <div className="flex flex-wrap">
+        <form action="">
+          {array.map((x, i) => {
+            return (
+              <div className="w-full my-3">
+                <input
+                  className="custom-check"
+                  type="radio"
+                  name="checkbox1"
+                  value="true"
+                  checked={x.checked}
+                  disabled="true"
+                ></input>
+                <label for="checkbox1" className="custom-check-lable">
+                  {x.text}
+                </label>
+              </div>
+            );
+          })}
+        </form>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-wrap">
       <form action="">

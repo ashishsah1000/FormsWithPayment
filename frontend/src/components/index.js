@@ -34,6 +34,7 @@ export { default as Delete } from "./delete/Delete";
 // controller and preview section
 export { default as Controller } from "./controller/Controller.jsx";
 export { default as Preview } from "./preview/Preview";
+export { default as Publish } from "./publish/Publish";
 
 // all the view components
 

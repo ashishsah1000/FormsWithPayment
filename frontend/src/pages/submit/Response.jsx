@@ -32,21 +32,43 @@ export default function Response() {
             <h3>Some other information</h3>
           </div>
         </div>
-        <div className="p-6">
+        <div className="p-6 text-gray-600 user-response">
           {data.length > 0 ? (
             data[0].forms.map((x, i) => {
               if (x.type == "textbox") {
                 return (
-                  <div className="preview-elements my-6">
-                    <h1 className="font-bold">Question {i + 1}</h1>
+                  <div className="preview-elements my-6 ">
+                    <h1 className="font-bold">Question </h1>
                     <TextBoxView question={x.question} answer={x.value} />
+                  </div>
+                );
+              }
+              if (x.type == "textarea") {
+                return (
+                  <div className="preview-elements my-6 ">
+                    <h1 className="font-bold">Question </h1>
+                    <div className="p-3">
+                      <h1 className="font-bold text-xl">{x.question}</h1>
+                      <span className="p-6 ">{x.value}</span>
+                    </div>
+                  </div>
+                );
+              }
+              if (x.type == "datepick") {
+                return (
+                  <div className="preview-elements my-6">
+                    <h1 className="font-bold">Question </h1>
+                    <div className="p-3">
+                      <h1 className="font-bold text-xl">{x.question}</h1>
+                      <span className="p-6 ">{x.value}</span>
+                    </div>
                   </div>
                 );
               }
               if (x.type == "options") {
                 return (
                   <div className="preview-elements my-6">
-                    <h1 className="font-bold">Question {i + 1}</h1>
+                    <h1 className="font-bold">Question </h1>
 
                     <OptionView
                       array={x.value}
@@ -57,10 +79,48 @@ export default function Response() {
                   </div>
                 );
               }
+              if (x.type == "radio") {
+                return (
+                  <div className="preview-elements my-6">
+                    <h1 className="font-bold">Question </h1>
+
+                    <OptionView
+                      array={x.value}
+                      mode="response"
+                      question={x.question}
+                      answer={x.value}
+                    />
+                  </div>
+                );
+              }
+              if (x.type == "section") {
+                return (
+                  <div
+                    className={`my-6 preview-elements  sectionPreview `}
+                    style={{
+                      background: x.data.properties.background,
+                      color: x.data.properties.color,
+                    }}
+                  >
+                    <h1 className="text-4xl font-bold"> {x.question}</h1>
+                    <h1 className="my-4 mx-3">{x.data.lable}</h1>
+                  </div>
+                );
+              }
             })
           ) : (
             <>Data is being fetched</>
           )}
+        </div>
+        <div className="p-6">
+          <button
+            className="m-auto bg-blue-500 text-gray-100 font-bold  "
+            onClick={() => {
+              console.log("calling print");
+            }}
+          >
+            Print
+          </button>
         </div>
       </div>
     </div>

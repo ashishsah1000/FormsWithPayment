@@ -60,7 +60,7 @@ export default function Home() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/preview/:id" element={<MainPreview />} />
-          <Route path="/preview" element={<MainPreview data={preview} />} />
+          <Route path="/preview" element={<MainPreview />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />

@@ -1,9 +1,12 @@
-import React from "react";
-import { TextBox, Controller, Preview } from "../../components/";
+import React, { useState, useEffect } from "react";
+import { TextBox, Controller, Preview, Publish } from "../../components/";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuestion, createError } from "../../features/component/components";
+import "./creator.css";
 
 export default function Creator({ mode = "create" }) {
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
   // all the essentials of redux
   const dispatch = useDispatch();
   if (mode != "") {
@@ -17,21 +20,23 @@ export default function Creator({ mode = "create" }) {
 
   return (
     <div>
-      <div className="flex flex-wrap my-6">
-        <div className="grow  mx-6">
-          <div className="controller shadow-lg bg-blue-900 controller-home w-full p-6 rounded">
+      <div className="flex flex-wrap">
+        <div className=" left-container mx-auto">
+          <div className=" bg-white-500 ">
+            <Preview mode={mode} />
+          </div>
+          {/* <div className="controller shadow-lg bg-blue-900 controller-home p-6 rounded">
             <TextBox padding={3} callback={question} />
             <div className="flex">
               <div className="grow p-2">
                 <Controller />
               </div>
             </div>
-          </div>
-          <div className="preview w-full my-6 bg-white-500 my-6">
-            <Preview mode={mode} />
-          </div>
+          </div> */}
         </div>
-        <div className="flex-none w-1/5 h-14 bg-blue-300 mx-6">03</div>
+        <div className=" right-container bg-gray-100 mt-10 rounded p-3">
+          <Publish mode={mode} />
+        </div>
       </div>
     </div>
   );

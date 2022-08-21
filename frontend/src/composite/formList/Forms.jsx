@@ -20,7 +20,7 @@ export default function Forms() {
 
   const getforms = async () => {
     var newData = await getAllForm();
-
+    console.log(newData.data);
     setData([...newData.data]);
   };
 
@@ -54,56 +54,76 @@ export default function Forms() {
       </div>
       {data != "error" ? (
         <div className="container w-full mx-auto p-8">
-          {data.map((x) => {
-            return (
-              <div className="mx-auto flex bg-blue-100 p-2 my-3 rounded">
-                <div className="grow  p-3 font-bold ">
-                  This shall be the diffrent forms
-                  <br></br>
-                  <span className="text-sm font-thin">
-                    <b>Created On</b> : {x.createon}
-                  </span>
-                </div>
-                <div className="index-button flex felx-wrap">
-                  <Link to={`/preview/${x.id}`}>
-                    <button
-                      className="drop-shadow-sm bg-gray-50 mx-1 my-3"
-                      onClick={(e) => {
-                        dispatch(setPreviewFor(x.id));
-                      }}
-                    >
-                      <PrinterIcon className="h-6 " />
-                    </button>
-                  </Link>
-                  <Link to={`/all/response/${x.id}`}>
-                    <button
-                      className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
-                      onClick={(e) => {}}
-                    >
-                      <EyeIcon className="h-6 " />
-                    </button>
-                  </Link>
-                  <Link to={`/edit/${x.id}`}>
-                    <button
-                      className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
-                      onClick={(e) => {}}
-                    >
-                      <PencilIcon className="h-6 " />
-                    </button>
-                  </Link>
-
-                  <button
-                    className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
-                    onClick={(e) => {
-                      handleDelete(x.id);
-                    }}
-                  >
-                    <TrashIcon className="h-6 " />
-                  </button>
-                </div>
+          {data.length > 0 ? (
+            <>
+              <div className="p-3">
+                <h1 className="font-bold text-3xl ">
+                  List of all forms created:
+                </h1>
               </div>
-            );
-          })}
+              {data.map((x) => {
+                return (
+                  <div className="mx-auto flex bg-blue-100 p-2 my-3 rounded">
+                    <div className="grow  p-3 font-bold ">
+                      {x.title ? x.title : "No title"}
+                      <br></br>
+                      <span className="text-sm font-thin">
+                        <b>Created On</b> : {x.createon}
+                      </span>
+                    </div>
+                    <div className="index-button flex felx-wrap">
+                      <Link to={`/preview/${x.id}`}>
+                        <button
+                          className="drop-shadow-sm bg-gray-50 mx-1 my-3"
+                          onClick={(e) => {
+                            dispatch(setPreviewFor(x.id));
+                          }}
+                        >
+                          <PrinterIcon className="h-6 " />
+                        </button>
+                      </Link>
+                      <Link to={`/all/response/${x.id}`}>
+                        <button
+                          className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
+                          onClick={(e) => {}}
+                        >
+                          <EyeIcon className="h-6 " />
+                        </button>
+                      </Link>
+                      <Link to={`/edit/${x.id}`}>
+                        <button
+                          className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
+                          onClick={(e) => {}}
+                        >
+                          <PencilIcon className="h-6 " />
+                        </button>
+                      </Link>
+
+                      <button
+                        className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
+                        onClick={(e) => {
+                          handleDelete(x.id);
+                        }}
+                      >
+                        <TrashIcon className="h-6 " />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <div className="p-3">
+                <div className="m-auto empty-image">
+                  <img src="/images/3169210.jpg" alt="" />
+                </div>
+                <h1 align="center" className=" text-xl text-red-300 ">
+                  Lets add some forms!
+                </h1>
+              </div>
+            </>
+          )}
         </div>
       ) : (
         <div className="p-6">Fetching your data</div>

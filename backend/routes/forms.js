@@ -26,8 +26,10 @@ router.post("/create", function (req, res, next) {
   var email = "designer@gmail.com";
   var createdId = "";
   console.log("here in forms", req.body);
-  var sql = `INSERT INTO allforms (email,forms,createon) VALUES ('${email}','${JSON.stringify(
-    req.body
+  var sql = `INSERT INTO allforms (title,description,email,forms,createon) VALUES ('${
+    req.body.title
+  }','${req.body.description}','${email}','${JSON.stringify(
+    req.body.form
   )}',NOW());`;
   database.query(sql, (err, results) => {
     if (err) {
@@ -96,7 +98,7 @@ router.get("/all", (req, res, next) => {
   //this will be in edit mode
   // const email = req.params.id;
   const email = "designer@gmail.com";
-  var sql = `SELECT id,forms,createon FROM allforms WHERE email='${email}';`;
+  var sql = `SELECT * FROM allforms WHERE email='${email}';`;
   // createConnection();
   database.query(sql, (err, doc) => {
     if (err) {
@@ -179,6 +181,21 @@ router.get("/response/:id", (req, res, next) => {
     } else {
       console.log("fetched data", doc.rows);
       res.send(doc.rows);
+    }
+  });
+});
+// delete a form with specific id
+router.get("/response/delete/:id", (req, res, next) => {
+  // this will drop  row from database
+  var id = req.params.id;
+  var sql = `DELETE FROM formresponse WHERE id=${id}`;
+  database.query(sql, [], (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send("error from database");
+    } else {
+      console.log("deleted the", id);
+      res.send("success");
     }
   });
 });
