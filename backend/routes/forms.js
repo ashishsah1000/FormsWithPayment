@@ -62,7 +62,7 @@ router.get("/edit/:id", (req, res, next) => {
   // get the specific id form request
   //this will be in edit mode
   const id = req.params.id;
-  var sql = `SELECT forms FROM allforms WHERE id=${id};`;
+  var sql = `SELECT * FROM allforms WHERE id=${id};`;
   database.query(sql, (err, doc) => {
     if (err) {
       console.log(err);
@@ -129,14 +129,13 @@ router.get("/delete/:id", (req, res, next) => {
 
 // collecting the response from the user
 router.post("/submit/response", function (req, res, next) {
-  // start saving data into form
-  // createConnection();
-  var email = "designer@gmail.com";
+  console.log(req.body);
+  var email = req.body.email;
   var userid = 100; // todo it has to be user login id
   var formid = parseInt(req.body.formid);
-  var sql = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
+  var sql = `UPDATE formresponse SET forms ='${JSON.stringify(
     req.body.form
-  )}',NOW());`;
+  )}' WHERE email='${email}';`;
   database.query(sql, (err, results) => {
     console.log("Executing querry");
     if (err) {
@@ -151,12 +150,37 @@ router.post("/submit/response", function (req, res, next) {
     }
   });
 });
+// // collecting the response from the user
+// router.post("/submit/response", function (req, res, next) {
+//   // start saving data into form
+//   // createConnection();
+//   var email = "designer@gmail.com";
+//   var userid = 100; // todo it has to be user login id
+//   var formid = parseInt(req.body.formid);
+//   var sql = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
+//     req.body.form
+//   )}',NOW());`;
+//   database.query(sql, (err, results) => {
+//     console.log("Executing querry");
+//     if (err) {
+//       console.log("some error", err);
+//       res.send({ data: "error", text: "some error happened" });
+//     } else {
+//       console.log(results);
+//       res.send({
+//         status: "success",
+//         text: "Response was added succesfully",
+//       });
+//     }
+//   });
+// });
 
 // get all response on specific id
 router.get("/response/all/:id", (req, res, next) => {
   var id = req.params.id;
-  const email = "designer@gmail.com";
-  var sql = `SELECT * FROM formresponse WHERE email='${email}' AND formid = '${id}';`;
+  // const email = "designer@gmail.com";
+  // var sql = `SELECT * FROM formresponse WHERE email='${email}' AND formid = '${id}';`;
+  var sql = `SELECT * FROM formresponse WHERE formid = '${id}';`;
   database.query(sql, (err, doc) => {
     if (err) {
       console.log(err);
@@ -198,6 +222,51 @@ router.get("/response/delete/:id", (req, res, next) => {
       res.send("success");
     }
   });
+});
+
+//
+//
+//
+// this will be the response on form on other users
+
+router.post("/collect/response/:id", function (req, res, next) {
+  console.log("from collect response", req.body);
+  var id = req.params.id;
+  var sql = `SELECT * FROM formresponse WHERE formid = '${id}' AND email= '${req.body.username}';`;
+  database.query(sql, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send("error");
+    } else {
+      if (doc.rows.length == 0) {
+        // start saving data into form
+        // createConnection();
+        var email = req.body.username;
+        var userid = 100; // todo it has to be user login id
+        var formid = parseInt(req.body.formid);
+        var sql2 = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
+          []
+        )}',NOW());`;
+        database.query(sql2, (err, results) => {
+          console.log("Executing 2nd  querry");
+          if (err) {
+            console.log("some error", err);
+            res.send({ data: "error", text: "some error happened" });
+          } else {
+            console.log(results);
+            res.send({
+              status: "success",
+              text: "Username was added succesfully",
+            });
+          }
+        });
+      } else {
+        console.log("fetched data", doc.rows);
+        res.send(doc.rows[0]);
+      }
+    }
+  });
+  //   add index to the form and save the data
 });
 
 module.exports = router;

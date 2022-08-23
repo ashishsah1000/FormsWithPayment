@@ -31,13 +31,19 @@ import { getForm } from "../../axios/forms";
 // edit : inline edit options to be provied
 // create : [] array and starts with redu
 // submit : may be we will make another page for this
-export default function Preview({ data = [], mode = "" }) {
+export default function Preview({
+  data = [],
+  mode = "",
+  title = "This is title",
+  description = "Here goes description",
+}) {
   const [fetching, setfetching] = useState(false);
   let preview = [];
   const navigate = useNavigate();
   const dispatch = useDispatch();
   preview = useSelector((state) => state.component.previewComponents);
-
+  const [mainTitle, settitle] = useState("");
+  const [mainDescription, setdescription] = useState("");
   //
   // function to update question in redux;
   const question = (value) => {
@@ -55,6 +61,9 @@ export default function Preview({ data = [], mode = "" }) {
     }
     if (res !== "error") {
       setfetching(false);
+      settitle(res.data[0].title);
+      setdescription(res.data[0].description);
+
       dispatch(changePreviewComponents(res.data[0].forms));
     } else {
       console.log("unable to fetch data");
@@ -65,6 +74,8 @@ export default function Preview({ data = [], mode = "" }) {
   if (data.length > 0) {
     console.log("data is being passed", data);
     preview = data;
+    // settitle(title);
+    // setdescription(description);
     // dispatch(changePreviewComponents(data));
   }
   let { id } = useParams();
@@ -74,38 +85,9 @@ export default function Preview({ data = [], mode = "" }) {
     console.log(data);
   };
 
-  // handle submits of the form
-  const handleCreateForm = async () => {
-    var res = await createForm(preview);
-    // if res is success redirect to other
-    if (res.status == "success") {
-      console.log("pushing into history should be redirect");
-      changePreviewComponents(res.data);
-      // navigate(`/edit/${res.id}`);
-      navigate("/forms");
-      dispatch(
-        createError({ text: "Form created successfully!", type: "success" })
-      );
-    }
-    // if error push error
-  };
-  // handle modify of the form
-  const handleModifyForm = async () => {
-    var res = await modifyForm(id, preview);
-    // if res is success redirect to other
-    if (res.status == "success") {
-      console.log("pushing into history should be redirect");
-      changePreviewComponents(res.data);
-      dispatch(
-        createError({ text: "data saved successfully!", type: "success" })
-      );
-
-      navigate(`/forms`);
-    }
-    // if error push error
-  };
   //handle the submit method and send id
   var userResponse = useSelector((state) => state.preview.responses);
+  var userDetails = useSelector((state) => state.preview.userDetails);
   const handleSubmit = async () => {
     var res = await getForm(id);
     var realForm = res.data[0].forms;
@@ -122,15 +104,24 @@ export default function Preview({ data = [], mode = "" }) {
         copyResponse[i] = { ...realForm[i] };
       }
     }
-
-    var res = await submitForm({ formid: id, form: copyResponse });
-    console.log("This is the response from reques", res);
-    if (res.data.status == "success") {
+    if (userDetails.email) {
+      var res = await submitForm({
+        formid: id,
+        form: copyResponse,
+        email: userDetails.email,
+      });
+      console.log("This is the response from reques", res);
+      if (res.data.status == "success") {
+        dispatch(
+          createError({ text: "Your response was submitted!", type: "success" })
+        );
+      }
+      navigate(`/thanks`);
+    } else {
       dispatch(
-        createError({ text: "Your response was submitted!", type: "success" })
+        createError({ text: "User details are missing", type: "warning" })
       );
     }
-    navigate(`/forms`);
   };
 
   useEffect(() => {
@@ -148,10 +139,6 @@ export default function Preview({ data = [], mode = "" }) {
   //dispatch response when responses array is needed
   // dispatch(setResponses(preview));
   const responses = useSelector((state) => state.preview.responses);
-  //for textbox response
-  let textboxResponse = (index) => {
-    preview = preview;
-  };
 
   // end of response functions
 
@@ -163,14 +150,16 @@ export default function Preview({ data = [], mode = "" }) {
     <div className=" w-11/12 lg:max-w-6xl bg-grey-100 shadow-lg   preview ">
       <div className="title">
         <div className="content">
-          <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
-          <h3>Some other information</h3>
+          <h1 className="text-4xl font-bold my-4">
+            {mainTitle.length > 0 ? mainTitle : title}
+          </h1>
+          <h3>{mainDescription.length > 0 ? mainDescription : description}</h3>
         </div>
       </div>
 
       <div className="form-data"></div>
 
-      <div className="p-6">
+      <div className="p-6 bg-gray-100 rounded">
         {preview.map((x, i) => {
           if (x.type == "rating") {
             return (

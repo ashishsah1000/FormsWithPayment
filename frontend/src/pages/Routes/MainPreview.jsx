@@ -8,6 +8,8 @@ export default function MainPreview() {
   const [fetching, setfetching] = useState(true);
   const [data, setData] = useState([]);
   let newData = [];
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
   let { id } = useParams();
   //fetch the data
   // if (typeof id != Number) {
@@ -18,11 +20,14 @@ export default function MainPreview() {
     var res = await getForm(id);
 
     if (res !== "error") {
+      console.log(res);
+      settitle(res.data[0].title);
+      setdescription(res.data[0].description);
       newData = res.data[0].forms;
       setData(newData);
       setfetching(false);
     } else {
-      setfetching("probalbly a error");
+      setfetching("probalbly an error");
     }
   };
   useEffect(() => {
@@ -35,7 +40,12 @@ export default function MainPreview() {
         <div>We are fetching the data</div>
       ) : (
         <>
-          <Preview data={data} mode="submit" />
+          <Preview
+            data={data}
+            mode="submit"
+            title={title}
+            description={description}
+          />
         </>
       )}
     </div>

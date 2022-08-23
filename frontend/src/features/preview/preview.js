@@ -3,12 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   previewId: 0,
   responses: [],
+  userDetails: {},
 };
 
 export const previewSlice = createSlice({
   name: "preview",
   initialState,
   reducers: {
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+    },
     setPreviewFor: (state, action) => {
       state.previewId = action.payload;
     },
@@ -22,7 +26,7 @@ export const previewSlice = createSlice({
   },
 });
 
-export const { setPreviewFor, setResponses, updateResponse } =
+export const { setPreviewFor, setResponses, updateResponse, setUserDetails } =
   previewSlice.actions;
 
 export default previewSlice.reducer;

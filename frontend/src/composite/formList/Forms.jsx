@@ -7,6 +7,7 @@ import {
   PrinterIcon,
   FolderAddIcon,
   EyeIcon,
+  ShareIcon,
 } from "@heroicons/react/solid/";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -80,6 +81,16 @@ export default function Forms() {
                           }}
                         >
                           <PrinterIcon className="h-6 " />
+                        </button>
+                      </Link>
+                      <Link to={`/collect/response/${x.id}`} target={"_blank"}>
+                        <button
+                          className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3"
+                          onClick={(e) => {
+                            dispatch(setPreviewFor(x.id));
+                          }}
+                        >
+                          <ShareIcon className="h-6 " />
                         </button>
                       </Link>
                       <Link to={`/all/response/${x.id}`}>
