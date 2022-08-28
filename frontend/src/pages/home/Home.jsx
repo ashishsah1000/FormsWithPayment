@@ -4,7 +4,7 @@ import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import { Route, Routes } from "react-router-dom";
-import { MainPreview, Login, UserResponse } from "../";
+import { MainPreview, Login, UserResponse, Users } from "../";
 import AllResponse from "../submit/AllResponse";
 import Response from "../submit/Response";
 export default function Home() {
@@ -65,6 +65,8 @@ export default function Home() {
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />
           <Route path="/collect/response/:id" element={<UserResponse />} />
+          <Route path="/users/all" element={<Users />} />
+
           <Route path="*" element={<Forms />} />
         </Routes>
         {/* <Creator /> */}

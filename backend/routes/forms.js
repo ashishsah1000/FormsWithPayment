@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var database = require("../database/pgdatabase");
+var { database } = require("../database/pgdatabase");
 
 // connect to database
 const createConnection = () => {
@@ -79,8 +79,10 @@ router.post("/edit/save/:id", (req, res, next) => {
   console.log(req.body);
   const id = req.params.id;
   var sql = `UPDATE allforms SET forms = '${JSON.stringify(
-    req.body
-  )}' WHERE id=${id};`;
+    req.body.data
+  )}',description='${req.body.description}',title='${
+    req.body.title
+  }' WHERE id=${id};`;
   database.query(sql, (err, doc) => {
     if (err) {
       console.log(err);

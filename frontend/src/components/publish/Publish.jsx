@@ -8,7 +8,7 @@ import {
   createError,
   addQuestion,
 } from "../../features/component/components";
-import { createForm, modifyForm, submitForm } from "../../axios/forms";
+import { createForm, modifyForm, submitForm, getForm } from "../../axios/forms";
 
 export default function Publish({ mode = "" }) {
   const [title, settitle] = useState("");
@@ -38,7 +38,7 @@ export default function Publish({ mode = "" }) {
   };
   // handle modify of the form
   const handleModifyForm = async () => {
-    var res = await modifyForm(id, preview);
+    var res = await modifyForm(id, preview, title, description);
     // if res is success redirect to other
     if (res.status == "success") {
       console.log("pushing into history should be redirect");
@@ -52,6 +52,17 @@ export default function Publish({ mode = "" }) {
     // if error push error
   };
 
+  //fetch the data pf specific form
+  const searchForm = async () => {
+    var res = await getForm(id);
+    console.log(res);
+    settitle(res.data[0].title);
+    setdescription(res.data[0].description);
+  };
+  useEffect(() => {
+    searchForm();
+  }, []);
+
   return (
     <>
       <div className="mt-6 p-3 mx-auto">
@@ -62,11 +73,13 @@ export default function Publish({ mode = "" }) {
           type="text"
           placeholder="Form title"
           maxlength="50"
+          defaultValue={title}
           onChange={(e) => settitle(e.target.value)}
         />
         <textarea
           className="w-11/12 mt-3 p-2 text-sm"
           placeholder="Enter description"
+          defaultValue={description}
           onChange={(e) => setdescription(e.target.value)}
           maxlength="150"
         />

@@ -4,6 +4,7 @@ import "./login.css";
 import { userLogin } from "../../axios/users";
 import { useDispatch, useSelector } from "react-redux";
 import { createError } from "../../features/component/components";
+import { PaperAirplaneIcon } from "@heroicons/react/solid/";
 
 export default function Login() {
   const [username, setusername] = useState("");
@@ -58,7 +59,10 @@ export default function Login() {
             login();
           }}
         >
-          Login
+          &nbsp; Login &nbsp;
+          <span style={{ transform: "rotate(90deg)" }}>
+            <PaperAirplaneIcon className="h-6" />
+          </span>
         </button>
         {/* </Link> */}
         <div className="mt-4">&nbsp;</div>

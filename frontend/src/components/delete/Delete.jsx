@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TrashIcon } from "@heroicons/react/solid/";
+import { TrashIcon, PencilIcon } from "@heroicons/react/solid/";
 import {
   changePreviewComponents,
   createError,
@@ -47,7 +47,9 @@ export default function Delete({ id = "" }) {
               }}
             >
               <TrashIcon className="text-red-500 h-6 deleteInputIcon mt-5" />
-              <span className="mt-5 text-red-400">Delete This Section</span>
+              <span className="mt-5 text-red-400 font-bold">
+                &nbsp;Delete This Section
+              </span>
             </button>
           </span>
         </div>

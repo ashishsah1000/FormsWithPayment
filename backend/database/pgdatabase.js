@@ -7,10 +7,17 @@ const database = new Client({
   password: "admin",
   port: 5001,
 });
+const pgPool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "formsnode",
+  password: "admin",
+  port: 5001,
+});
 
 database.connect((err) => {
   if (err) console.log(err);
   else console.log("connected");
 });
 
-module.exports = database;
+module.exports = { database, pgPool };

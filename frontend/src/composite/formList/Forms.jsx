@@ -42,14 +42,14 @@ export default function Forms() {
   }, []);
   return (
     <div className="indexPage ">
-      <div className="create-new w-full">
+      <div className="create-new ">
         <Link to="/create">
           <button
-            className=" drop-shadow-sm bg-gray-50 mx-auto my-3 cold text-gray-100"
+            className=" drop-shadow-sm bg-red-500 mx-auto my-3  text-gray-100"
             onClick={(e) => {}}
+            title="New Form"
           >
             <FolderAddIcon className="h-6 " />
-            &nbsp; Add new form
           </button>
         </Link>
       </div>
@@ -58,70 +58,80 @@ export default function Forms() {
           {data.length > 0 ? (
             <>
               <div className="p-3">
-                <h1 className="font-bold text-3xl ">
+                {/* <h1 className="font-bold text-3xl text-gray-700 ">
                   List of all forms created:
-                </h1>
+                </h1> */}
               </div>
-              {data.map((x) => {
-                return (
-                  <div className="mx-auto flex bg-blue-100 p-2 my-3 rounded">
-                    <div className="grow  p-3 font-bold ">
-                      {x.title ? x.title : "No title"}
-                      <br></br>
-                      <span className="text-sm font-thin">
-                        <b>Created On</b> : {x.createon}
-                      </span>
+              <div className="w-full flex flex-wrap">
+                {data.map((x) => {
+                  return (
+                    <div className="mx-auto text-gray-700 w-96 flex flex-col forms-tiles hover:bg-red-100 p-2 my-3 rounded drop-shadow-lg">
+                      <div className="grow  p-3 font-bold text-xl">
+                        {x.title ? x.title : "No title"}
+                        <br></br>
+                        <span className="text-sm text-gray-900 font-thin">
+                          <b>Created On</b> : {x.createon}
+                        </span>
+                      </div>
+                      <div className="index-button flex felx-wrap">
+                        <div className="grow flex flex-wrap ">
+                          <Link to={`/preview/${x.id}`}>
+                            <button
+                              className="drop-shadow-sm bg-gray-50 mx-1 my-3"
+                              onClick={(e) => {
+                                dispatch(setPreviewFor(x.id));
+                              }}
+                              title="admin response"
+                            >
+                              <PrinterIcon className="h-4 " />
+                            </button>
+                          </Link>
+                          <Link
+                            to={`/collect/response/${x.id}`}
+                            target={"_blank"}
+                          >
+                            <button
+                              className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3"
+                              onClick={(e) => {
+                                dispatch(setPreviewFor(x.id));
+                              }}
+                              title="Users Response"
+                            >
+                              <ShareIcon className="h-4 " />
+                            </button>
+                          </Link>
+                          <Link to={`/all/response/${x.id}`}>
+                            <button
+                              className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
+                              onClick={(e) => {}}
+                            >
+                              <EyeIcon className="h-4 " />
+                            </button>
+                          </Link>
+                          <Link to={`/edit/${x.id}`}>
+                            <button
+                              className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
+                              onClick={(e) => {}}
+                            >
+                              <PencilIcon className="h-4 " />
+                            </button>
+                          </Link>
+                        </div>
+                        <div>
+                          <button
+                            className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
+                            onClick={(e) => {
+                              handleDelete(x.id);
+                            }}
+                          >
+                            <TrashIcon className="h-4 " />
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="index-button flex felx-wrap">
-                      <Link to={`/preview/${x.id}`}>
-                        <button
-                          className="drop-shadow-sm bg-gray-50 mx-1 my-3"
-                          onClick={(e) => {
-                            dispatch(setPreviewFor(x.id));
-                          }}
-                        >
-                          <PrinterIcon className="h-6 " />
-                        </button>
-                      </Link>
-                      <Link to={`/collect/response/${x.id}`} target={"_blank"}>
-                        <button
-                          className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3"
-                          onClick={(e) => {
-                            dispatch(setPreviewFor(x.id));
-                          }}
-                        >
-                          <ShareIcon className="h-6 " />
-                        </button>
-                      </Link>
-                      <Link to={`/all/response/${x.id}`}>
-                        <button
-                          className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
-                          onClick={(e) => {}}
-                        >
-                          <EyeIcon className="h-6 " />
-                        </button>
-                      </Link>
-                      <Link to={`/edit/${x.id}`}>
-                        <button
-                          className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
-                          onClick={(e) => {}}
-                        >
-                          <PencilIcon className="h-6 " />
-                        </button>
-                      </Link>
-
-                      <button
-                        className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
-                        onClick={(e) => {
-                          handleDelete(x.id);
-                        }}
-                      >
-                        <TrashIcon className="h-6 " />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </>
           ) : (
             <>

@@ -1,6 +1,10 @@
 .home {
-
+    overflow-y: scroll;
     overflow-x: hidden !important;
+    /* background: url("https://picsum.photos/1200/900/?blur");
+    background-size: cover; */
+    height: 100vh;
+
 
 }
 

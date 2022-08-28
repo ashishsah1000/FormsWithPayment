@@ -19,13 +19,13 @@ export const createForm = async (title, description, formArray) => {
   return response;
 };
 // modify form
-export const modifyForm = async (id, data) => {
+export const modifyForm = async (id, data, title, description) => {
   const url = baseUrl + `/forms/edit/save/${id}`;
   let response = "something should be there";
   await axios({
     method: "POST",
     withCredentials: true,
-    data: data,
+    data: { data: data, title: title, description: description },
     url: url,
   }).then((res) => {
     response = res.data;

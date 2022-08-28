@@ -2,3 +2,17 @@
     height: 400px;
     margin: 0px auto;
 }
+
+.forms-tiles {
+    background: white;
+    transition: 1s ease;
+}
+
+.create-new button {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    padding: 20px 20px;
+    border-radius: 50%;
+    z-index: 102;
+}
