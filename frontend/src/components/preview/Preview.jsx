@@ -545,7 +545,7 @@ export default function Preview({
           <></>
         )}
 
-        {mode == "edit" || mode == "create" ? (
+        {mode == "edit" ? (
           <>
             <Controller />
           </>
