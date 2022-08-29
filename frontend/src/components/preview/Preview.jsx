@@ -151,7 +151,7 @@ export default function Preview({
           if (x.type == "rating") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -197,7 +197,7 @@ export default function Preview({
           if (x.type == "textarea") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -248,7 +248,7 @@ export default function Preview({
           if (x.type == "datepick") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -294,7 +294,7 @@ export default function Preview({
           if (x.type == "file") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -328,7 +328,7 @@ export default function Preview({
           if (x.type == "options") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -379,7 +379,7 @@ export default function Preview({
           if (x.type == "radio") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -430,7 +430,7 @@ export default function Preview({
           if (x.type == "textbox") {
             return (
               <div className="preview-elements my-6">
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -493,7 +493,7 @@ export default function Preview({
                   color: x.data.properties.color,
                 }}
               >
-                {mode == "edit" ? (
+                {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
                       <button
@@ -545,7 +545,7 @@ export default function Preview({
           <></>
         )}
 
-        {mode == "edit" ? (
+        {mode == "edit" || mode == "create" ? (
           <>
             <Controller />
           </>
