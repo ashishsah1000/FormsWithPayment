@@ -12,6 +12,7 @@ export default function Response() {
   const formData = useSelector((state) => state.preview.responses);
   const fetchData = async () => {
     var newData = await getResponse(id);
+    // we are not getting title and description as it is not in response table
     console.log(
       "🚀 ~ file: response.jsx ~ line 22 ~ getforms ~ newData",
       newData.data[0]
@@ -60,7 +61,7 @@ export default function Response() {
                     <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
-                      <span className="p-6 ">{x.value}</span>
+                      <h3 className="mx-3 mt-3 ">{x.value}</h3>
                     </div>
                   </div>
                 );

@@ -9,6 +9,7 @@ export default function Rating({
   type = "rating",
   mode = "",
   viewValue = 1,
+  question = "",
 }) {
   const [value, setvalue] = useState(0);
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ export default function Rating({
   let idx = "",
     t = "";
   const handleChangeRating = (index) => {
-    dispatch(updateResponse({ id: id, type: type, value: ++index }));
+    dispatch(
+      updateResponse({ id: id, type: type, value: ++index, question: question })
+    );
   };
   const [rating, setrating] = useState([1, 1, 0, 0, 0]);
   const handleClick = (index) => {
@@ -39,12 +42,12 @@ export default function Rating({
 
   if (mode == "response") {
     return (
-      <div className="flex my-6">
+      <div className="flex my-3">
         {rating.map((x, i) => {
           if (x == 0) {
             return (
               <StarIcon
-                className="h-8  text-yellow-500"
+                className="h-8 text-yellow-500"
                 fill="none"
                 strokeWidth={1.5}
                 stroke="currentColor"

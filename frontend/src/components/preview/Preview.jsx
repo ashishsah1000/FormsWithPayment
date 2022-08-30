@@ -181,7 +181,7 @@ export default function Preview({
                 )}
                 <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
-                <Rating type={x.type} id={i} />
+                <Rating type={x.type} id={i} question={x.question} />
                 {inlineEdit[i] ? (
                   <div style={{ zIndex: 103 }}>
                     <Controller
