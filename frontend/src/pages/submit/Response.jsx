@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getResponse } from "../../axios/forms";
-import { TextBoxView, OptionView } from "../../components";
+import { TextBoxView, OptionView, Rating } from "../../components";
 
 export default function Response() {
   // get the specific id of the form
@@ -40,6 +40,17 @@ export default function Response() {
                   <div className="preview-elements my-6 ">
                     <h1 className="font-bold">Question </h1>
                     <TextBoxView question={x.question} answer={x.value} />
+                  </div>
+                );
+              }
+              if (x.type == "rating") {
+                return (
+                  <div className="preview-elements my-6 ">
+                    <h1 className="font-bold">Question </h1>
+                    <div className="p-3">
+                      <h1 className="font-bold text-xl">{x.question}</h1>
+                      <Rating viewValue={x.value} mode="response" />
+                    </div>
                   </div>
                 );
               }

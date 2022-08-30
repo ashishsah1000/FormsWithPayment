@@ -116,6 +116,9 @@ export default function Preview({
       if (something.length > 0)
         dispatch(changePreviewComponents(something.data));
     }
+    if (mode == "create") {
+      dispatch(changePreviewComponents([]));
+    }
   }, []);
 
   // edit mode inline
@@ -176,7 +179,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Rating type={x.type} id={i} />
                 {inlineEdit[i] ? (
@@ -222,7 +225,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Textarea
                   type={x.type}
@@ -273,7 +276,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <DatePick type={x.type} id={i} />
                 {inlineEdit[i] ? (
@@ -319,7 +322,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Files type={x.type} id={i} />
               </div>
@@ -353,7 +356,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <OptionView
                   array={x.options.data}
@@ -404,7 +407,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question {i + 1}</h1>
+                <h1 className="font-bold">Question </h1>
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <RadioView
                   array={x.options.data}
@@ -456,7 +459,7 @@ export default function Preview({
                   <></>
                 )}
                 <div>
-                  <h1 className="font-bold">Question {i + 1}</h1>
+                  <h1 className="font-bold">Question </h1>
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <TextBox
                     width={"1/3"}
