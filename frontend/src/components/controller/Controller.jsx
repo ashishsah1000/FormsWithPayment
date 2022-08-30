@@ -163,7 +163,9 @@ export default function Controller({
   useEffect(() => {}, []);
 
   return (
-    <div className={`controller shadow-lg bg-blue-900 p-6 rounded ${classes}`}>
+    <div
+      className={`controller shadow-lg bg-gradient-to-r from-gray-900 to-blue-900 p-6 rounded ${classes}`}
+    >
       <TextBox padding={3} callback={getquestion} />
       <div className="flex">
         <div className="grow p-2">
@@ -185,8 +187,8 @@ export default function Controller({
             {selected == "textbox" ? (
               <div className="w-full mb-3">
                 <TextBox
-                  width={48}
-                  padding={2}
+                  width={72}
+                  disabled={true}
                   placeholder={"Enter your answer"}
                 />
               </div>
@@ -209,7 +211,7 @@ export default function Controller({
             )}
             {selected == "textarea" ? (
               <div className="w-full">
-                <Textarea />
+                <Textarea disabled={true} />
               </div>
             ) : (
               ""

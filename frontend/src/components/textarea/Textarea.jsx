@@ -9,6 +9,7 @@ export default function Textarea({
   id = "",
   type = "textarea",
   question = "Question goes here",
+  disabled = false,
 }) {
   const dispatch = useDispatch();
   const response = useSelector((state) => state.preview.responses);
@@ -22,9 +23,10 @@ export default function Textarea({
   if (mode == "submit") {
   }
   return (
-    <div className="textarea-component ">
+    <div className="textarea-component px-3 ">
       <textarea
         placeholder={placeholder}
+        disabled={disabled}
         cols="90"
         rows="5"
         onChange={(e) => {

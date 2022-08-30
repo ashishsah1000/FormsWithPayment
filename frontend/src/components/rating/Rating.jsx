@@ -68,7 +68,7 @@ export default function Rating({
 
   // for creation and submit
   return (
-    <div className="flex my-6 mx-6">
+    <div className="flex mt-3 mx-6">
       {rating.map((x, i) => {
         if (x == 0) {
           return (

@@ -14,6 +14,7 @@ export default function TextBox({
   answer = "Answer goes here",
   padding = 3,
   otherClass = "",
+  disabled = false,
   callback = () => {},
 }) {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export default function TextBox({
         className={`w-${width} my-2  px-2 py-3 py-${padding} border-solid border-2 border-grey-500 rounded ${otherClass}`}
         placeholder={placeholder}
         onKeyUp={(e) => handleChangeTextBox(e.target.value)}
+        disabled={disabled}
       />
     );
   }
@@ -44,9 +46,10 @@ export default function TextBox({
         type="text"
         name="question"
         id=""
-        className={`w-${width} my-2  px-2 py-3 py-${padding} border-solid border-2 border-grey-500 rounded ${otherClass}`}
+        className={`w-${width} my-2  px-2 py-3 py-${padding}   rounded ${otherClass}`}
         placeholder={placeholder}
         onKeyUp={(e) => callback(e.target.value)}
+        disabled={disabled}
       />
     );
   } else {
