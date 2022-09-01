@@ -3,50 +3,75 @@ var router = express.Router();
 var { database } = require("../database/pgdatabase");
 const passport = require("passport");
 /* GET users listing. */
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/index",
-  }),
-  function (req, res, next) {
-    console.log("got a request ", req.user);
-    // if (req.user) {
-    //   res.render("index", { title: "Login" });
-    // } else {
-    //   req.body.username = "test@123";
-    //   req.body.password = "test";
-    //   // passport.authenticate("local", function (err, user, info) {
-    //   passport.authenticate("local", function (err, user, info) {
-    //     console.log("into passport");
-    //     if (err) {
-    //       console.log(err);
-    //       return res.status(401).json(err);
-    //     }
-    //     if (user) {
-    //       console.log("user found and authenticated");
-    //       console.log("user is ", user);
-    //       req.login(user, function (err) {
-    //         if (err) {
-    //           console.log(err);
-    //         }
-    //         console.log("req username" + req.user);
-    //         // const user = {
-    //         //   name: req.user.name,
-    //         //   username: req.user.email,
-    //         //   email: req.user.email,
-    //         //   id: req.user._id,
-    //         //   timeStamp: Date.now(),
-    //         // };
-    //         return res.send(user);
-    //       });
-    //     } else {
-    //       res.status(401).json(info);
-    //     }
-    //   });
-    // }
+
+router.get("/login", (req, res, next) => {
+  console.log(req.user);
+  if (req.user) {
+    res.send({ status: "success", text: "user already logged in" });
+  } else {
+    res.send("we don not have any user");
   }
-);
+});
+router.post("/login", function (req, res, next) {
+  console.log("got a request ", req.user);
+  if (req.user) {
+    res.send({
+      status: "success",
+      text: "user already logged in",
+      user: req.user,
+    });
+  } else {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) {
+        res.send("there was an error");
+      }
+      if (user) {
+        console.log("user found and authenticated");
+        console.log("use is ", user);
+        req.login(user, (err) => {
+          if (err) {
+            return next(err);
+          }
+          res.send({
+            status: "success",
+            text: "user already logged in",
+            user: req.user,
+          });
+        });
+      } else {
+        res.send({ status: "failure", text: "User was not found!" });
+      }
+    })(req, res, next);
+  }
+});
+
+// logout the current user
+router.get("/logout", (req, res, next) => {
+  if (!req.user) {
+    res.send("no user has logged in");
+  } else {
+    req.logout((err) => {
+      if (err) {
+        res.send("some error hapened");
+      }
+    });
+    res.send({
+      status: "success",
+      text: "successfully logged out check the status",
+    });
+  }
+});
+
+// router.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     failureRedirect: "/",
+//     failureMessage: true,
+//   }),
+//   function (req, res) {
+//     res.send("/~" + req.user.username);
+//   }
+// );
 
 // here the get req from register
 router.get("/signup", function (req, res, next) {
@@ -56,26 +81,30 @@ router.get("/signup", function (req, res, next) {
 
 // hear the post request for login
 router.post("/signin", (req, res, next) => {
-  console.log("In Signup data", req.body);
-  var sql = `SELECT * FROM users WHERE email='${req.body.username}'`;
-  database.query(sql, (err, results) => {
-    if (err) {
-      console.log(err);
-      res.send({ status: "failure", text: "Some server error!" });
-    } else {
-      console.log("password matching", results);
-      // if(req.body.password==="")
-      if (results.rowCount == 1) {
-        if (req.body.password === results.rows[0].password) {
-          res.send({ status: "success", text: "Successfully logged in!" });
-        } else {
-          res.send({ status: "failure", text: "Wrong password!" });
-        }
+  if (req.user) {
+    res.send({ status: "success", text: "user already logged in" });
+  } else {
+    console.log("In Signup data", req.body);
+    var sql = `SELECT * FROM users WHERE email='${req.body.username}'`;
+    database.query(sql, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send({ status: "failure", text: "Some server error!" });
       } else {
-        res.send({ status: "failure", text: "User was not found!" });
+        console.log("password matching", results);
+        // if(req.body.password==="")
+        if (results.rowCount == 1) {
+          if (req.body.password === results.rows[0].password) {
+            res.send({ status: "success", text: "Successfully logged in!" });
+          } else {
+            res.send({ status: "failure", text: "Wrong password!" });
+          }
+        } else {
+          res.send({ status: "failure", text: "User was not found!" });
+        }
       }
-    }
-  });
+    });
+  }
 });
 
 // hear the post request from signup

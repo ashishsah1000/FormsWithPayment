@@ -3,7 +3,8 @@ import { Navbar } from "../../components/";
 import { getAllUser } from "../../axios/users";
 import { useDispatch, useSelector } from "react-redux";
 import { createError } from "../../features/component/components";
-import { TrashIcon } from "@heroicons/react/solid/";
+import { TrashIcon, PlusCircleIcon } from "@heroicons/react/solid/";
+import { Link } from "react-router-dom";
 
 // get all the users from axios
 export default function Users() {
@@ -38,6 +39,11 @@ export default function Users() {
 
   return (
     <div className="users-list w-10/12  m-auto">
+      <Link to="/admin/register">
+        <button className="bg-red-700 text-red-100 hover:bg-red-800 px-3 mx-3 my-3">
+          <PlusCircleIcon className="h-6" /> &nbsp; Add new user
+        </button>
+      </Link>
       {data.length > 0 ? (
         <>
           <div>
@@ -49,7 +55,7 @@ export default function Users() {
             </div> */}
             {data.map((x, i) => {
               return (
-                <div className="flex w-full flex-wrap shadow-md bg-gray-50 hover:bg-green-100 text-gray-800 border-b-gray-500 border-2 my-2">
+                <div className="flex w-full flex-wrap shadow-md bg-gray-50 hover:bg-violet-100 text-gray-800  my-2">
                   <div className="grow flex">
                     <div className="p-3 mr-6">{i + 1}</div>
                     <div className="p-3 mr-6 font-bold">{x.username}</div>

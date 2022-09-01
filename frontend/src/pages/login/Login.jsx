@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 import { userLogin } from "../../axios/users";
 import { useDispatch, useSelector } from "react-redux";
 import { createError } from "../../features/component/components";
 import { PaperAirplaneIcon } from "@heroicons/react/solid/";
+import { setUser } from "../../localStorage/users";
 
 export default function Login() {
   const [username, setusername] = useState("");
@@ -16,11 +17,16 @@ export default function Login() {
     console.log("🚀 ~ file: Login.jsx ~ line 15 ~ login ~ res", res);
     if (res.status == "success") {
       dispatch(createError({ text: res.text, type: "success" }));
+      setUser(res.user);
       navigate("/forms");
     }
     if (res.status == "failure")
       dispatch(createError({ text: res.text, type: "warning" }));
   };
+  useEffect(() => {
+    login();
+  }, []);
+
   return (
     <div className="preview login">
       <div className="md:w-1/2 lg:w-1/2 sm:w-10/12  content mx-auto md:mt-20 mt-10 xs:mt-10 lg:mt-24 xl:mt-36 rounded shadow-lg bg-gray-100 ">

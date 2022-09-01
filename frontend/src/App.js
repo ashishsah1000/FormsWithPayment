@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { useSelector } from "react-redux";
 import { Chips } from "./components";
-
+import { UserResponse } from "./pages";
 function App() {
   const errors = useSelector((state) => state.component.errors);
 
@@ -26,6 +26,8 @@ function App() {
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/register" element={<Register />} />
+        <Route path="/collect/response/:id" element={<UserResponse />} />
+
         <Route path="*" element={<Home />} />
       </Routes>
     </div>

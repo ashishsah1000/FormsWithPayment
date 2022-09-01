@@ -45,14 +45,13 @@ app.use(
     }),
     secret: "connect2167", ////////PROVIDE A SECRET/////USE ENVIRONMENT VARIABLES, UNLESS THIS IS FOR HOMEWORK OR SOMETHING SIMILAR OF NO IMPORTANCE
     resave: true,
-    cookie: { secure: false, maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-    saveUninitialized: true,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    saveUninitialized: false,
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passport.authenticate("session"));
 require("./auth/passportConfig")(passport);
 
 app.use("/", indexRouter);

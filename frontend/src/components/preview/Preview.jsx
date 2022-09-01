@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import Chips from "../chips/Chips";
 import "./preview.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createForm, modifyForm, submitForm } from "../../axios/forms";
+import {
+  createForm,
+  modifyForm,
+  submitForm,
+  publishForm,
+} from "../../axios/forms";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import {
@@ -110,8 +115,22 @@ export default function Preview({
     }
   };
 
+  // this will handle publish section
+  const handlePublish = async (id) => {
+    var res = publishForm(id);
+    navigate("/forms");
+    // console.log(res);
+    // if (res.data.status == "success") {
+    //   dispatch(
+    //     createError({ text: "Submitted for publish!", type: "success" })
+    //   );
+    // } else {
+    //   dispatch(createError({ text: "Some error happened", type: "warning" }));
+    // }
+  };
+
   useEffect(() => {
-    if (mode == "edit" || mode == "submit") {
+    if (mode == "edit" || mode == "submit" || mode == "publish") {
       const something = searchForm(id);
       if (something.length > 0)
         dispatch(changePreviewComponents(something.data));
@@ -559,11 +578,23 @@ export default function Preview({
           <button
             className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
             onClick={(e) => {
-              console.log("create form was called");
               handleSubmit();
             }}
           >
             Submit &nbsp;
+            <LockClosedIcon className="h-6 " />
+          </button>
+        ) : (
+          <></>
+        )}
+        {mode == "publish" ? (
+          <button
+            className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+            onClick={(e) => {
+              handlePublish(id);
+            }}
+          >
+            &nbsp;Publish &nbsp;
             <LockClosedIcon className="h-6 " />
           </button>
         ) : (

@@ -5,12 +5,27 @@ export const createUser = async () => {};
 
 //check login of the user
 export const userLogin = async (username, password) => {
-  const url = baseUrl + "/signin";
+  const url = baseUrl + "/login";
   let response = "something should be there";
   await axios({
     method: "POST",
     withCredentials: true,
     data: { username: username, password: password },
+    url: url,
+  }).then((res) => {
+    response = res.data;
+    return response;
+  });
+  return response;
+};
+
+//logout a user
+export const logOut = async () => {
+  const url = baseUrl + "/logout";
+  let response = "something should be there";
+  await axios({
+    method: "GET",
+    withCredentials: true,
     url: url,
   }).then((res) => {
     response = res.data;

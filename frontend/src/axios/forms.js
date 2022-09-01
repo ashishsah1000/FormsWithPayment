@@ -151,3 +151,21 @@ export const deleteResponse = async (id) => {
 };
 
 // delete all response when a form is deleted
+//todo
+
+//publish section set publish to true
+export const publishForm = async (id) => {
+  const url = baseUrl + `/forms/publish/`;
+  var data = false;
+  await axios({
+    method: "POST",
+    data: { id: id },
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};

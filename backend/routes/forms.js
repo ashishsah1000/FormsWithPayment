@@ -94,6 +94,22 @@ router.post("/edit/save/:id", (req, res, next) => {
   });
 });
 
+// update publish
+router.post("/publish", (req, res, next) => {
+  const id = req.body.id;
+  console.log("we are reciving this id", id);
+  var sql = `UPDATE allforms SET publish = 'pending' WHERE id=${id};`;
+  database.query(sql, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send({ status: "error", text: "some database error happened" });
+    } else {
+      console.log("fetched data", doc);
+      res.send({ status: "success" });
+    }
+  });
+});
+
 // get all the forms
 
 router.get("/all", (req, res, next) => {

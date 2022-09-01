@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../../components/";
 import { getForm } from "../../axios/forms";
 
-export default function MainPreview() {
+export default function MainPreview({ mode = "submit" }) {
   const [fetching, setfetching] = useState(true);
   const [data, setData] = useState([]);
   let newData = [];
@@ -42,7 +42,7 @@ export default function MainPreview() {
         <>
           <Preview
             data={data}
-            mode="submit"
+            mode={mode}
             title={title}
             description={description}
           />

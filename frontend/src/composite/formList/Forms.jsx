@@ -21,7 +21,7 @@ export default function Forms() {
 
   const getforms = async () => {
     var newData = await getAllForm();
-    console.log(newData.data);
+    console.log(newData);
     setData([...newData.data]);
   };
 
@@ -65,7 +65,9 @@ export default function Forms() {
               <div className="w-full flex flex-wrap">
                 {data.map((x) => {
                   return (
-                    <div className="mx-auto text-gray-700 w-96 flex flex-col forms-tiles hover:bg-red-100 p-2 my-3 rounded drop-shadow-lg">
+                    <div
+                      className={`mx-auto text-gray-700 w-96 flex flex-col forms-tiles hover:animate-glow p-2 my-3 rounded drop-shadow-lg ${x.publish}`}
+                    >
                       <div className="grow  p-3 font-bold text-xl">
                         {x.title ? x.title : "No title"}
                         <br></br>
@@ -86,28 +88,37 @@ export default function Forms() {
                               <PrinterIcon className="h-4 " />
                             </button>
                           </Link>
-                          <Link
-                            to={`/collect/response/${x.id}`}
-                            target={"_blank"}
-                          >
-                            <button
-                              className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3"
-                              onClick={(e) => {
-                                dispatch(setPreviewFor(x.id));
-                              }}
-                              title="Users Response"
+                          {x.publish == "true" ? (
+                            <Link
+                              to={`/collect/response/${x.id}`}
+                              target={"_blank"}
                             >
-                              <ShareIcon className="h-4 " />
-                            </button>
-                          </Link>
-                          <Link to={`/all/response/${x.id}`}>
-                            <button
-                              className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
-                              onClick={(e) => {}}
-                            >
-                              <EyeIcon className="h-4 " />
-                            </button>
-                          </Link>
+                              <button
+                                className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3 "
+                                onClick={(e) => {
+                                  dispatch(setPreviewFor(x.id));
+                                }}
+                                title="Users Response"
+                              >
+                                <ShareIcon className="h-4 " />
+                              </button>
+                            </Link>
+                          ) : (
+                            <></>
+                          )}
+                          {x.publish == "true" ? (
+                            <Link to={`/all/response/${x.id}`}>
+                              <button
+                                className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
+                                onClick={(e) => {}}
+                              >
+                                <EyeIcon className="h-4 " />
+                              </button>
+                            </Link>
+                          ) : (
+                            <></>
+                          )}
+
                           <Link to={`/edit/${x.id}`}>
                             <button
                               className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"

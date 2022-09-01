@@ -3,10 +3,11 @@ import { Navbar, Chips } from "../../components";
 import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { MainPreview, Login, UserResponse, Users } from "../";
 import AllResponse from "../submit/AllResponse";
 import Response from "../submit/Response";
+import { getUser } from "../../localStorage/users";
 export default function Home() {
   // // all the essentials of redux
   // const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function Home() {
   //   dispatch(addQuestion(value)); // this will dispatch the question value to redux
   // };
   const [loggedin, setloggedin] = useState(false);
-
+  const navigate = useNavigate();
   const errors = useSelector((state) => state.component.errors);
   const previewComponents = useSelector(
     (state) => state.component.previewComponents
@@ -33,7 +34,12 @@ export default function Home() {
     );
   };
   const preview = previewComponents;
-  useEffect(() => {}, []);
+  useEffect(() => {
+    var user = getUser();
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="home">
@@ -59,12 +65,11 @@ export default function Home() {
           <Route path="/edit/:id" element={<Creator mode="edit" />} />
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/preview/:id" element={<MainPreview />} />
+          <Route path="/preview/:id" element={<MainPreview mode="publish" />} />
           <Route path="/preview" element={<MainPreview />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />
-          <Route path="/collect/response/:id" element={<UserResponse />} />
           <Route path="/users/all" element={<Users />} />
 
           <Route path="*" element={<Forms />} />
