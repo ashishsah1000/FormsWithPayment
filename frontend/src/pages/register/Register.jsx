@@ -51,7 +51,7 @@ export default function Register() {
   const options = [
     { value: "checker", label: "Checker" },
     { value: "admin", label: "Admin" },
-    { value: "Creator", label: "Creator" },
+    { value: "creator", label: "Creator" },
   ];
   const handleOptionChange = (selectedOption) => {
     setroles(selectedOption.value);

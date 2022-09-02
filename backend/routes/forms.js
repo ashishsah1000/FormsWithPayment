@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
 router.post("/create", function (req, res, next) {
   // start saving data into form
   createConnection();
-  var email = "designer@gmail.com";
+  var email = req.user.email;
   var createdId = "";
   console.log("here in forms", req.body);
   var sql = `INSERT INTO allforms (title,description,email,forms,createon) VALUES ('${
@@ -141,7 +141,7 @@ router.get("/approve", (req, res, next) => {
 router.get("/all", (req, res, next) => {
   //this will be in edit mode
   // const email = req.params.id;
-  const email = "designer@gmail.com";
+  const email = req.user.email;
   var sql = `SELECT * FROM allforms WHERE email='${email}';`;
   // createConnection();
   database.query(sql, (err, doc) => {
