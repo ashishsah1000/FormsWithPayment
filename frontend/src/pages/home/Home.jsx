@@ -71,23 +71,30 @@ export default function Home() {
           <Route path="/forms" element={<Forms />} />
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />
-          {user.role == "admin" ? (
-            <>
-              <Route path="/users/all" element={<Users />} />
-            </>
-          ) : (
+
+          {user == null ? (
             <></>
-          )}
-          {user.role == "checker" || user.role == "admin" ? (
-            <>
-              <Route path="/check/all" element={<Check />} />
-              <Route
-                path="/approve/preview/:id"
-                element={<MainPreview mode="approve" />}
-              />
-            </>
           ) : (
-            <></>
+            <>
+              {user?.role == "admin" ? (
+                <>
+                  <Route path="/users/all" element={<Users />} />
+                </>
+              ) : (
+                <></>
+              )}
+              {user.role == "checker" || user.role == "admin" ? (
+                <>
+                  <Route path="/check/all" element={<Check />} />
+                  <Route
+                    path="/approve/preview/:id"
+                    element={<MainPreview mode="approve" />}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
+            </>
           )}
 
           <Route path="*" element={<Forms />} />
