@@ -600,6 +600,14 @@ export default function Preview({
         ) : (
           <></>
         )}
+        {mode == "approve" ? (
+          <button className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto">
+            &nbsp;Approve &nbsp;
+            <LockClosedIcon className="h-6 " />
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

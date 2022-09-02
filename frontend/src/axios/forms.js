@@ -153,13 +153,29 @@ export const deleteResponse = async (id) => {
 // delete all response when a form is deleted
 //todo
 
-//publish section set publish to true
+//publish section set publish and update it to pending all be used by creator
 export const publishForm = async (id) => {
   const url = baseUrl + `/forms/publish/`;
   var data = false;
   await axios({
     method: "POST",
     data: { id: id },
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};
+
+// get all the forms that has the pending status for publisher and checker
+export const allFormToApprove = async () => {
+  const url = baseUrl + `/forms/approve/`;
+  var data = "";
+  await axios({
+    method: "GET",
     withCredentials: "true",
     url: url,
   }).then((res) => {

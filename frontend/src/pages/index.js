@@ -14,4 +14,6 @@ export { default as MainPreview } from "./Routes/MainPreview";
 export { default as UserResponse } from "./response/UserResponse.jsx";
 export { default as Thanks } from "./response/Thanks.jsx";
 
+export { default as Check } from "./checker/Check";
+
 export { default as Users } from "./admin/Users";

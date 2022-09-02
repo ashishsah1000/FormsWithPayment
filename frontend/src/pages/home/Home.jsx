@@ -4,7 +4,7 @@ import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { MainPreview, Login, UserResponse, Users } from "../";
+import { MainPreview, Login, UserResponse, Users, Check } from "../";
 import AllResponse from "../submit/AllResponse";
 import Response from "../submit/Response";
 import { getUser } from "../../localStorage/users";
@@ -34,8 +34,9 @@ export default function Home() {
     );
   };
   const preview = previewComponents;
+  var user = getUser();
   useEffect(() => {
-    var user = getUser();
+    user = getUser();
     if (user) {
       navigate("/");
     }
@@ -70,7 +71,24 @@ export default function Home() {
           <Route path="/forms" element={<Forms />} />
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />
-          <Route path="/users/all" element={<Users />} />
+          {user.role == "admin" ? (
+            <>
+              <Route path="/users/all" element={<Users />} />
+            </>
+          ) : (
+            <></>
+          )}
+          {user.role == "checker" || user.role == "admin" ? (
+            <>
+              <Route path="/check/all" element={<Check />} />
+              <Route
+                path="/approve/preview/:id"
+                element={<MainPreview mode="approve" />}
+              />
+            </>
+          ) : (
+            <></>
+          )}
 
           <Route path="*" element={<Forms />} />
         </Routes>

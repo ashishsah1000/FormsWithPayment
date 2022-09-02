@@ -110,6 +110,32 @@ router.post("/publish", (req, res, next) => {
   });
 });
 
+// get all forms if they are pending for a user
+router.get("/approve", (req, res, next) => {
+  if (req.user) {
+    // has to be checker and admin
+    console.log(req.user.role);
+    if (req.user.role == "admin" || req.user.role == "checker") {
+      var sql = `SELECT * from allforms WHERE publish='pending';`;
+      database.query(sql, (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.send({ status: "error", text: "some database error happened" });
+        } else {
+          console.log("fetched data", doc);
+          res.send({ status: "success", data: doc.rows });
+        }
+      });
+    } else {
+      res
+        .status(400)
+        .send({ status: "failed", text: "user was Checker or admin" });
+    }
+  } else {
+    res.status(400).send({ status: "failed", text: "user was unathorized" });
+  }
+});
+
 // get all the forms
 
 router.get("/all", (req, res, next) => {
