@@ -41,6 +41,7 @@ export { default as Publish } from "./publish/Publish";
 export { default as TextBoxView } from "./textBox/TextBoxView.jsx";
 
 export { default as ReactOptions } from "./reactOptions/ReactOptions";
+export { default as AllCheckers } from "./reactOptions/AllCheckers";
 export { default as SpinnerButton } from "./loadingButton/SpinnerButton";
 
 export { default as Edit } from "./edit/Edit";

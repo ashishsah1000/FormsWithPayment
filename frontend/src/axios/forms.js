@@ -154,12 +154,12 @@ export const deleteResponse = async (id) => {
 //todo
 
 //publish section set publish and update it to pending all be used by creator
-export const publishForm = async (id) => {
+export const publishForm = async (id, approvers) => {
   const url = baseUrl + `/forms/publish/`;
   var data = false;
   await axios({
     method: "POST",
-    data: { id: id },
+    data: { id: id, approvers: approvers },
     withCredentials: "true",
     url: url,
   }).then((res) => {

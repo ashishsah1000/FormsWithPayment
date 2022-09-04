@@ -21,8 +21,13 @@ import {
   RadioView,
   Delete,
   Controller,
+  AllCheckers,
 } from "../";
-import { LockClosedIcon, PencilIcon } from "@heroicons/react/solid/";
+import {
+  LockClosedIcon,
+  PencilIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/solid/";
 import {
   changePreviewComponents,
   createError,
@@ -117,9 +122,15 @@ export default function Preview({
   };
 
   // this will handle publish section
+  let approvers = "";
   const handlePublish = async (id) => {
-    var res = publishForm(id);
-    navigate("/forms");
+    if (approvers.length == 0) {
+      dispatch(createError({ text: "Please add approver", type: "warning" }));
+    } else {
+      var res = publishForm(id, approvers);
+      navigate("/forms");
+    }
+
     // console.log(res);
     // if (res.data.status == "success") {
     //   dispatch(
@@ -129,8 +140,15 @@ export default function Preview({
     //   dispatch(createError({ text: "Some error happened", type: "warning" }));
     // }
   };
+  //handle can be used to get the value of react selector
+  const handleOptionChange = (selectedOption) => {
+    approvers = selectedOption.map((x) => x.value).join(" ");
+
+    console.log("all approver", approvers);
+  };
 
   // handle approve only for the approver
+
   const handleApprove = async (id) => {
     var res = approveForm(id);
     console.log(res);
@@ -164,8 +182,6 @@ export default function Preview({
 
   // end of response functions
 
-  //handle edit forms
-  const handleEditForm = async () => {};
   if (fetching) return <>Your data is being fetched</>;
 
   return (
@@ -601,28 +617,37 @@ export default function Preview({
           <></>
         )}
         {mode == "publish" ? (
-          <button
-            className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
-            onClick={(e) => {
-              handlePublish(id);
-            }}
-          >
-            &nbsp;Publish &nbsp;
-            <LockClosedIcon className="h-6 " />
-          </button>
+          <>
+            <hr />
+            <br />
+            <div className="w-96 mx-auto ">
+              <AllCheckers callback={handleOptionChange} />
+            </div>
+            <button
+              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+              onClick={(e) => {
+                handlePublish(id);
+              }}
+            >
+              &nbsp;Publish &nbsp;
+              <LockClosedIcon className="h-6 " />
+            </button>
+          </>
         ) : (
           <></>
         )}
         {mode == "approve" ? (
-          <button
-            className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
-            onClick={() => {
-              handleApprove(id);
-            }}
-          >
-            &nbsp;Approve &nbsp;
-            <LockClosedIcon className="h-6 " />
-          </button>
+          <>
+            <button
+              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+              onClick={() => {
+                handleApprove(id);
+              }}
+            >
+              &nbsp;Approve &nbsp;
+              <CheckCircleIcon className="h-6 " />
+            </button>
+          </>
         ) : (
           <></>
         )}

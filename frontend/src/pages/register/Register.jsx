@@ -35,7 +35,7 @@ export default function Register() {
     console.log("🚀 ~ file: Login.jsx ~ line 15 ~ login ~ res", res);
     if (res.status == "success") {
       dispatch(createError({ text: res.text, type: "success" }));
-      // navigate("/forms");
+      navigate("/forms");
     } else {
       console.log(fetchbutton);
 

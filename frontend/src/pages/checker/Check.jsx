@@ -12,23 +12,34 @@ import {
   ShareIcon,
   ChevronDoubleRightIcon,
 } from "@heroicons/react/solid/";
+import { getUser } from "../../localStorage/users";
 export default function Check() {
   const [fetching, setFetching] = useState(true);
   const [data, setdata] = useState([]);
   const getPending = async () => {
+    var appoint = [];
+    var arr = [];
     var res = await allFormToApprove();
-
-    console.log(res.data);
-    setdata(res.data.data);
+    for (var i = 0; i < res.data.data.length; i++) {
+      var x = res.data.data[i].appointed_to;
+      if (x == null) {
+      } else {
+        appoint = x.split(" ");
+        if (appoint.includes(user.username)) {
+          arr.push(res.data.data[i]);
+        }
+      }
+    }
+    setdata([...arr]);
     setFetching(false);
   };
-
+  var user = getUser();
   useEffect(() => {
     getPending();
   }, []);
 
   return (
-    <div className="w-10/12 p-6 mx-auto shadow-sm">
+    <div className="w-10/12 p-6 mx-auto ">
       <div>
         {fetching ? (
           <>fetching data</>
@@ -36,9 +47,9 @@ export default function Check() {
           <>
             {data.length > 0 ? (
               <>
-                <table class="table-auto w-full rounded">
+                <table class="table-auto w-full rounded shadow-lg">
                   <thead className="p-3 rounded">
-                    <tr className="bg-blue-900 text-blue-100">
+                    <tr className="bg-blue-500 text-blue-100">
                       <th align="center" className="p-3">
                         Index
                       </th>
@@ -52,7 +63,7 @@ export default function Check() {
                     {data.map((x, i) => {
                       return (
                         <tr className="duration-150 ease-in-out hover:bg-blue-100 text-gray-800">
-                          <td align="center" className="p-3">
+                          <td align="center" className="p-3 font-bold">
                             {i + 1}
                           </td>
                           <td align="center" className="p-3 font-bold">
@@ -91,7 +102,13 @@ export default function Check() {
                 </table>
               </>
             ) : (
-              <>No data</>
+              <>
+                <div className="mx-auto flex justify-center">
+                  <span className="text-blue-300 font-bold text-3xl ">
+                    No Appointed forms
+                  </span>
+                </div>
+              </>
             )}
           </>
         )}

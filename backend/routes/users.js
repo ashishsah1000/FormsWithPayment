@@ -193,4 +193,23 @@ router.get("/delete/:id", (req, res, next) => {
   }
 });
 
+//get all the checkers
+router.get("/all/checker", (req, res, next) => {
+  if (req.user) {
+    // var sql = `SELECT * FROM users WHERE role='checker' or role='admin'`;
+    var sql = `SELECT * FROM users WHERE role='checker';`;
+    database.query(sql, (err, docs) => {
+      if (err) {
+        res.send({ status: "failure", msg: "Database error" });
+      } else {
+        var arr = docs.rows.map((x) => x.username);
+        console.log("array create", arr);
+        res.send({ status: "success", data: arr });
+      }
+    });
+  } else {
+    res.send({ status: "failure", msg: "Autherazation Error" });
+  }
+});
+
 module.exports = router;

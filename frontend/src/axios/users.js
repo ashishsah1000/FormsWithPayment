@@ -94,3 +94,23 @@ export const deleteSpecificUser = async (id) => {
     });
   return response;
 };
+
+// get all the checkers
+export const getAllChecker = async () => {
+  const url = baseUrl + "/all/checker";
+  let response = "something should be there";
+  await axios({
+    method: "GET",
+    withCredentials: true,
+    url: url,
+  })
+    .then((res) => {
+      console.log(res);
+      response = res.data;
+      return response;
+    })
+    .catch((err) => {
+      response = { status: "error", text: "some error occured" };
+    });
+  return response;
+};

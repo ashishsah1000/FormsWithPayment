@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -12,12 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { createError } from "../../features/component/components";
 import { deleteUser, getUser } from "../../localStorage/users";
 import { useEffect } from "react";
+import { allFormToApprove } from "../../axios/forms";
 
 export default function Navbar({
   profileImage = "https://picsum.photos/300/300",
 }) {
   var user = getUser();
-
+  const [pending, setpending] = useState(false);
   var dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -34,8 +35,28 @@ export default function Navbar({
   if (user == null) {
     user = { username: "", role: "" };
   }
+
+  const getPending = async () => {
+    var appoint = [];
+    var res = await allFormToApprove();
+    for (var i = 0; i < res.data.data.length; i++) {
+      var x = res.data.data[i].appointed_to;
+      if (x == null) {
+      } else {
+        appoint = x.split(" ");
+        if (appoint.includes(user.username)) {
+          setpending(true);
+          break;
+        } else {
+          setpending(false);
+        }
+      }
+    }
+    console.log(appoint);
+  };
   useEffect(() => {
     user = getUser();
+    getPending();
   }, []);
   return (
     <div className="shadow-lg max-w-full h-16 bg-blue-500 flex navbar">
@@ -68,6 +89,14 @@ export default function Navbar({
                   />
                 </svg>
               </Link>
+              {pending ? (
+                <span class="flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-orange-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+                </span>
+              ) : (
+                <></>
+              )}
             </button>
           ) : (
             <></>

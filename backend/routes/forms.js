@@ -89,7 +89,8 @@ router.post("/edit/save/:id", (req, res, next) => {
 router.post("/publish", (req, res, next) => {
   if (req.user) {
     const id = req.body.id;
-    var sql = `UPDATE allforms SET publish = 'pending' WHERE id=${id};`;
+    const approver = req.body.approvers;
+    var sql = `UPDATE allforms SET publish = 'pending', appointed_to='${approver}' WHERE id=${id};`;
     database.query(sql, (err, doc) => {
       if (err) {
         res.send({ status: "error", text: "some database error happened" });
