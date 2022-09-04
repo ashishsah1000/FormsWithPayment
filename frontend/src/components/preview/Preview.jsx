@@ -7,6 +7,7 @@ import {
   modifyForm,
   submitForm,
   publishForm,
+  approveForm,
 } from "../../axios/forms";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -129,8 +130,20 @@ export default function Preview({
     // }
   };
 
+  // handle approve only for the approver
+  const handleApprove = async (id) => {
+    var res = approveForm(id);
+    console.log(res);
+    navigate("/forms");
+  };
+
   useEffect(() => {
-    if (mode == "edit" || mode == "submit" || mode == "publish") {
+    if (
+      mode == "edit" ||
+      mode == "submit" ||
+      mode == "publish" ||
+      mode == "approve"
+    ) {
       const something = searchForm(id);
       if (something.length > 0)
         dispatch(changePreviewComponents(something.data));
@@ -601,7 +614,12 @@ export default function Preview({
           <></>
         )}
         {mode == "approve" ? (
-          <button className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto">
+          <button
+            className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+            onClick={() => {
+              handleApprove(id);
+            }}
+          >
             &nbsp;Approve &nbsp;
             <LockClosedIcon className="h-6 " />
           </button>

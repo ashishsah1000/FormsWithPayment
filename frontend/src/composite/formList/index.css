@@ -20,3 +20,7 @@
 .pending {
     background-color: bisque;
 }
+
+.approved {
+    background-color: rgb(17, 148, 153);
+}

@@ -170,4 +170,27 @@ router.get("/all", (req, res, next) => {
   });
 });
 
+// let delete user if it has admin
+
+router.get("/delete/:id", (req, res, next) => {
+  if (req.user) {
+    var id = req.params.id;
+    var sql = `DELETE FROM users WHERE user_id=${id}`;
+    database.query(sql, (err, docs) => {
+      if (err) {
+        console.log(err);
+        res.send({ status: "failure", msg: "Database error" });
+      } else {
+        console.log(docs);
+        res.status(200).send({
+          status: "failed",
+          text: "User was deleted successfully",
+        });
+      }
+    });
+  } else {
+    res.send({ status: "failure", msg: "Autherazation Error" });
+  }
+});
+
 module.exports = router;

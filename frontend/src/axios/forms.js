@@ -172,11 +172,28 @@ export const publishForm = async (id) => {
 
 // get all the forms that has the pending status for publisher and checker
 export const allFormToApprove = async () => {
-  const url = baseUrl + `/forms/approve/`;
+  const url = baseUrl + `/forms/all/approve`;
   var data = "";
   await axios({
     method: "GET",
     withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};
+
+// approve a form only for approver
+export const approveForm = async (id) => {
+  const url = baseUrl + `/forms/approve/${id}`;
+  var data = "";
+  await axios({
+    method: "POST",
+    withCredentials: "true",
+    data: { id: id },
     url: url,
   }).then((res) => {
     if (res) {

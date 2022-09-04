@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createError } from "../../features/component/components";
 import { TrashIcon, PlusCircleIcon } from "@heroicons/react/solid/";
 import { Link } from "react-router-dom";
-
+import { deleteSpecificUser } from "../../axios/users";
+import { getUser } from "../../localStorage/users";
 // get all the users from axios
 export default function Users() {
   // this will show users and provide options to delete and add a user
@@ -32,6 +33,28 @@ export default function Users() {
     }
     console.log(res);
   };
+  // delete a user if admin has the authority
+  const deleteUser = async (id) => {
+    var res = await deleteSpecificUser(id);
+    if (res.status == "success") {
+      dispatch(
+        createError({
+          type: "success",
+          text: res.text,
+        })
+      );
+      getData();
+    } else {
+      dispatch(
+        createError({
+          type: "warning",
+          text: res.text,
+        })
+      );
+    }
+  };
+
+  var user = getUser();
 
   useEffect(() => {
     getData();
@@ -54,22 +77,27 @@ export default function Users() {
               <div className="p-3">Role</div>
             </div> */}
             {data.map((x, i) => {
-              return (
-                <div className="flex w-full flex-wrap shadow-md bg-gray-50 hover:bg-violet-100 text-gray-800  my-2">
-                  <div className="grow flex">
-                    <div className="p-3 mr-6">{i + 1}</div>
-                    <div className="p-3 mr-6 font-bold">{x.username}</div>
-                    <div className="p-3 mr-6 ">{x.email}</div>
-                    <div className="p-3 mr-6">{x.created_on}</div>
-                    <div className="p-3 mr-6">{x.role}</div>
+              if (x.username !== user.username)
+                return (
+                  <div className="flex w-full flex-wrap shadow-md bg-gray-50 hover:bg-violet-100 text-gray-800  my-2">
+                    <div className="grow flex">
+                      <div className="p-3 mr-6">{i + 1}</div>
+                      <div className="p-3 mr-6 font-bold">{x.username}</div>
+                      <div className="p-3 mr-6 ">{x.email}</div>
+                      <div className="p-3 mr-6">{x.created_on}</div>
+                      <div className="p-3 mr-6">{x.role}</div>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => {
+                          deleteUser(x.user_id);
+                        }}
+                      >
+                        <TrashIcon className="h-6 text-red-700 hover:animate-bounce" />
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <button>
-                      <TrashIcon className="h-6 text-red-700 hover:animate-bounce" />
-                    </button>
-                  </div>
-                </div>
-              );
+                );
             })}
           </div>
         </>

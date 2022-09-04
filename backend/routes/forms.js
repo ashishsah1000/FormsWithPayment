@@ -25,7 +25,6 @@ router.post("/create", function (req, res, next) {
   createConnection();
   var email = req.user.email;
   var createdId = "";
-  console.log("here in forms", req.body);
   var sql = `INSERT INTO allforms (title,description,email,forms,createon) VALUES ('${
     req.body.title
   }','${req.body.description}','${email}','${JSON.stringify(
@@ -37,7 +36,6 @@ router.post("/create", function (req, res, next) {
       res.status(404).send({ data: "error", text: "some error happened" });
     } else {
       createdId = results.rowCount;
-      console.log("send via sql after inserting", results);
     }
     res.status(200).send({
       status: "success",
@@ -50,8 +48,6 @@ router.post("/create", function (req, res, next) {
 
 /* GET home page. */
 router.post("/create", function (req, res, next) {
-  console.log(req.body);
-
   //   add index to the form and save the data
   res.send("recive the form data");
 });
@@ -65,10 +61,8 @@ router.get("/edit/:id", (req, res, next) => {
   var sql = `SELECT * FROM allforms WHERE id=${id};`;
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error");
     } else {
-      console.log("fetched data", doc.rows);
       res.send(doc.rows);
     }
   });
@@ -76,7 +70,6 @@ router.get("/edit/:id", (req, res, next) => {
 // modify the existing form
 
 router.post("/edit/save/:id", (req, res, next) => {
-  console.log(req.body);
   const id = req.params.id;
   var sql = `UPDATE allforms SET forms = '${JSON.stringify(
     req.body.data
@@ -85,10 +78,8 @@ router.post("/edit/save/:id", (req, res, next) => {
   }' WHERE id=${id};`;
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send({ status: "error" });
     } else {
-      console.log("fetched data", doc);
       res.send({ status: "success", data: doc });
     }
   });
@@ -96,33 +87,31 @@ router.post("/edit/save/:id", (req, res, next) => {
 
 // update publish
 router.post("/publish", (req, res, next) => {
-  const id = req.body.id;
-  console.log("we are reciving this id", id);
-  var sql = `UPDATE allforms SET publish = 'pending' WHERE id=${id};`;
-  database.query(sql, (err, doc) => {
-    if (err) {
-      console.log(err);
-      res.send({ status: "error", text: "some database error happened" });
-    } else {
-      console.log("fetched data", doc);
-      res.send({ status: "success" });
-    }
-  });
+  if (req.user) {
+    const id = req.body.id;
+    var sql = `UPDATE allforms SET publish = 'pending' WHERE id=${id};`;
+    database.query(sql, (err, doc) => {
+      if (err) {
+        res.send({ status: "error", text: "some database error happened" });
+      } else {
+        res.send({ status: "success" });
+      }
+    });
+  } else {
+    res.status(400).send({ status: "failed", text: "user was unathorized" });
+  }
 });
 
 // get all forms if they are pending for a user
-router.get("/approve", (req, res, next) => {
+router.get("/all/approve", (req, res, next) => {
   if (req.user) {
     // has to be checker and admin
-    console.log(req.user.role);
     if (req.user.role == "admin" || req.user.role == "checker") {
       var sql = `SELECT * from allforms WHERE publish='pending';`;
       database.query(sql, (err, doc) => {
         if (err) {
-          console.log(err);
           res.send({ status: "error", text: "some database error happened" });
         } else {
-          console.log("fetched data", doc);
           res.send({ status: "success", data: doc.rows });
         }
       });
@@ -130,6 +119,30 @@ router.get("/approve", (req, res, next) => {
       res
         .status(400)
         .send({ status: "failed", text: "user was Checker or admin" });
+    }
+  } else {
+    res.status(400).send({ status: "failed", text: "user was unathorized" });
+  }
+});
+
+// approve a specfic form if has the approver authority
+router.post("/approve/:id", (req, res, next) => {
+  if (req.user) {
+    if (req.user.role == "admin" || req.user.role == "checker") {
+      const id = req.body.id;
+      console.log("we are reciving this id", id);
+      var sql = `UPDATE allforms SET publish = 'approved' WHERE id=${id};`;
+      database.query(sql, (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.send({ status: "error", text: "some database error happened" });
+        } else {
+          console.log("fetched data", doc);
+          res.send({ status: "success" });
+        }
+      });
+    } else {
+      res.status(400).send({ status: "failed", text: "user was unathorized" });
     }
   } else {
     res.status(400).send({ status: "failed", text: "user was unathorized" });
@@ -146,10 +159,8 @@ router.get("/all", (req, res, next) => {
   // createConnection();
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error");
     } else {
-      console.log("fetched data", doc);
       res.send(doc.rows);
     }
   });
@@ -162,10 +173,8 @@ router.get("/delete/:id", (req, res, next) => {
   var sql = `DELETE FROM allforms WHERE id=${id}`;
   database.query(sql, [], (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error from database");
     } else {
-      console.log("deleted the", id);
       res.send("success");
     }
   });
@@ -173,7 +182,6 @@ router.get("/delete/:id", (req, res, next) => {
 
 // collecting the response from the user
 router.post("/submit/response", function (req, res, next) {
-  console.log(req.body);
   var email = req.body.email;
   var userid = 100; // todo it has to be user login id
   var formid = parseInt(req.body.formid);
@@ -181,12 +189,9 @@ router.post("/submit/response", function (req, res, next) {
     req.body.form
   )}' WHERE email='${email}';`;
   database.query(sql, (err, results) => {
-    console.log("Executing querry");
     if (err) {
-      console.log("some error", err);
       res.send({ data: "error", text: "some error happened" });
     } else {
-      console.log(results);
       res.send({
         status: "success",
         text: "Response was added succesfully",
@@ -227,10 +232,8 @@ router.get("/response/all/:id", (req, res, next) => {
   var sql = `SELECT * FROM formresponse WHERE formid = '${id}';`;
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error");
     } else {
-      console.log("fetched data", doc);
       res.send(doc.rows);
     }
   });
@@ -244,10 +247,8 @@ router.get("/response/:id", (req, res, next) => {
   var sql = `SELECT * FROM formresponse WHERE id = '${id}';`;
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error");
     } else {
-      console.log("fetched data", doc.rows);
       res.send(doc.rows);
     }
   });
@@ -259,10 +260,8 @@ router.get("/response/delete/:id", (req, res, next) => {
   var sql = `DELETE FROM formresponse WHERE id=${id}`;
   database.query(sql, [], (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error from database");
     } else {
-      console.log("deleted the", id);
       res.send("success");
     }
   });
@@ -274,12 +273,10 @@ router.get("/response/delete/:id", (req, res, next) => {
 // this will be the response on form on other users
 
 router.post("/collect/response/:id", function (req, res, next) {
-  console.log("from collect response", req.body);
   var id = req.params.id;
   var sql = `SELECT * FROM formresponse WHERE formid = '${id}' AND email= '${req.body.username}';`;
   database.query(sql, (err, doc) => {
     if (err) {
-      console.log(err);
       res.send("error");
     } else {
       if (doc.rows.length == 0) {
@@ -292,12 +289,9 @@ router.post("/collect/response/:id", function (req, res, next) {
           []
         )}',NOW());`;
         database.query(sql2, (err, results) => {
-          console.log("Executing 2nd  querry");
           if (err) {
-            console.log("some error", err);
             res.send({ data: "error", text: "some error happened" });
           } else {
-            console.log(results);
             res.send({
               status: "success",
               text: "Username was added succesfully",
@@ -305,7 +299,6 @@ router.post("/collect/response/:id", function (req, res, next) {
           }
         });
       } else {
-        console.log("fetched data", doc.rows);
         res.send(doc.rows[0]);
       }
     }

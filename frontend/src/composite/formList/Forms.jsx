@@ -13,7 +13,7 @@ import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { previewSlice, setPreviewFor } from "../../features/preview/preview";
 import { createError } from "../../features/component/components";
-
+import moment from "moment";
 export default function Forms() {
   const [loggedin, setloggedin] = useState(false);
   const [data, setData] = useState([]);
@@ -63,85 +63,110 @@ export default function Forms() {
                 </h1> */}
               </div>
               <div className="w-full flex flex-wrap">
-                {data.map((x) => {
-                  return (
-                    <div
-                      className={`mx-auto text-gray-700 w-96 flex flex-col forms-tiles hover:animate-glow p-2 my-3 rounded drop-shadow-lg ${x.publish}`}
-                    >
-                      <div className="grow  p-3 font-bold text-xl">
-                        {x.title ? x.title : "No title"}
-                        <br></br>
-                        <span className="text-sm text-gray-900 font-thin">
-                          <b>Created On</b> : {x.createon}
-                        </span>
-                      </div>
-                      <div className="index-button flex felx-wrap">
-                        <div className="grow flex flex-wrap ">
-                          <Link to={`/preview/${x.id}`}>
-                            <button
-                              className="drop-shadow-sm bg-gray-50 mx-1 my-3"
-                              onClick={(e) => {
-                                dispatch(setPreviewFor(x.id));
-                              }}
-                              title="admin response"
-                            >
-                              <PrinterIcon className="h-4 " />
-                            </button>
-                          </Link>
-                          {x.publish == "true" ? (
-                            <Link
-                              to={`/collect/response/${x.id}`}
-                              target={"_blank"}
-                            >
-                              <button
-                                className="drop-shadow-sm bg-orange-700 text-orange-100 mx-1 my-3 "
-                                onClick={(e) => {
-                                  dispatch(setPreviewFor(x.id));
-                                }}
-                                title="Users Response"
-                              >
-                                <ShareIcon className="h-4 " />
-                              </button>
-                            </Link>
-                          ) : (
-                            <></>
-                          )}
-                          {x.publish == "true" ? (
-                            <Link to={`/all/response/${x.id}`}>
-                              <button
-                                className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
-                                onClick={(e) => {}}
-                              >
-                                <EyeIcon className="h-4 " />
-                              </button>
-                            </Link>
-                          ) : (
-                            <></>
-                          )}
-
-                          <Link to={`/edit/${x.id}`}>
-                            <button
-                              className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
-                              onClick={(e) => {}}
-                            >
-                              <PencilIcon className="h-4 " />
-                            </button>
-                          </Link>
-                        </div>
-                        <div>
-                          <button
-                            className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
-                            onClick={(e) => {
-                              handleDelete(x.id);
-                            }}
+                <table class="table-auto w-full rounded shadow-lg">
+                  <thead className="p-3 rounded">
+                    <tr className="bg-gray-900 text-blue-100">
+                      <th align="center" className="p-3">
+                        Index
+                      </th>
+                      <th className="p-3">Title</th>
+                      <th className="p-3">Status</th>
+                      <th className="p-3">Created On</th>
+                      <th className="p-3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((x, i) => {
+                      return (
+                        <tr
+                          className={`duration-150 ease-in-out  text-gray-800 ${
+                            x.publish == "approved" ? "bg-green-100" : ""
+                          } ${x.publish == "pending" ? "bg-yellow-100" : ""} `}
+                        >
+                          <td align="center" className="p-3">
+                            {i + 1}
+                          </td>
+                          <td align="center" className="p-3 font-bold">
+                            {x.title.toUpperCase()}
+                          </td>
+                          <td align="center" className="p-3">
+                            {x.publish}
+                          </td>
+                          <td align="center" className="p-3">
+                            {moment(x.createon, "YYYYMMDD")
+                              .add(1, "days")
+                              .format("MMM Do YY")}
+                          </td>
+                          <td
+                            align="right"
+                            className="p-3 flex flex-wrap flex-row-reverse "
                           >
-                            <TrashIcon className="h-4 " />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                            <div className="flex ">
+                              <Link to={`/preview/${x.id}`}>
+                                <button
+                                  className="drop-shadow-sm bg-gray-50 mx-1 my-3"
+                                  onClick={(e) => {
+                                    dispatch(setPreviewFor(x.id));
+                                  }}
+                                  title="admin response"
+                                >
+                                  <PrinterIcon className="h-4 " />
+                                </button>
+                              </Link>
+                              {x.publish == "approved" ? (
+                                <Link
+                                  to={`/collect/response/${x.id}`}
+                                  target={"_blank"}
+                                >
+                                  <button
+                                    className="drop-shadow-sm bg-orange-500 text-orange-100 mx-1 my-3 "
+                                    onClick={(e) => {
+                                      dispatch(setPreviewFor(x.id));
+                                    }}
+                                    title="Users Response"
+                                  >
+                                    <ShareIcon className="h-4 " />
+                                  </button>
+                                </Link>
+                              ) : (
+                                <></>
+                              )}
+                              {x.publish == "approved" ? (
+                                <Link to={`/all/response/${x.id}`}>
+                                  <button
+                                    className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
+                                    onClick={(e) => {}}
+                                  >
+                                    <EyeIcon className="h-4 " />
+                                  </button>
+                                </Link>
+                              ) : (
+                                <></>
+                              )}
+
+                              <Link to={`/edit/${x.id}`}>
+                                <button
+                                  className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
+                                  onClick={(e) => {}}
+                                >
+                                  <PencilIcon className="h-4 " />
+                                </button>
+                              </Link>
+                              <button
+                                className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
+                                onClick={(e) => {
+                                  handleDelete(x.id);
+                                }}
+                              >
+                                <TrashIcon className="h-4 " />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </>
           ) : (

@@ -74,3 +74,23 @@ export const getAllUser = async () => {
     });
   return response;
 };
+
+//delete a specific user if you are admin
+export const deleteSpecificUser = async (id) => {
+  const url = baseUrl + `/delete/${id}`;
+  let response = "";
+  await axios({
+    method: "GET",
+    withCredentials: true,
+    url: url,
+  })
+    .then((res) => {
+      console.log(res);
+      response = res.data;
+      return response;
+    })
+    .catch((err) => {
+      response = { status: "error", text: "some error occured" };
+    });
+  return response;
+};

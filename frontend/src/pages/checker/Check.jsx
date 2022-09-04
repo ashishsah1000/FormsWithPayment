@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { allFormToApprove } from "../../axios/forms";
 import { Link } from "react-router-dom";
+import moment from "moment";
+
 import {
   CheckCircleIcon,
   TrashIcon,
@@ -49,7 +51,7 @@ export default function Check() {
                   <tbody>
                     {data.map((x, i) => {
                       return (
-                        <tr className="hover:bg-blue-100 text-gray-800">
+                        <tr className="duration-150 ease-in-out hover:bg-blue-100 text-gray-800">
                           <td align="center" className="p-3">
                             {i + 1}
                           </td>
@@ -60,10 +62,15 @@ export default function Check() {
                             {x.email}
                           </td>
                           <td align="center" className="p-3">
-                            {x.createon}
+                            {moment(x.createon, "YYYYMMDD")
+                              .add(1, "days")
+                              .format("MMM Do YY")}
                           </td>
-                          <td align="right" className="p-3 flex flex-wrap ">
-                            <div className="flex mx-auto">
+                          <td
+                            align="right"
+                            className="p-3 flex flex-wrap flex-row-reverse "
+                          >
+                            <div className="flex ">
                               <Link to={`/approve/preview/${x.id}`}>
                                 <button className="drop-shadow-sm bg-gray-50 mx-1 my-3 bg-blue-700 text-blue-100">
                                   <PrinterIcon className="h-4 " />
