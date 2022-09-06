@@ -202,3 +202,19 @@ export const approveForm = async (id) => {
   });
   return data;
 };
+// approve a form only for approver
+export const deapproveForm = async (id) => {
+  const url = baseUrl + `/forms/deapprove/${id}`;
+  var data = "";
+  await axios({
+    method: "POST",
+    withCredentials: "true",
+    data: { id: id },
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};

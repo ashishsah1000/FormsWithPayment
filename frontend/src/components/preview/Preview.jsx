@@ -8,6 +8,7 @@ import {
   submitForm,
   publishForm,
   approveForm,
+  deapproveForm
 } from "../../axios/forms";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -151,6 +152,11 @@ export default function Preview({
 
   const handleApprove = async (id) => {
     var res = approveForm(id);
+    console.log(res);
+    navigate("/forms");
+  };
+  const handleDeapprove = async (id) => {
+    var res = deapproveForm(id);
     console.log(res);
     navigate("/forms");
   };
@@ -645,6 +651,15 @@ export default function Preview({
               }}
             >
               &nbsp;Approve &nbsp;
+              <CheckCircleIcon className="h-6 " />
+            </button>
+            <button
+              className="drop-shadow-sm font-bold text-gray-50 bg-red-600 my-6 mx-auto"
+              onClick={() => {
+                handleDeapprove(id);
+              }}
+            >
+              &nbsp;Deapprove &nbsp;
               <CheckCircleIcon className="h-6 " />
             </button>
           </>

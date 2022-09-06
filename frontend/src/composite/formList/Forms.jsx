@@ -81,7 +81,7 @@ export default function Forms() {
                         <tr
                           className={`duration-150 ease-in-out  text-gray-800 ${
                             x.publish == "approved" ? "bg-green-100" : ""
-                          } ${x.publish == "pending" ? "bg-yellow-100" : ""} `}
+                          } ${x.publish == "pending" ? "bg-yellow-100" : ""} ${x.publish == "deapproved" ? "bg-red-200" : ""} `}
                         >
                           <td align="center" className="p-3">
                             {i + 1}

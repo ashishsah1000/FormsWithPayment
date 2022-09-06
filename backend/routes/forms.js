@@ -149,6 +149,29 @@ router.post("/approve/:id", (req, res, next) => {
     res.status(400).send({ status: "failed", text: "user was unathorized" });
   }
 });
+// approve a specfic form if has the approver authority
+router.post("/deapprove/:id", (req, res, next) => {
+  if (req.user) {
+    if (req.user.role == "admin" || req.user.role == "checker") {
+      const id = req.body.id;
+      console.log("we are reciving this id", id);
+      var sql = `UPDATE allforms SET publish = 'deapproved' WHERE id=${id};`;
+      database.query(sql, (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.send({ status: "error", text: "some database error happened" });
+        } else {
+          console.log("fetched data", doc);
+          res.send({ status: "success" });
+        }
+      });
+    } else {
+      res.status(400).send({ status: "failed", text: "user was unathorized" });
+    }
+  } else {
+    res.status(400).send({ status: "failed", text: "user was unathorized" });
+  }
+});
 
 // get all the forms
 

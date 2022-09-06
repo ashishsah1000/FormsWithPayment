@@ -5,14 +5,14 @@ const database = new Client({
   host: "localhost",
   database: "formsnode",
   password: "admin",
-  port: 5001,
+  port: 5432,
 });
 const pgPool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "formsnode",
   password: "admin",
-  port: 5001,
+  port: 5432,
 });
 
 database.connect((err) => {
