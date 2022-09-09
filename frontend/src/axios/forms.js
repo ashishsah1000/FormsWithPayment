@@ -185,6 +185,22 @@ export const allFormToApprove = async () => {
   });
   return data;
 };
+// get all form that has been approved
+export const allApproved = async () => {
+  const url = baseUrl + `/forms/all/approved`;
+  var data = "";
+  await axios({
+    method: "GET",
+    withCredentials: "true",
+    url: url,
+  }).then((res) => {
+    if (res) {
+      data = res;
+      console.log("from approved response",res)
+    } else data = { type: "error", text: "some error has happened" };
+  });
+  return data;
+};
 
 // approve a form only for approver
 export const approveForm = async (id) => {

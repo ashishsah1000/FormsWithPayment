@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ArchiveIcon,
   CogIcon,
-  PencilIcon,
+  LightningBoltIcon,
   ClipboardDocument,
 } from "@heroicons/react/solid/";
 import { logOut } from "../../axios/users";
@@ -106,6 +106,15 @@ export default function Navbar({
             <button className="mx-3">
               <Link to="/users/all">
                 <CogIcon className="h-6  mx-3" />
+              </Link>
+            </button>
+          ) : (
+            <></>
+          )}
+          {user?.role == "publisher" ? (
+            <button className="mx-3">
+              <Link to="/approve/all">
+                <LightningBoltIcon className="h-6  mx-3" />
               </Link>
             </button>
           ) : (

@@ -52,6 +52,7 @@ export default function Register() {
     { value: "checker", label: "Checker" },
     { value: "admin", label: "Admin" },
     { value: "creator", label: "Creator" },
+    { value: "publisher", label: "Publisher" },
   ];
   const handleOptionChange = (selectedOption) => {
     setroles(selectedOption.value);

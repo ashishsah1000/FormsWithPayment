@@ -4,7 +4,7 @@ import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { MainPreview, Login, UserResponse, Users, Check } from "../";
+import { MainPreview, Login, UserResponse, Users, Check, Publisher } from "../";
 import AllResponse from "../submit/AllResponse";
 import Response from "../submit/Response";
 import { getUser } from "../../localStorage/users";
@@ -90,6 +90,13 @@ export default function Home() {
                     path="/approve/preview/:id"
                     element={<MainPreview mode="approve" />}
                   />
+                </>
+              ) : (
+                <></>
+              )}
+              {user.role == "publisher" || user.role == "admin" ? (
+                <>
+                  <Route path="/approve/all" element={<Publisher mode="publish" />} />
                 </>
               ) : (
                 <></>

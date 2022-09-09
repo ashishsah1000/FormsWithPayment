@@ -125,6 +125,30 @@ router.get("/all/approve", (req, res, next) => {
     res.status(400).send({ status: "failed", text: "user was unathorized" });
   }
 });
+// get all forms that are approved so that user can publish and get response on the forms
+router.get("/all/approved", (req, res, next) => {
+  if (req.user) {
+    // has to be publisher and admin
+    console.log("req user is",req.user)
+    if (req.user.role == "admin" || req.user.role == "publisher") {
+      var sql = `SELECT * from allforms WHERE publish='approved';`;
+      database.query(sql, (err, doc) => {
+        if (err) {
+          res.send({ status: "error", text: "some database error happened" });
+        } else {
+          console.log(doc.rows)
+          res.send({ status: "success", data: doc.rows });
+        }
+      });
+    } else {
+      res
+        .status(400)
+        .send({ status: "failed", text: "user was Checker or admin" });
+    }
+  } else {
+    res.status(400).send({ status: "failed", text: "user was unathorized" });
+  }
+});
 
 // approve a specfic form if has the approver authority
 router.post("/approve/:id", (req, res, next) => {

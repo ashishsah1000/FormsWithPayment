@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { getAllForm, deleteForm, getForm } from "../../axios/forms";
+import {
+  getAllForm,
+  deleteForm,
+  getForm,
+  allApproved,
+} from "../../axios/forms";
 import {
   PencilIcon,
   TrashIcon,
@@ -14,13 +19,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { previewSlice, setPreviewFor } from "../../features/preview/preview";
 import { createError } from "../../features/component/components";
 import moment from "moment";
-export default function Forms() {
+
+export default function Forms({ mode = "" }) {
   const [loggedin, setloggedin] = useState(false);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
   const getforms = async () => {
-    var newData = await getAllForm();
+    console.log(mode);
+    if (mode == "publish") {
+      console.log("in publish mode");
+      var newData = await allApproved();
+      console.log(newData);
+      setData([...newData.data.data]);
+    } else {
+      var newData = await getAllForm();
+      console.log(newData);
+      setData([...newData.data]);
+    }
+
     console.log(newData);
     setData([...newData.data]);
   };
@@ -81,7 +98,9 @@ export default function Forms() {
                         <tr
                           className={`duration-150 ease-in-out  text-gray-800 ${
                             x.publish == "approved" ? "bg-green-100" : ""
-                          } ${x.publish == "pending" ? "bg-yellow-100" : ""} ${x.publish == "deapproved" ? "bg-red-200" : ""} `}
+                          } ${x.publish == "pending" ? "bg-yellow-100" : ""} ${
+                            x.publish == "deapproved" ? "bg-red-200" : ""
+                          } `}
                         >
                           <td align="center" className="p-3">
                             {i + 1}
@@ -102,18 +121,25 @@ export default function Forms() {
                             className="p-3 flex flex-wrap flex-row-reverse "
                           >
                             <div className="flex ">
-                              <Link to={`/preview/${x.id}`}>
-                                <button
-                                  className="drop-shadow-sm bg-gray-50 mx-1 my-3"
-                                  onClick={(e) => {
-                                    dispatch(setPreviewFor(x.id));
-                                  }}
-                                  title="admin response"
-                                >
-                                  <PrinterIcon className="h-4 " />
-                                </button>
-                              </Link>
-                              {x.publish == "approved" ? (
+                              {mode !== "publish" ? (
+                                <>
+                                  <Link to={`/preview/${x.id}`}>
+                                    <button
+                                      className="drop-shadow-sm bg-gray-50 mx-1 my-3"
+                                      onClick={(e) => {
+                                        dispatch(setPreviewFor(x.id));
+                                      }}
+                                      title="admin response"
+                                    >
+                                      <PrinterIcon className="h-4 " />
+                                    </button>
+                                  </Link>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+
+                              {x.publish == "approved" && mode == "publish" ? (
                                 <Link
                                   to={`/collect/response/${x.id}`}
                                   target={"_blank"}
@@ -131,7 +157,7 @@ export default function Forms() {
                               ) : (
                                 <></>
                               )}
-                              {x.publish == "approved" ? (
+                              {x.publish == "approved" && mode == "publish" ? (
                                 <Link to={`/all/response/${x.id}`}>
                                   <button
                                     className="drop-shadow-sm bg-green-700 text-blue-100 mx-1 my-3"
@@ -143,23 +169,34 @@ export default function Forms() {
                               ) : (
                                 <></>
                               )}
-
-                              <Link to={`/edit/${x.id}`}>
-                                <button
-                                  className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
-                                  onClick={(e) => {}}
-                                >
-                                  <PencilIcon className="h-4 " />
-                                </button>
-                              </Link>
-                              <button
-                                className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
-                                onClick={(e) => {
-                                  handleDelete(x.id);
-                                }}
-                              >
-                                <TrashIcon className="h-4 " />
-                              </button>
+                              {mode !== "publish" ? (
+                                <>
+                                  <Link to={`/edit/${x.id}`}>
+                                    <button
+                                      className="drop-shadow-sm bg-blue-900 text-blue-100 mx-1 my-3"
+                                      onClick={(e) => {}}
+                                    >
+                                      <PencilIcon className="h-4 " />
+                                    </button>
+                                  </Link>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {mode !== "publish" ? (
+                                <>
+                                  <button
+                                    className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
+                                    onClick={(e) => {
+                                      handleDelete(x.id);
+                                    }}
+                                  >
+                                    <TrashIcon className="h-4 " />
+                                  </button>
+                                </>
+                              ) : (
+                                <></>
+                              )}
                             </div>
                           </td>
                         </tr>
