@@ -25,11 +25,12 @@ export default function Publish({ mode = "" }) {
   const handleCreateForm = async () => {
     var res = await createForm(title, description, preview);
     // if res is success redirect to other
+    console.log("we are responding", res);
     if (res.status == "success") {
       console.log("pushing into history should be redirect");
       changePreviewComponents(res.data);
       // navigate(`/edit/${res.id}`);
-      navigate("/forms");
+      navigate(`/edit/:${res.id}`);
       dispatch(
         createError({ text: "Form created successfully!", type: "success" })
       );
@@ -66,10 +67,12 @@ export default function Publish({ mode = "" }) {
   return (
     <>
       <div className="mt-6 p-3 mx-auto">
-        <h1 className="font-xl font-bold my-3">Form info</h1>
+        <h1 className="text-2xl font-thin my-6 text-gray-500 " align="center">
+          Create / Modify / Udpate a form
+        </h1>
 
         <input
-          className="p-2 m-auto w-11/12"
+          className="p-3 m-auto w-11/12 border focus:border-blue-900 border-gray-300 ease-in duration-300  rounded"
           type="text"
           placeholder="Form title"
           maxlength="50"
@@ -77,7 +80,7 @@ export default function Publish({ mode = "" }) {
           onChange={(e) => settitle(e.target.value)}
         />
         <textarea
-          className="w-11/12 mt-3 p-2 text-sm"
+          className="w-11/12 mt-3 p-3 text-sm border focus:border-blue-900 border-gray-300 ease-in duration-300  rounded"
           placeholder="Enter description"
           defaultValue={description}
           onChange={(e) => setdescription(e.target.value)}

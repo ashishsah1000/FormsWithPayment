@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getResponse } from "../../axios/forms";
+import { getResponse, getForm } from "../../axios/forms";
 import { TextBoxView, OptionView, Rating } from "../../components";
 
 export default function Response() {
@@ -12,13 +12,23 @@ export default function Response() {
   const formData = useSelector((state) => state.preview.responses);
   const fetchData = async () => {
     var newData = await getResponse(id);
-    // we are not getting title and description as it is not in response table
-    console.log(
-      "🚀 ~ file: response.jsx ~ line 22 ~ getforms ~ newData",
-      newData.data[0]
-    );
+    // this will update the desired title and description of the form
+    searchForm(newData.data[0].formid);
 
     setData([...newData.data]);
+  };
+
+  const [mainTitle, settitle] = useState("");
+  const [mainDescription, setdescription] = useState("");
+  const searchForm = async (id) => {
+    var res = await getForm(id);
+    console.log("your id", id, "My response", res);
+    if (res !== "error") {
+      settitle(res.data[0].title);
+      setdescription(res.data[0].description);
+    } else {
+      console.log("unable to fetch data");
+    }
   };
 
   useEffect(() => {
@@ -29,8 +39,8 @@ export default function Response() {
       <div className=" w-11/12 lg:max-w-6xl bg-grey-100 text-gray-700 shadow-lg   preview ">
         <div className="title">
           <div className="content">
-            <h1 className="text-4xl font-bold my-4">Title of the Form</h1>
-            <h3>Some other information</h3>
+            <h1 className="text-4xl font-bold my-4">{mainTitle}</h1>
+            <h3>{mainDescription}</h3>
           </div>
         </div>
         <div className="p-6 text-gray-600 user-response">

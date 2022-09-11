@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Chips } from "../../components";
+import { Navbar, Chips, SideNav } from "../../components";
 import { Creator, Forms } from "../../composite/";
 import { useDispatch, useSelector } from "react-redux";
 import "./home.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { MainPreview, Login, UserResponse, Users, Check, Publisher } from "../";
+import {
+  MainPreview,
+  Login,
+  UserResponse,
+  Users,
+  Check,
+  Publisher,
+  Create,
+} from "../";
 import AllResponse from "../submit/AllResponse";
 import Response from "../submit/Response";
 import { getUser } from "../../localStorage/users";
@@ -38,7 +46,7 @@ export default function Home() {
   useEffect(() => {
     user = getUser();
     if (user) {
-      navigate("/");
+      // navigate("/");
     }
   }, []);
 
@@ -62,7 +70,9 @@ export default function Home() {
       </div>
       <div className="my-6" style={{ marginTop: "90px" }}>
         <Routes>
-          <Route path="/create" element={<Creator />} />
+          {/* <Route path="/create" element={<Creator />} /> */}
+          <Route path="/create" element={<Create />} />
+          <Route path="/create/new" element={<Create />} />
           <Route path="/edit/:id" element={<Creator mode="edit" />} />
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
@@ -96,7 +106,10 @@ export default function Home() {
               )}
               {user.role == "publisher" || user.role == "admin" ? (
                 <>
-                  <Route path="/approve/all" element={<Publisher mode="publish" />} />
+                  <Route
+                    path="/approve/all"
+                    element={<Publisher mode="publish" />}
+                  />
                 </>
               ) : (
                 <></>

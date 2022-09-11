@@ -8,8 +8,10 @@ import { EyeIcon, TrashIcon } from "@heroicons/react/solid/";
 import { createError } from "../../features/component/components";
 export default function AllResponse() {
   const [data, setData] = useState([]);
+
   let { id } = useParams();
   var dispatch = useDispatch();
+
   const fetchData = async () => {
     var newData = await getAllResponse(id);
     console.log(

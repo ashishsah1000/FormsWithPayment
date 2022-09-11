@@ -1,8 +1,19 @@
 .left-container {
-    width: 75% !important;
+    width: 80% !important;
 }
 
 .right-container {
     width: 22%;
-    height: 50vh;
+    height: 100vh;
+    right: 0px;
+    top:0px;
+    position: absolute;
+}
+.modal-create{
+    position: absolute;
+    top:0px;
+    width: 100vw;
+    height: 100vh;
+    background:rgba(22,22,22,.5);
+    overflow: hidden;
 }

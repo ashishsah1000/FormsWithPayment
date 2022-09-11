@@ -8,7 +8,7 @@ import {
   submitForm,
   publishForm,
   approveForm,
-  deapproveForm
+  deapproveForm,
 } from "../../axios/forms";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -191,7 +191,7 @@ export default function Preview({
   if (fetching) return <>Your data is being fetched</>;
 
   return (
-    <div className=" w-11/12 lg:max-w-6xl bg-grey-100 shadow-lg   preview ">
+    <div className=" w-11/12 lg:max-w-6xl  preview ">
       <div className="title">
         <div className="content">
           <h1 className="text-4xl font-bold my-4">
@@ -203,11 +203,11 @@ export default function Preview({
 
       <div className="form-data"></div>
 
-      <div className="p-6 bg-gray-100 rounded">
+      <div className="rounded">
         {preview.map((x, i) => {
           if (x.type == "rating") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -253,7 +253,7 @@ export default function Preview({
           }
           if (x.type == "textarea") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -304,7 +304,7 @@ export default function Preview({
           }
           if (x.type == "datepick") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -350,7 +350,7 @@ export default function Preview({
           }
           if (x.type == "file") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -384,7 +384,7 @@ export default function Preview({
           }
           if (x.type == "options") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements bg-gray-100 p-6">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -435,7 +435,7 @@ export default function Preview({
           }
           if (x.type == "radio") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -486,7 +486,7 @@ export default function Preview({
           }
           if (x.type == "textbox") {
             return (
-              <div className="preview-elements my-6">
+              <div className="preview-elements p-6 bg-gray-100">
                 {mode == "edit" || mode == "create" ? (
                   <>
                     <div className="delete-holder">
@@ -544,7 +544,7 @@ export default function Preview({
           if (x.type == "section") {
             return (
               <div
-                className={`my-6 preview-elements  sectionPreview `}
+                className={`preview-elements  sectionPreview mt-24`}
                 style={{
                   background: x.data.properties.background,
                   color: x.data.properties.color,
@@ -630,7 +630,9 @@ export default function Preview({
               <AllCheckers callback={handleOptionChange} />
             </div>
             <button
-              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap "
+              data-mdb-ripple="true"
+              data-mdb-ripple-color="dark"
               onClick={(e) => {
                 handlePublish(id);
               }}

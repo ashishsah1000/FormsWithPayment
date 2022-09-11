@@ -192,7 +192,7 @@ export const allApproved = async () => {
   await axios({
     method: "GET",
     withCredentials: "true",
-    url: url,
+    url: url, 
   }).then((res) => {
     if (res) {
       data = res;

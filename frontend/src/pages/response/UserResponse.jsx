@@ -7,6 +7,7 @@ import { checkUserData } from "../../axios/response";
 import "./user-response.css";
 import { createError } from "../../features/component/components";
 import { setUserDetails } from "../../features/preview/preview";
+import { ArrowCircleRightIcon } from "@heroicons/react/solid/";
 export default function UserResponse() {
   const [username, setusername] = useState("");
   const [checked, setchecked] = useState(false);
@@ -53,7 +54,7 @@ export default function UserResponse() {
   return (
     <div className="get-response">
       <div className="w-1/2 p-6 bg-gray-100 m-auto shadow-xl mt-36 rounded">
-        <h1 className="text-2xl mx-auto my-3 font-bold text-blue-900">
+        <h1 className="text-2xl mx-auto my-3 font-thin text-blue-900">
           {" "}
           Enter email to respond:
         </h1>
@@ -61,7 +62,7 @@ export default function UserResponse() {
           type="email"
           placeholder="enter your email"
           onChange={(e) => setusername(e.target.value)}
-          className="w-full m-auto border-2 border-sky-500 p-3 my-3 rounded font-bold"
+          className="w-full m-auto border border-sky-500 p-3 my-3 rounded font-thin"
           required="true"
         />
         {checked ? (
@@ -74,7 +75,7 @@ export default function UserResponse() {
               checkData();
             }}
           >
-            Next{" >"}
+            &nbsp;Next <ArrowCircleRightIcon className="h-6  mx-1" />
           </button>
         ) : (
           <button
