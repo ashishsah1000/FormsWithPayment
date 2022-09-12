@@ -164,7 +164,7 @@ export default function Controller({
 
   return (
     <div
-      className={`controller shadow-lg bg-gradient-to-r from-gray-900 to-blue-900 p-6 rounded ${classes}`}
+      className={`controller shadow-lg bg-gradient-to-r from-gray-900 to-blue-900 p-6 my-3 rounded ${classes}`}
     >
       <TextBox padding={3} callback={getquestion} />
       <div className="flex">
