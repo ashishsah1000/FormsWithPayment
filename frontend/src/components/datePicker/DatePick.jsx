@@ -29,7 +29,7 @@ export default function DatePick({
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
-      className="example-custom-input  bg-gray-100 text-gray-900"
+      className="example-custom-input  bg-gray-100 text-gray-900 shadow-md"
       onClick={onClick}
       ref={ref}
     >

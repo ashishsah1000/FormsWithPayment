@@ -24,8 +24,7 @@
 .approved {
   background-color: rgb(17, 148, 153);
 }
-.chips {
-}
+
 .chips-pending {
   background-color: orange;
   color: white;
@@ -44,4 +43,10 @@
   font-size: 70%;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: 1s ease;
+  cursor: pointer;
+}
+.chips:hover {
+  background-color: tomato;
+  color: wheat;
 }

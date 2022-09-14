@@ -23,12 +23,13 @@ export default function Publish({ mode = "" }) {
 
   // handle submits of the form
   const handleCreateForm = async () => {
-    var res = await createForm(title, description, preview);
+    // pass preview if you want to store the existing data
+    var res = await createForm(title, description, []);
     // if res is success redirect to other
     console.log("we are responding", res);
     if (res.status == "success") {
       console.log("pushing into history should be redirect");
-      changePreviewComponents(res.data);
+      // changePreviewComponents(res.data);
       navigate(`/edit/${res.id}`);
       // navigate(`/forms`);
       dispatch(
