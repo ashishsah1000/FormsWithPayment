@@ -109,7 +109,19 @@ export default function Forms({ mode = "" }) {
                             {x.title.toUpperCase()}
                           </td>
                           <td align="center" className="p-3">
-                            {x.publish}
+                            <span
+                              className={`chips chips-${x.publish} font-bold `}
+                            >
+                              {x.publish == "approved"
+                                ? "Approved to Publish"
+                                : x.publish == "pending"
+                                ? "Sent for approval"
+                                : x.publish == "deapproved"
+                                ? "Changes Required"
+                                : "In Progress"}
+                            </span>
+
+                            {/* {x.publish} */}
                           </td>
                           <td align="center" className="p-3">
                             {moment(x.createon, "YYYYMMDD")

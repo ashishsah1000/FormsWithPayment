@@ -1,26 +1,47 @@
 .empty-image img {
-    height: 400px;
-    margin: 0px auto;
+  height: 400px;
+  margin: 0px auto;
 }
 
 .forms-tiles {
-    background: white;
-    transition: 1s ease;
+  background: white;
+  transition: 1s ease;
 }
 
 .create-new button {
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    padding: 20px 20px;
-    border-radius: 50%;
-    z-index: 102;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  padding: 20px 20px;
+  border-radius: 50%;
+  z-index: 102;
 }
 
 .pending {
-    background-color: bisque;
+  background-color: bisque;
 }
 
 .approved {
-    background-color: rgb(17, 148, 153);
+  background-color: rgb(17, 148, 153);
+}
+.chips {
+}
+.chips-pending {
+  background-color: orange;
+  color: white;
+}
+.chips-approved {
+  background-color: green;
+  color: white;
+}
+.chips-deapproved {
+  background-color: rgb(209, 74, 11);
+  color: white;
+}
+
+.chips {
+  padding: 5px 14px;
+  font-size: 70%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

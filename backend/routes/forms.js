@@ -29,13 +29,14 @@ router.post("/create", function (req, res, next) {
     req.body.title
   }','${req.body.description}','${email}','${JSON.stringify(
     req.body.form
-  )}',NOW());`;
+  )}',NOW()) RETURNING id;`;
   database.query(sql, (err, results) => {
     if (err) {
       throw err;
       res.status(404).send({ data: "error", text: "some error happened" });
     } else {
-      createdId = results.rowCount;
+      createdId = results.rows[0].id;
+      // console.log(results)
     }
     res.status(200).send({
       status: "success",

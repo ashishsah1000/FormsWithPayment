@@ -29,8 +29,8 @@ export default function Publish({ mode = "" }) {
     if (res.status == "success") {
       console.log("pushing into history should be redirect");
       changePreviewComponents(res.data);
-      // navigate(`/edit/${res.id}`);
-      navigate(`/forms`);
+      navigate(`/edit/${res.id}`);
+      // navigate(`/forms`);
       dispatch(
         createError({ text: "Form created successfully!", type: "success" })
       );

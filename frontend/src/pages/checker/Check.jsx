@@ -103,11 +103,15 @@ export default function Check() {
               </>
             ) : (
               <>
-                <div className="mx-auto flex justify-center">
-                  <span className="text-blue-300 font-bold text-3xl ">
-                    No Appointed forms
-                  </span>
+                <div className="mx-auto flex flex-wrap justify-center">
+                  <img src="/images/file.jpg" alt="" width="400px" />
                 </div>
+                <h1
+                  className="text-orange-300 font-thin text-3xl"
+                  align="center"
+                >
+                  No Appointed forms
+                </h1>
               </>
             )}
           </>
