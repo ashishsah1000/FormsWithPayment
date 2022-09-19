@@ -23,11 +23,13 @@ import {
   Delete,
   Controller,
   AllCheckers,
+  SubmitModal,
 } from "../";
 import {
   LockClosedIcon,
   PencilIcon,
   CheckCircleIcon,
+  ExclamationCircleIcon,
 } from "@heroicons/react/solid/";
 import {
   changePreviewComponents,
@@ -59,6 +61,8 @@ export default function Preview({
   preview = useSelector((state) => state.component.previewComponents);
   const [mainTitle, settitle] = useState("");
   const [mainDescription, setdescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [returnBack, setreturnBack] = useState(false);
   //
   // function to update question in redux;
   const question = (value) => {
@@ -78,6 +82,8 @@ export default function Preview({
       settitle(res.data[0].title);
       setdescription(res.data[0].description);
 
+      setStatus(res.data[0].publish);
+      console.log("setting up the status", status);
       dispatch(changePreviewComponents(res.data[0].forms));
       copyPreview = [...res.data[0].forms];
     } else {
@@ -630,14 +636,17 @@ export default function Preview({
               <AllCheckers callback={handleOptionChange} />
             </div>
             <button
-              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap "
-              data-mdb-ripple="true"
-              data-mdb-ripple-color="dark"
+              className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap 
+              ${status == "pending" || status == "approved" ? "bg-red-100" : ""}
+              `}
+              disabled={
+                status == "pending" || status == "approved" ? true : false
+              }
               onClick={(e) => {
                 handlePublish(id);
               }}
             >
-              &nbsp;Publish &nbsp;
+              &nbsp;Send for approval &nbsp;
               <LockClosedIcon className="h-6 " />
             </button>
           </>
@@ -647,7 +656,7 @@ export default function Preview({
         {mode == "approve" ? (
           <>
             <button
-              className="drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto"
+              className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto `}
               onClick={() => {
                 handleApprove(id);
               }}
@@ -658,12 +667,24 @@ export default function Preview({
             <button
               className="drop-shadow-sm font-bold text-gray-50 bg-red-600 my-6 mx-auto"
               onClick={() => {
-                handleDeapprove(id);
+                setreturnBack(!returnBack);
+                //handleDeapprove(id);
               }}
             >
-              &nbsp;Deapprove &nbsp;
-              <CheckCircleIcon className="h-6 " />
+              &nbsp;Send Back &nbsp;
+              <ExclamationCircleIcon className="h-6 " />
             </button>
+          </>
+        ) : (
+          <></>
+        )}
+        {returnBack ? (
+          <>
+            <SubmitModal
+              text="Sure you want to deapprove this form?"
+              close={() => setreturnBack(!returnBack)}
+              callback={() => deapproveForm(id)}
+            />
           </>
         ) : (
           <></>

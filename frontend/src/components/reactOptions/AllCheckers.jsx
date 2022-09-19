@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Select from "react-select";
 import { getAllChecker } from "../../axios/users";
 
+// multiple select of the options
 export default function AllCheckers({ options = [{}], callback = () => {} }) {
   const [data, setdata] = useState([]);
 

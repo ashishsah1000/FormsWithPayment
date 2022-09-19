@@ -46,3 +46,4 @@ export { default as AllCheckers } from "./reactOptions/AllCheckers";
 export { default as SpinnerButton } from "./loadingButton/SpinnerButton";
 
 export { default as Edit } from "./edit/Edit";
+export {default as SubmitModal} from "./submit/SubmitModal"

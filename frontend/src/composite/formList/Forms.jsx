@@ -19,9 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { previewSlice, setPreviewFor } from "../../features/preview/preview";
 import { createError } from "../../features/component/components";
 import moment from "moment";
+import { SelectPeople } from "../";
 
 export default function Forms({ mode = "" }) {
   const [loggedin, setloggedin] = useState(false);
+  const [share, setshare] = useState(false);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
@@ -59,6 +61,17 @@ export default function Forms({ mode = "" }) {
   }, []);
   return (
     <div className="indexPage ">
+      <>
+        {share ? (
+          <SelectPeople
+            closeSelect={() => {
+              setshare(!share);
+            }}
+          />
+        ) : (
+          <></>
+        )}
+      </>
       <div className="create-new ">
         <Link to="/create">
           <button
@@ -152,21 +165,22 @@ export default function Forms({ mode = "" }) {
                               )}
 
                               {x.publish == "approved" && mode == "publish" ? (
-                                <Link
-                                  to={`/collect/response/${x.id}`}
-                                  target={"_blank"}
+                                // <Link
+                                //   to={`/collect/response/${x.id}`}
+                                //   target={"_blank"}
+                                // >
+                                <button
+                                  className="drop-shadow-sm bg-orange-500 text-orange-100 mx-1 my-3 "
+                                  onClick={(e) => {
+                                    setshare(!share);
+                                    dispatch(setPreviewFor(x.id));
+                                  }}
+                                  title="Users Response"
                                 >
-                                  <button
-                                    className="drop-shadow-sm bg-orange-500 text-orange-100 mx-1 my-3 "
-                                    onClick={(e) => {
-                                      dispatch(setPreviewFor(x.id));
-                                    }}
-                                    title="Users Response"
-                                  >
-                                    <ShareIcon className="h-4 " />
-                                  </button>
-                                </Link>
+                                  <ShareIcon className="h-4 " />
+                                </button>
                               ) : (
+                                // </Link>
                                 <></>
                               )}
                               {x.publish == "approved" && mode == "publish" ? (
@@ -181,7 +195,9 @@ export default function Forms({ mode = "" }) {
                               ) : (
                                 <></>
                               )}
-                              {mode !== "publish" ? (
+                              {mode !== "publish" &&
+                              x.publish !== "approved" &&
+                              x.publish !== "pending" ? (
                                 <>
                                   <Link to={`/edit/${x.id}`}>
                                     <button

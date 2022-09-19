@@ -1,0 +1,14 @@
+.people-modal {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(22, 22, 22, 0.5);
+  z-index: 101;
+}
+
+.people-content {
+  width: 400px;
+  height: 500px;
+}

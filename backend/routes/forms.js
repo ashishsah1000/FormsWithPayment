@@ -35,7 +35,7 @@ router.post("/create", function (req, res, next) {
       throw err;
       res.status(404).send({ data: "error", text: "some error happened" });
     } else {
-      createdId = results.rows[0].id;
+      createdId = results.rows[0].id; 
       // console.log(results)
     }
     res.status(200).send({
