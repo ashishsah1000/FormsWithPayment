@@ -10,7 +10,7 @@ import {
   approveForm,
   deapproveForm,
 } from "../../axios/forms";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   Rating,
@@ -63,6 +63,7 @@ export default function Preview({
   const [mainDescription, setdescription] = useState("");
   const [status, setStatus] = useState("");
   const [returnBack, setreturnBack] = useState(false);
+  // reason to be used for getting any reason like deapprove form reason
   //
   // function to update question in redux;
   const question = (value) => {
@@ -166,6 +167,7 @@ export default function Preview({
     console.log(res);
     navigate("/forms");
   };
+  let reason = "";
 
   useEffect(() => {
     if (
@@ -239,7 +241,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Rating type={x.type} id={i} question={x.question} />
                 {inlineEdit[i] ? (
@@ -285,7 +287,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Textarea
                   type={x.type}
@@ -336,7 +338,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <DatePick type={x.type} id={i} />
                 {inlineEdit[i] ? (
@@ -382,7 +384,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <Files type={x.type} id={i} />
               </div>
@@ -416,7 +418,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <OptionView
                   array={x.options.data}
@@ -467,7 +469,7 @@ export default function Preview({
                 ) : (
                   <></>
                 )}
-                <h1 className="font-bold">Question </h1>
+                {/* <h1 className="font-bold">Question </h1> */}
                 <h1 className="my-4 mx-3">{x.question}</h1>
                 <RadioView
                   array={x.options.data}
@@ -519,7 +521,7 @@ export default function Preview({
                   <></>
                 )}
                 <div>
-                  <h1 className="font-bold">Question </h1>
+                  {/* <h1 className="font-bold">Question </h1> */}
                   <h1 className="my-4 mx-3">{x.question}</h1>
                   <TextBox
                     width={"1/3"}
@@ -683,7 +685,11 @@ export default function Preview({
             <SubmitModal
               text="Sure you want to deapprove this form?"
               close={() => setreturnBack(!returnBack)}
-              callback={() => deapproveForm(id)}
+              callback={() => deapproveForm(id, reason)}
+              reqReason={true}
+              reasoncallback={(value) => {
+                reason = value;
+              }}
             />
           </>
         ) : (

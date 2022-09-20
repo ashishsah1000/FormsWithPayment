@@ -20,13 +20,14 @@ import { previewSlice, setPreviewFor } from "../../features/preview/preview";
 import { createError } from "../../features/component/components";
 import moment from "moment";
 import { SelectPeople } from "../";
+import { SubmitModal } from "../../components";
 
 export default function Forms({ mode = "" }) {
   const [loggedin, setloggedin] = useState(false);
   const [share, setshare] = useState(false);
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
-
+  const [infoModal, setinfoModal] = useState(false);
   const getforms = async () => {
     console.log(mode);
     if (mode == "publish") {
@@ -56,11 +57,25 @@ export default function Forms({ mode = "" }) {
       getforms();
     }
   };
+  const [reason, setreason] = useState("");
   useEffect(() => {
     getforms();
   }, []);
   return (
     <div className="indexPage ">
+      {infoModal ? (
+        <>
+          <SubmitModal
+            close={() => {
+              setinfoModal(!infoModal);
+            }}
+            mode="info"
+            text={reason}
+          />
+        </>
+      ) : (
+        <></>
+      )}
       <>
         {share ? (
           <SelectPeople
@@ -124,6 +139,12 @@ export default function Forms({ mode = "" }) {
                           <td align="center" className="p-3">
                             <span
                               className={`chips chips-${x.publish} font-bold `}
+                              onClick={() => {
+                                if (x.publish == "deapproved") {
+                                  setreason(x.reason);
+                                  setinfoModal(!infoModal);
+                                }
+                              }}
                             >
                               {x.publish == "approved"
                                 ? "Approved to Publish"

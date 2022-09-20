@@ -18,7 +18,7 @@ export default function SelectPeople({ closeSelect = () => {} }) {
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
         var c = json.map((x) => {
-          return { value: x.Age, label: x.Country };
+          return { value: x.name, label: x.email };
         });
         console.log([...c]);
 

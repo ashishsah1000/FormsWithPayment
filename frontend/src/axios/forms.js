@@ -219,13 +219,13 @@ export const approveForm = async (id) => {
   return data;
 };
 // approve a form only for approver
-export const deapproveForm = async (id) => {
+export const deapproveForm = async (id,reason) => {
   const url = baseUrl + `/forms/deapprove/${id}`;
   var data = "";
   await axios({
     method: "POST",
     withCredentials: "true",
-    data: { id: id },
+    data: { id: id,reason:reason },
     url: url,
   }).then((res) => {
     if (res) {
