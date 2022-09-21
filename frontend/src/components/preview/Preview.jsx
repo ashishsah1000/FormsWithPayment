@@ -200,6 +200,21 @@ export default function Preview({
 
   return (
     <div className=" w-11/12 lg:max-w-6xl  preview ">
+      {mode == "create" ? (
+        <>
+          <Controller />
+        </>
+      ) : (
+        <></>
+      )}
+
+      {mode == "edit" ? (
+        <>
+          <Controller />
+        </>
+      ) : (
+        <></>
+      )}
       <div className="title">
         <div className="content">
           <h1 className="text-4xl font-bold my-4">
@@ -602,21 +617,7 @@ export default function Preview({
             );
           }
         })}
-        {mode == "create" ? (
-          <>
-            <Controller />
-          </>
-        ) : (
-          <></>
-        )}
 
-        {mode == "edit" ? (
-          <>
-            <Controller />
-          </>
-        ) : (
-          <></>
-        )}
         {mode == "submit" ? (
           <button
             className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"

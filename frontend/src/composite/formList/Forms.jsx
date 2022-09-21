@@ -232,7 +232,9 @@ export default function Forms({ mode = "" }) {
                               ) : (
                                 <></>
                               )}
-                              {mode !== "publish" ? (
+                              {mode !== "publish" &&
+                              x.publish !== "approved" &&
+                              x.publish !== "pending" ? (
                                 <>
                                   <button
                                     className="drop-shadow-sm bg-gray-50 mx-1 my-3 warning text-red-100"
