@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { previewSlice, setPreviewFor } from "../../features/preview/preview";
 import { createError } from "../../features/component/components";
 import moment from "moment";
-import { SelectPeople } from "../";
+import { SelectPeople, Template } from "../";
 import { SubmitModal } from "../../components";
 
 export default function Forms({ mode = "" }) {
@@ -48,10 +48,6 @@ export default function Forms({ mode = "" }) {
   // this function will handle the delete of form
   const handleDelete = async (id) => {
     var res = await deleteForm(id);
-    console.log(
-      "🚀 ~ file: Forms.jsx ~ line 27 ~ handleDelete ~ res",
-      res.data
-    );
     if (res.data == "success") {
       dispatch(createError({ text: " deleted successfully", type: "warning" }));
       getforms();
@@ -78,11 +74,13 @@ export default function Forms({ mode = "" }) {
       )}
       <>
         {share ? (
-          <SelectPeople
-            closeSelect={() => {
-              setshare(!share);
-            }}
-          />
+          <>
+            <SelectPeople
+              closeSelect={() => {
+                setshare(!share);
+              }}
+            />
+          </>
         ) : (
           <></>
         )}

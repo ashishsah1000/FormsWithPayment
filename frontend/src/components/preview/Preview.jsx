@@ -650,7 +650,7 @@ export default function Preview({
               }}
             >
               &nbsp;Send for approval &nbsp;
-              <LockClosedIcon className="h-6 " />
+              <LockClosedIcon className="h-5 " />
             </button>
           </>
         ) : (
@@ -665,7 +665,7 @@ export default function Preview({
               }}
             >
               &nbsp;Approve &nbsp;
-              <CheckCircleIcon className="h-6 " />
+              <CheckCircleIcon className="h-5 " />
             </button>
             <button
               className="drop-shadow-sm font-bold text-gray-50 bg-red-600 my-6 mx-auto"
@@ -675,7 +675,7 @@ export default function Preview({
               }}
             >
               &nbsp;Send Back &nbsp;
-              <ExclamationCircleIcon className="h-6 " />
+              <ExclamationCircleIcon className="h-5 " />
             </button>
           </>
         ) : (
