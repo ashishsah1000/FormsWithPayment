@@ -11,6 +11,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var formsRouter = require("./routes/forms");
+var mailRouter = require("./routes/mail");
 
 var pgSession = require("connect-pg-simple")(session);
 var { database, pgPool } = require("./database/pgdatabase");
@@ -57,6 +58,7 @@ require("./auth/passportConfig")(passport);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/forms", formsRouter);
+app.use("/mail",mailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

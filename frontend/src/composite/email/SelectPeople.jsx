@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./email.css";
 import Select from "react-select";
 import Teamplate from "../template/Teamplate";
-
+import { sendMail } from "../../axios/mail";
 import { XCircleIcon, PaperAirplaneIcon } from "@heroicons/react/solid/";
 
 import * as xlsx from "xlsx";
@@ -124,6 +124,14 @@ export default function SelectPeople({ closeSelect = () => {} }) {
         ) : (
           <>
             <Teamplate />
+            <button
+              onClick={() => {
+                sendMail();
+              }}
+              className="m-auto border-solid border border-gray-100 tranisition duration-150 ease-in hover:border-solid hover:border hover:border-gray-200"
+            >
+              Send Mail{" "}
+            </button>
           </>
         )}
       </div>
