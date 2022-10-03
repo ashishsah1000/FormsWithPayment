@@ -4,8 +4,8 @@ var { template1 } = require("../templates/template");
 var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "",
-    pass: "",
+    user: "orignaldev1000@gmail.com",
+    pass: "mcskilvhhsthokbj",
   },
 });
 
@@ -24,13 +24,22 @@ var transporterOffice = nodemailer.createTransport({
   requireTLS: true,
 });
 
-function sendMail(Data, to) {
+function sendMail(data, to) {
   const mailOptions = {
     from: "orignaldev1000@gmail.com", // sender address
     to: to, // list of receivers
-    subject: "From AutoResponder", // Subject line
-    text: Data,
-    html: template1, // plain text body
+    subject: data.subject, // Subject line
+    // text: Data,
+    html: template1(
+      data.salute,
+      data.first,
+      data.last,
+      data.subject,
+      data.body,
+      data.from,
+      to,
+      data.link
+    ), // plain text body
   };
   transporter.sendMail(mailOptions, function (err, info) {
     if (err) console.log(err);
@@ -43,9 +52,17 @@ function sendOutlook(data, to) {
   const mailOptions = {
     from: "khannapo@dnb.com",
     to: to,
-    subject: "Survey form from D&B",
-    text: "hellow from pooja",
-    data: "hellow",
+    subject: data.subject,
+    html: template1(
+      data.salute,
+      data.first,
+      data.last,
+      data.subject,
+      data.body,
+      data.from,
+      to,
+      data.link
+    ),
   };
   transporterOffice.sendMail(mailOptions, (err, info) => {
     if (err) console.log(err);

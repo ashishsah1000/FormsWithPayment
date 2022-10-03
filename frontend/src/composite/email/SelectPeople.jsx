@@ -4,13 +4,19 @@ import Select from "react-select";
 import Teamplate from "../template/Teamplate";
 import { sendMail } from "../../axios/mail";
 import { XCircleIcon, PaperAirplaneIcon } from "@heroicons/react/solid/";
-
+import { useSelector, useDispatch } from "react-redux";
+import { createError } from "../../features/component/components";
 import * as xlsx from "xlsx";
 export default function SelectPeople({ closeSelect = () => {} }) {
   const [contacts, setcontacts] = useState([]);
   const [selectedContacts, setselectedContacts] = useState([]);
   const [selectTemplate, setselectTemplate] = useState(false);
   const [allContacts, setallContacts] = useState(false);
+  const dispatch = useDispatch();
+  const formId = useSelector((state) => state.preview.previewId);
+  let subject = "";
+  let body = "";
+  let sign = "";
   const readUploadFile = (e) => {
     e.preventDefault();
     if (e.target.files) {
@@ -22,7 +28,13 @@ export default function SelectPeople({ closeSelect = () => {} }) {
         const worksheet = workbook.Sheets[sheetName];
         const json = xlsx.utils.sheet_to_json(worksheet);
         var c = json.map((x) => {
-          return { value: x.name, label: x.email };
+          return {
+            value: x.email,
+            label: x.email,
+            salutation: x.salutation,
+            first: x.firstName,
+            last: x.lastName,
+          };
         });
         console.log([...c]);
 
@@ -30,6 +42,47 @@ export default function SelectPeople({ closeSelect = () => {} }) {
       };
       reader.readAsArrayBuffer(e.target.files[0]);
     }
+  };
+
+  // this will handle sending the mail
+  const handleSendMail = async () => {
+    if (subject.length > 0 && body.length > 0 && sign.length > 0) {
+      const maildata = {
+        subject,
+        body,
+        sign,
+        contacts,
+        link: `http://localhost:3001/collect/response/:${formId}`,
+      };
+      console.log("this is the maildata", maildata);
+      const res = await sendMail(maildata);
+      if (res.status == "success" || res.status == 200) {
+        console.log("succcess", res);
+        dispatch(
+          createError({
+            text: "Mail were dispatched successfully",
+            type: "success",
+          })
+        );
+      } else {
+        console.log("failure", res);
+      }
+    } else {
+      dispatch(
+        createError({
+          text: "Please add subject,body & singature!",
+          type: "warning",
+        })
+      );
+    }
+  };
+
+  //get body signature and subject from the template
+  const getEmailDetails = (sub, bod, signature) => {
+    subject = sub;
+    body = bod;
+    sign = signature;
+    console.log("was called", subject, body, sign);
   };
 
   return (
@@ -123,14 +176,14 @@ export default function SelectPeople({ closeSelect = () => {} }) {
           </>
         ) : (
           <>
-            <Teamplate />
+            <Teamplate callback={getEmailDetails} />
             <button
               onClick={() => {
-                sendMail();
+                handleSendMail();
               }}
               className="m-auto border-solid border border-gray-100 tranisition duration-150 ease-in hover:border-solid hover:border hover:border-gray-200"
             >
-              Send Mail{" "}
+              Send Mail
             </button>
           </>
         )}
