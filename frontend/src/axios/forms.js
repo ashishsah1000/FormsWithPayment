@@ -192,11 +192,11 @@ export const allApproved = async () => {
   await axios({
     method: "GET",
     withCredentials: "true",
-    url: url, 
+    url: url,
   }).then((res) => {
     if (res) {
       data = res;
-      console.log("from approved response",res)
+      console.log("from approved response", res);
     } else data = { type: "error", text: "some error has happened" };
   });
   return data;
@@ -219,13 +219,13 @@ export const approveForm = async (id) => {
   return data;
 };
 // approve a form only for approver
-export const deapproveForm = async (id,reason) => {
+export const deapproveForm = async (id, reason) => {
   const url = baseUrl + `/forms/deapprove/${id}`;
   var data = "";
   await axios({
     method: "POST",
     withCredentials: "true",
-    data: { id: id,reason:reason },
+    data: { id: id, reason: reason },
     url: url,
   }).then((res) => {
     if (res) {

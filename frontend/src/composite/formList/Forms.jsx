@@ -113,7 +113,11 @@ export default function Forms({ mode = "" }) {
                         Index
                       </th>
                       <th className="p-3">Title</th>
-                      <th className="p-3">Status</th>
+                      {mode == "publish" ? (
+                        <th className="p-3">FormID</th>
+                      ) : (
+                        <th className="p-3">Status</th>
+                      )}
                       <th className="p-3">Created On</th>
                       <th className="p-3">Actions</th>
                     </tr>
@@ -135,23 +139,29 @@ export default function Forms({ mode = "" }) {
                             {x.title.toUpperCase()}
                           </td>
                           <td align="center" className="p-3">
-                            <span
-                              className={`chips chips-${x.publish} font-bold `}
-                              onClick={() => {
-                                if (x.publish == "deapproved") {
-                                  setreason(x.reason);
-                                  setinfoModal(!infoModal);
-                                }
-                              }}
-                            >
-                              {x.publish == "approved"
-                                ? "Approved to Publish"
-                                : x.publish == "pending"
-                                ? "Sent for approval"
-                                : x.publish == "deapproved"
-                                ? "Changes Required"
-                                : "In Progress"}
-                            </span>
+                            {mode == "publish" ? (
+                              <span className={`chips bg-white font-bold `}>
+                                {x.id}
+                              </span>
+                            ) : (
+                              <span
+                                className={`chips chips-${x.publish} font-bold `}
+                                onClick={() => {
+                                  if (x.publish == "deapproved") {
+                                    setreason(x.reason);
+                                    setinfoModal(!infoModal);
+                                  }
+                                }}
+                              >
+                                {x.publish == "approved"
+                                  ? "Approved to Publish"
+                                  : x.publish == "pending"
+                                  ? "Sent for approval"
+                                  : x.publish == "deapproved"
+                                  ? "Changes Required"
+                                  : "In Progress"}
+                              </span>
+                            )}
 
                             {/* {x.publish} */}
                           </td>

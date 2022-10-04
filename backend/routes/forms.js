@@ -35,7 +35,7 @@ router.post("/create", function (req, res, next) {
       throw err;
       res.status(404).send({ data: "error", text: "some error happened" });
     } else {
-      createdId = results.rows[0].id; 
+      createdId = results.rows[0].id;
       // console.log(results)
     }
     res.status(200).send({
@@ -130,14 +130,14 @@ router.get("/all/approve", (req, res, next) => {
 router.get("/all/approved", (req, res, next) => {
   if (req.user) {
     // has to be publisher and admin
-    console.log("req user is",req.user)
+    console.log("req user is", req.user);
     if (req.user.role == "admin" || req.user.role == "publisher") {
       var sql = `SELECT * from allforms WHERE publish='approved';`;
       database.query(sql, (err, doc) => {
         if (err) {
           res.send({ status: "error", text: "some database error happened" });
         } else {
-          console.log(doc.rows)
+          console.log(doc.rows);
           res.send({ status: "success", data: doc.rows });
         }
       });
@@ -173,10 +173,10 @@ router.post("/approve/:id", (req, res, next) => {
 });
 // approve a specfic form if has the approver authority
 router.post("/deapprove/:id", (req, res, next) => {
-  console.log("reacived data",req.body)
+  console.log("reacived data", req.body);
   if (req.user) {
     if (req.user.role == "admin" || req.user.role == "checker") {
-      if(req.body.reason.length>0){
+      if (req.body.reason.length > 0) {
         const id = req.body.id;
         console.log("we are reciving this id", id);
         var sql = `UPDATE allforms SET publish = 'deapproved',reason = '${req.body.reason}' WHERE id=${id};`;
@@ -189,11 +189,11 @@ router.post("/deapprove/:id", (req, res, next) => {
             res.send({ status: "success" });
           }
         });
+      } else {
+        res
+          .status(300)
+          .send({ status: "failed", text: "reason was not found" });
       }
-      else {
-        res.status(300).send({ status: "failed", text: "reason was not found" });
-      }
-    
     } else {
       res.status(400).send({ status: "failed", text: "user was unathorized" });
     }
@@ -327,35 +327,54 @@ router.get("/response/delete/:id", (req, res, next) => {
 
 router.post("/collect/response/:id", function (req, res, next) {
   var id = req.params.id;
-  var sql = `SELECT * FROM formresponse WHERE formid = '${id}' AND email= '${req.body.username}';`;
-  database.query(sql, (err, doc) => {
+  console.log("this is the id", id);
+  var sql3 = `SELECT emails FROM published WHERE formid='${id}'`;
+  database.query(sql3, (err, docs) => {
     if (err) {
-      res.send("error");
+      console.log(err);
+      res.send({ status: "failed", data: "database error" });
     } else {
-      if (doc.rows.length == 0) {
-        // start saving data into form
-        // createConnection();
-        var email = req.body.username;
-        var userid = 100; // todo it has to be user login id
-        var formid = parseInt(req.body.formid);
-        var sql2 = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
-          []
-        )}',NOW());`;
-        database.query(sql2, (err, results) => {
+      var emails = docs.rows[0].emails;
+      var checkPresent = emails.filter((x) => x == req.body.username);
+      if (checkPresent.length > 0) {
+        var sql = `SELECT * FROM formresponse WHERE formid = '${id}' AND email= '${req.body.username}';`;
+        database.query(sql, (err, doc) => {
           if (err) {
-            res.send({ data: "error", text: "some error happened" });
+            console.log(err);
+            res.send({ status: "failed", data: "database error" });
           } else {
-            res.send({
-              status: "success",
-              text: "Username was added succesfully",
-            });
+            if (doc.rows.length == 0) {
+              // start saving data into form
+              // createConnection();
+              console.log("logging req body", req.body);
+              var email = req.body.username;
+              var userid = 100; // todo it has to be user login id
+              var formid = req.body.formid;
+              var sql2 = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
+                []
+              )}',NOW());`;
+              database.query(sql2, (err, results) => {
+                if (err) {
+                  console.log(err);
+                  res.send({ data: "error", text: "some error happened" });
+                } else {
+                  res.send({
+                    status: "success",
+                    text: "Username was added succesfully",
+                  });
+                }
+              });
+            } else {
+              res.send(doc.rows[0]);
+            }
           }
         });
       } else {
-        res.send(doc.rows[0]);
+        res.send({ status: "failed", data: "You are not authorized." });
       }
     }
   });
+
   //   add index to the form and save the data
 });
 

@@ -79,9 +79,9 @@ export default function Home() {
           <Route path="/preview/:id" element={<MainPreview mode="publish" />} />
           <Route path="/preview" element={<MainPreview />} />
           <Route path="/forms" element={<Forms />} />
+          // this will show response and all response page
           <Route path="/all/response/:id" element={<AllResponse />} />
           <Route path="/response/:id" element={<Response />} />
-
           {user == null ? (
             <></>
           ) : (
@@ -116,7 +116,6 @@ export default function Home() {
               )}
             </>
           )}
-
           <Route path="*" element={<Forms />} />
         </Routes>
         {/* <Creator /> */}

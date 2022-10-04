@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../../components/";
 import { getForm } from "../../axios/forms";
-
 export default function MainPreview({ mode = "submit" }) {
   const [fetching, setfetching] = useState(true);
   const [data, setData] = useState([]);
@@ -11,6 +10,8 @@ export default function MainPreview({ mode = "submit" }) {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   let { id } = useParams();
+
+  console.log("use params", useParams());
   //fetch the data
   // if (typeof id != Number) {
   //   id = 7;

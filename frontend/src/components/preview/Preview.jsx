@@ -177,6 +177,7 @@ export default function Preview({
       mode == "approve"
     ) {
       const something = searchForm(id);
+      console.log("something", something);
       if (something.length > 0)
         dispatch(changePreviewComponents(something.data));
     }

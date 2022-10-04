@@ -4,6 +4,7 @@ import "./App.css";
 import { useSelector } from "react-redux";
 import { Chips } from "./components";
 import { UserResponse } from "./pages";
+import Response from "./pages/submit/Response";
 function App() {
   const errors = useSelector((state) => state.component.errors);
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin/register" element={<Register />} />
         <Route path="/collect/response/:id" element={<UserResponse />} />
+        <Route path="/response/:id" element={<Response />} />
 
         <Route path="*" element={<Home />} />
       </Routes>

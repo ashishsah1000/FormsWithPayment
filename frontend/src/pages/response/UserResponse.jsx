@@ -21,20 +21,31 @@ export default function UserResponse() {
         username: username,
       };
       var res = await checkUserData(id, data);
+      console.log(res);
+      if (res.status == "failed") {
+        dispatch(
+          createError({
+            text: res.data,
+            type: "alarm",
+          })
+        );
+      } else if (res.email) {
+        dispatch(setUserDetails(res));
+        dispatch(
+          createError({
+            text: "Please do not refresh the page!",
+            type: "alarm",
+          })
+        );
+      } else {
+        setchecked(true);
+        dispatch(
+          createError({ text: "New response. Click on next!", type: "cold" })
+        );
+      }
     } else {
       dispatch(
         createError({ text: "Please enter a valid email!", type: "warning" })
-      );
-    }
-    if (res.email) {
-      dispatch(setUserDetails(res));
-      dispatch(
-        createError({ text: "Please do not refresh the page!", type: "alarm" })
-      );
-    } else {
-      setchecked(true);
-      dispatch(
-        createError({ text: "New response. Click on next!", type: "cold" })
       );
     }
   };

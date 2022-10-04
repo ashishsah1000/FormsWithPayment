@@ -52,7 +52,8 @@ export default function SelectPeople({ closeSelect = () => {} }) {
         body,
         sign,
         contacts,
-        link: `http://localhost:3001/collect/response/:${formId}`,
+        formId,
+        link: `http://localhost:3001/collect/response/${formId}`,
       };
       console.log("this is the maildata", maildata);
       const res = await sendMail(maildata);
