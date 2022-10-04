@@ -25,8 +25,8 @@ router.post("/", (req, res, next) => {
         salute: x.salutation,
         from: "some@company.com",
       };
-      mail(data, x.label);
-      // outlookMail(data, x.label);
+      // mail(data, x.label);
+      outlookMail(data, x.label);
     });
     //call the essential mail function
 
