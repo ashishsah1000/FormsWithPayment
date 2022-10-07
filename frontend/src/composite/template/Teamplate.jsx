@@ -90,7 +90,7 @@ export default function Teamplate({
                 borderRadius: "10px",
               }}
             >
-              someone@gcompany.com
+              khannapo@dnb.com{" "}
             </span>
           </h1>
           <h1 style={{ marginTop: "20px" }}>
@@ -116,21 +116,27 @@ export default function Teamplate({
             ></textarea>
           </div>
           <div>
-            <a
-              href={`/collect/response/:${formId}`}
-              style={{ color: "rgba(22,22,222,1)" }}
-            >
-              Click here to response the form (Form Reesponse collecting url)
-            </a>
+            <p>
+              Please find the survey link{" "}
+              <a
+                target={"_blank"}
+                href={`/collect/response/${formId}`}
+                style={{ color: "rgba(22,22,222,1)" }}
+              >
+                Link of the survey
+              </a>
+            </p>
           </div>
         </div>
         <div style={{ padding: "20px 20px" }}>
-          <input
+          <textarea
+            cls={10}
             type="text"
             placeholder="Signature"
+            cols={40}
+            rows={5}
             style={{
               padding: "10px 20px",
-              width: "120px",
               border: "1px solid rgba(222,22,22,.1)",
             }}
             onChange={(e) => {

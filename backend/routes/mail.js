@@ -24,9 +24,11 @@ router.post("/", (req, res, next) => {
         last: x.last,
         salute: x.salutation,
         from: "some@company.com",
+        sign,
       };
-      // mail(data, x.label);
-      outlookMail(data, x.label);
+      console.log("signature is", sign);
+      mail(data, x.label);
+      // outlookMail(data, x.label);
     });
     //call the essential mail function
 
@@ -41,6 +43,7 @@ router.post("/", (req, res, next) => {
         });
       } else {
         var emails = contacts.map((x) => x.value);
+        // javscript array and postgress array is diffrent
         var pemails = emails.join(",");
         if (doc.rows.length == 0) {
           var sql2 = `INSERT INTO published (formid,date,signature,emails) VALUES ('${formid}',NOW(),'${sign}', '{${pemails}}');`;

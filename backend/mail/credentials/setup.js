@@ -5,7 +5,7 @@ var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "orignaldev1000@gmail.com",
-    pass: "",
+    pass: "mcskilvhhsthokbj",
   },
 });
 
@@ -38,7 +38,8 @@ function sendMail(data, to) {
       data.body,
       data.from,
       to,
-      data.link
+      data.link,
+      data.sign
     ), // plain text body
   };
   transporter.sendMail(mailOptions, function (err, info) {
@@ -61,7 +62,8 @@ function sendOutlook(data, to) {
       data.body,
       data.from,
       to,
-      data.link
+      data.link,
+      data.sign
     ),
   };
   transporterOffice.sendMail(mailOptions, (err, info) => {

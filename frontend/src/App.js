@@ -28,7 +28,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin/register" element={<Register />} />
         <Route path="/collect/response/:id" element={<UserResponse />} />
-        <Route path="/response/:id" element={<Response />} />
 
         <Route path="*" element={<Home />} />
       </Routes>

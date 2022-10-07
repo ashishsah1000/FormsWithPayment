@@ -6,7 +6,8 @@ const template1 = (
   body = "body of the mail",
   from = "someone@company.com",
   to = "no@one",
-  link = ""
+  link = "",
+  sign
 ) => `<html>
 <head>
   <meta charset="utf-8">
@@ -20,14 +21,18 @@ const template1 = (
       Welcome to survey 
     </div>
     <div class="content" style="padding: 20px 20px;">
-    <h2> <b>${subject}</b></h2>
     
-      <h4>From :${from}</h4>
-     <h4>To :${to}</h4>
-     <span>${salute + " " + last + " " + first}</span>
+
+     <span>Dear, ${salute + " " + last + " " + first}</span>
       <p>${body}</p>
-      <p>url to the link <a href=${link}>Click here to respond for the survey</a> </p>
       
+      
+      <p>Please find the survey link <a href=${link}>Link of the survey </a> </p>
+      
+    </div>
+
+    <div style="padding:20px 20px;">
+        <pre>${sign}</pre>
     </div>
     <div class="footer" style="background: dodgerblue;padding: 20px 20px;color: ghostwhite;">
       DNB | Company Name 

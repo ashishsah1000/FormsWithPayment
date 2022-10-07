@@ -65,6 +65,7 @@ export default function SelectPeople({ closeSelect = () => {} }) {
             type: "success",
           })
         );
+        closeSelect();
       } else {
         console.log("failure", res);
       }
