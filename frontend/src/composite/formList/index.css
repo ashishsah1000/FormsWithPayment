@@ -50,3 +50,7 @@
   background-color: tomato;
   color: wheat;
 }
+
+.table-forms {
+  height: 80vh !important;
+}

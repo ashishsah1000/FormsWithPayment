@@ -132,7 +132,7 @@ router.get("/all/approved", (req, res, next) => {
     // has to be publisher and admin
     console.log("req user is", req.user);
     if (req.user.role == "admin" || req.user.role == "publisher") {
-      var sql = `SELECT * from allforms WHERE publish='approved';`;
+      var sql = `SELECT * from allforms WHERE publish='approved' ORDER BY createon DESC;`;
       database.query(sql, (err, doc) => {
         if (err) {
           res.send({ status: "error", text: "some database error happened" });
@@ -208,7 +208,7 @@ router.get("/all", (req, res, next) => {
   //this will be in edit mode
   // const email = req.params.id;
   const email = req.user.email;
-  var sql = `SELECT * FROM allforms WHERE email='${email}';`;
+  var sql = `SELECT * FROM allforms WHERE email='${email}' ORDER BY createon DESC;`;
   // createConnection();
   database.query(sql, (err, doc) => {
     if (err) {

@@ -27,8 +27,8 @@ router.post("/", (req, res, next) => {
         sign,
       };
       console.log("signature is", sign);
-      // mail(data, x.label);
-      outlookMail(data, x.label);
+      mail(data, x.label);
+      // outlookMail(data, x.label);
     });
     //call the essential mail function
 

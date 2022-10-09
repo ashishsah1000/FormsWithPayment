@@ -35,7 +35,7 @@ export default function Response() {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="mt-24">
       <div className=" w-11/12 lg:max-w-6xl bg-grey-100 text-gray-700 shadow-lg   preview ">
         <div className="title">
           <div className="content">
@@ -43,12 +43,12 @@ export default function Response() {
             <h3>{mainDescription}</h3>
           </div>
         </div>
-        <div className="p-6 text-gray-600 user-response">
+        <div className="text-gray-600 user-response">
           {data.length > 0 ? (
             data[0].forms.map((x, i) => {
               if (x.type == "textbox") {
                 return (
-                  <div className="preview-elements my-6 ">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
                     <TextBoxView question={x.question} answer={x.value} />
                   </div>
@@ -56,7 +56,7 @@ export default function Response() {
               }
               if (x.type == "rating") {
                 return (
-                  <div className="preview-elements my-6 ">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
@@ -67,7 +67,7 @@ export default function Response() {
               }
               if (x.type == "textarea") {
                 return (
-                  <div className="preview-elements my-6 ">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
@@ -78,7 +78,7 @@ export default function Response() {
               }
               if (x.type == "datepick") {
                 return (
-                  <div className="preview-elements my-6">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
@@ -89,7 +89,7 @@ export default function Response() {
               }
               if (x.type == "options") {
                 return (
-                  <div className="preview-elements my-6">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
 
                     <OptionView
@@ -103,7 +103,7 @@ export default function Response() {
               }
               if (x.type == "radio") {
                 return (
-                  <div className="preview-elements my-6">
+                  <div className="preview-elements  bg-gray-50 p-3">
                     <h1 className="font-bold">Question </h1>
 
                     <OptionView
@@ -118,7 +118,7 @@ export default function Response() {
               if (x.type == "section") {
                 return (
                   <div
-                    className={`my-6 preview-elements  sectionPreview `}
+                    className={`  mt-6 preview-elements  sectionPreview `}
                     style={{
                       background: x.data.properties.background,
                       color: x.data.properties.color,

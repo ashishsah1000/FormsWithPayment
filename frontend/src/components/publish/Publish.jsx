@@ -96,7 +96,7 @@ export default function Publish({ mode = "" }) {
               }}
             >
               Create Form &nbsp;
-              <LockClosedIcon className="h-6 " />
+              <LockClosedIcon className="h-5 " />
             </button>
           </>
         ) : (
@@ -111,7 +111,7 @@ export default function Publish({ mode = "" }) {
               }}
             >
               Save Form &nbsp;
-              <LockClosedIcon className="h-6 " />
+              <LockClosedIcon className="h-5 " />
             </button>
           </>
         ) : (

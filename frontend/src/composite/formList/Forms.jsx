@@ -105,9 +105,9 @@ export default function Forms({ mode = "" }) {
                   List of all forms created:
                 </h1> */}
               </div>
-              <div className="w-full flex flex-wrap">
-                <table class="table-auto w-full rounded shadow-lg">
-                  <thead className="p-3 rounded">
+              <div className="w-full table-forms shadow-lg overflow-y-scroll flex flex-wrap">
+                <table class="  w-full   rounded shadow-lg">
+                  <thead className="p-3 rounded ">
                     <tr className="bg-gray-900 text-blue-100">
                       <th align="center" className="p-3">
                         Index

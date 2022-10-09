@@ -1,28 +1,25 @@
 .home {
-    overflow-y: scroll;
-    overflow-x: hidden !important;
-    /* background: url("https://picsum.photos/1200/900/?blur");
+  overflow-y: hidden;
+  overflow-x: hidden !important;
+  /* background: url("https://picsum.photos/1200/900/?blur");
     background-size: cover; */
-    height: 100vh;
-
-
+  height: 100vh;
 }
 
 .controller-home {
-    background: #4b6cb7;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #182848, #4b6cb7);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: #4b6cb7;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #182848, #4b6cb7);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .home-error {
-    position: fixed;
-    top: 60px;
-    right: 40px;
-    height: 50px;
-    width: 300px;
-    z-index: 102;
+  position: fixed;
+  top: 60px;
+  right: 40px;
+  height: 50px;
+  width: 300px;
+  z-index: 102;
 }

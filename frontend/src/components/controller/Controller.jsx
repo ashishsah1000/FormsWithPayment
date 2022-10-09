@@ -105,6 +105,11 @@ export default function Controller({
       console.log("dispatch will be called");
       dispatch(addComponent({ question: question, type: selected }));
       // for options dispatch it in some other way
+      // scroll down to bottom
+      var previewElement = document.querySelector(".preview");
+      console.log(previewElement);
+
+      console.log(previewElement.scrollHeight);
     }
   };
 
@@ -386,12 +391,14 @@ export default function Controller({
                   </>
                 ) : (
                   <>
-                    <button
-                      className="bg-blue-900 text-gray-100 m-full items-end mt-3 justify-items-end align-end"
-                      onClick={() => addElement()}
-                    >
-                      <PlusCircleIcon className="h-6 " /> &nbsp; Add Element
-                    </button>
+                    <a href="#controller">
+                      <button
+                        className="bg-blue-900 text-gray-100 m-full items-end mt-3 justify-items-end align-end"
+                        onClick={() => addElement()}
+                      >
+                        <PlusCircleIcon className="h-6 " /> &nbsp; Add Element
+                      </button>
+                    </a>
                   </>
                 )}
               </div>
@@ -399,6 +406,7 @@ export default function Controller({
           </div>
         </div>
       </div>
+      <div id="controller"></div>
     </div>
   );
 }

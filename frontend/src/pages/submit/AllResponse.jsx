@@ -41,7 +41,7 @@ export default function AllResponse() {
   if (data.length > 0) {
     return (
       <div>
-        <div className="indexPage ">
+        <div className="indexPage " style={{ marginTop: "100px" }}>
           {data.map((x) => {
             return (
               <div className="w-10/12 mx-auto flex  bg-blue-300 p-2 my-3 rounded">

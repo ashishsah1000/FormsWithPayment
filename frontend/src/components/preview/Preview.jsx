@@ -185,7 +185,7 @@ export default function Preview({
       dispatch(changePreviewComponents([]));
     }
   }, []);
-
+  console.log("mode is", mode);
   // edit mode inline
 
   // this section deals with response functions
@@ -200,7 +200,491 @@ export default function Preview({
   if (fetching) return <>Your data is being fetched</>;
 
   return (
-    <div className=" w-11/12 lg:max-w-6xl  preview ">
+    <div className=" w-11/12 lg:max-w-6xl   preview ">
+      <div className="previewEdit">
+        <div className="title" style={{ marginTop: "40px" }}>
+          <div className="content">
+            <h1 className="text-4xl font-bold my-4">
+              {mainTitle.length > 0 ? mainTitle : title}
+            </h1>
+            <h3>
+              {mainDescription.length > 0 ? mainDescription : description}
+            </h3>
+          </div>
+        </div>
+        <div className="form-data"></div>
+        <div className="rounded ">
+          {preview.map((x, i) => {
+            if (x.type == "rating") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <Rating type={x.type} id={i} question={x.question} />
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "textarea") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <Textarea
+                    type={x.type}
+                    id={i}
+                    mode="submit"
+                    callback={() => {}}
+                  />
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "datepick") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <DatePick type={x.type} id={i} />
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "file") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <Files type={x.type} id={i} />
+                </div>
+              );
+            }
+            if (x.type == "options") {
+              return (
+                <div className="preview-elements bg-gray-100 p-6">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <OptionView
+                    array={x.options.data}
+                    callback={optionsSelected}
+                    type={x.type}
+                    id={i}
+                  />
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "radio") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <h1 className="font-bold">Question </h1> */}
+                  <h1 className="my-4 mx-3">{x.question}</h1>
+                  <RadioView
+                    array={x.options.data}
+                    callback={optionsSelected}
+                    type={x.type}
+                    id={i}
+                  />
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "textbox") {
+              return (
+                <div className="preview-elements p-6 bg-gray-100">
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  <div>
+                    {/* <h1 className="font-bold">Question </h1> */}
+                    <h1 className="my-4 mx-3">{x.question}</h1>
+                    <TextBox
+                      width={"1/3"}
+                      padding={2}
+                      placeholder={"Enter your answer"}
+                      otherClass={"mx-3"}
+                      type={x.type}
+                      id={i}
+                      question={x.question}
+                      mode="submit"
+                    />
+                  </div>
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+            if (x.type == "section") {
+              return (
+                <div
+                  className={`preview-elements  sectionPreview mt-24`}
+                  style={{
+                    background: x.data.properties.background,
+                    color: x.data.properties.color,
+                  }}
+                >
+                  {mode == "edit" || mode == "create" ? (
+                    <>
+                      <div className="delete-holder">
+                        <button
+                          className="m-auto text-blue-500 font-bold"
+                          onClick={() => {
+                            if (!inlineEdit[i]) {
+                              let copy = inlineEdit;
+                              copy[i] = true;
+                              setinlineEdit([...copy]);
+                            } else {
+                              let copy = inlineEdit;
+                              copy[i] = null;
+                              setinlineEdit([...copy]);
+                            }
+                          }}
+                        >
+                          <PencilIcon className="h-5" /> &nbsp; Edit
+                        </button>
+                        <Delete id={i} />
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  <h1 className="text-4xl font-bold"> {x.question}</h1>
+                  <h1 className="my-4 mx-3">{x.data.lable}</h1>
+                  {inlineEdit[i] ? (
+                    <div style={{ zIndex: 103 }}>
+                      <Controller
+                        mode="edit"
+                        data={preview}
+                        id={i}
+                        classes="bg-gray-100"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              );
+            }
+          })}
+
+          {mode == "submit" ? (
+            <button
+              className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
+              onClick={(e) => {
+                handleSubmit();
+              }}
+            >
+              Submit &nbsp;
+              <LockClosedIcon className="h-5 " />
+            </button>
+          ) : (
+            <></>
+          )}
+          {mode == "publish" ? (
+            <>
+              <hr />
+              <br />
+              <div className="w-96 mx-auto ">
+                <AllCheckers callback={handleOptionChange} />
+              </div>
+              <button
+                className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap 
+              ${status == "pending" || status == "approved" ? "bg-red-100" : ""}
+              `}
+                disabled={
+                  status == "pending" || status == "approved" ? true : false
+                }
+                onClick={(e) => {
+                  handlePublish(id);
+                }}
+              >
+                &nbsp;Send for approval &nbsp;
+                <LockClosedIcon className="h-5 " />
+              </button>
+            </>
+          ) : (
+            <></>
+          )}
+          {mode == "approve" ? (
+            <>
+              <button
+                className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto `}
+                onClick={() => {
+                  handleApprove(id);
+                }}
+              >
+                &nbsp;Approve &nbsp;
+                <CheckCircleIcon className="h-5 " />
+              </button>
+              <button
+                className="drop-shadow-sm font-bold text-gray-50 bg-red-600 my-6 mx-auto"
+                onClick={() => {
+                  setreturnBack(!returnBack);
+                  //handleDeapprove(id);
+                }}
+              >
+                &nbsp;Send Back &nbsp;
+                <ExclamationCircleIcon className="h-5 " />
+              </button>
+            </>
+          ) : (
+            <></>
+          )}
+          {returnBack ? (
+            <>
+              <SubmitModal
+                text="Sure you want to deapprove this form?"
+                close={() => setreturnBack(!returnBack)}
+                callback={() => deapproveForm(id, reason)}
+                reqReason={true}
+                reasoncallback={(value) => {
+                  reason = value;
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
       {mode == "create" ? (
         <>
           <Controller />
@@ -216,488 +700,6 @@ export default function Preview({
       ) : (
         <></>
       )}
-      <div className="title">
-        <div className="content">
-          <h1 className="text-4xl font-bold my-4">
-            {mainTitle.length > 0 ? mainTitle : title}
-          </h1>
-          <h3>{mainDescription.length > 0 ? mainDescription : description}</h3>
-        </div>
-      </div>
-
-      <div className="form-data"></div>
-
-      <div className="rounded">
-        {preview.map((x, i) => {
-          if (x.type == "rating") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <Rating type={x.type} id={i} question={x.question} />
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "textarea") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <Textarea
-                  type={x.type}
-                  id={i}
-                  mode="submit"
-                  callback={() => {}}
-                />
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "datepick") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <DatePick type={x.type} id={i} />
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "file") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <Files type={x.type} id={i} />
-              </div>
-            );
-          }
-          if (x.type == "options") {
-            return (
-              <div className="preview-elements bg-gray-100 p-6">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <OptionView
-                  array={x.options.data}
-                  callback={optionsSelected}
-                  type={x.type}
-                  id={i}
-                />
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "radio") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* <h1 className="font-bold">Question </h1> */}
-                <h1 className="my-4 mx-3">{x.question}</h1>
-                <RadioView
-                  array={x.options.data}
-                  callback={optionsSelected}
-                  type={x.type}
-                  id={i}
-                />
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "textbox") {
-            return (
-              <div className="preview-elements p-6 bg-gray-100">
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                <div>
-                  {/* <h1 className="font-bold">Question </h1> */}
-                  <h1 className="my-4 mx-3">{x.question}</h1>
-                  <TextBox
-                    width={"1/3"}
-                    padding={2}
-                    placeholder={"Enter your answer"}
-                    otherClass={"mx-3"}
-                    type={x.type}
-                    id={i}
-                    question={x.question}
-                    mode="submit"
-                  />
-                </div>
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-          if (x.type == "section") {
-            return (
-              <div
-                className={`preview-elements  sectionPreview mt-24`}
-                style={{
-                  background: x.data.properties.background,
-                  color: x.data.properties.color,
-                }}
-              >
-                {mode == "edit" || mode == "create" ? (
-                  <>
-                    <div className="delete-holder">
-                      <button
-                        className="m-auto text-blue-500 font-bold"
-                        onClick={() => {
-                          if (!inlineEdit[i]) {
-                            let copy = inlineEdit;
-                            copy[i] = true;
-                            setinlineEdit([...copy]);
-                          } else {
-                            let copy = inlineEdit;
-                            copy[i] = null;
-                            setinlineEdit([...copy]);
-                          }
-                        }}
-                      >
-                        <PencilIcon className="h-6" /> &nbsp; Edit
-                      </button>
-                      <Delete id={i} />
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-
-                <h1 className="text-4xl font-bold"> {x.question}</h1>
-                <h1 className="my-4 mx-3">{x.data.lable}</h1>
-                {inlineEdit[i] ? (
-                  <div style={{ zIndex: 103 }}>
-                    <Controller
-                      mode="edit"
-                      data={preview}
-                      id={i}
-                      classes="bg-gray-100"
-                    />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          }
-        })}
-
-        {mode == "submit" ? (
-          <button
-            className="drop-shadow-sm font-bold text-gray-50 bg-blue-900 my-6 mx-auto"
-            onClick={(e) => {
-              handleSubmit();
-            }}
-          >
-            Submit &nbsp;
-            <LockClosedIcon className="h-6 " />
-          </button>
-        ) : (
-          <></>
-        )}
-        {mode == "publish" ? (
-          <>
-            <hr />
-            <br />
-            <div className="w-96 mx-auto ">
-              <AllCheckers callback={handleOptionChange} />
-            </div>
-            <button
-              className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap 
-              ${status == "pending" || status == "approved" ? "bg-red-100" : ""}
-              `}
-              disabled={
-                status == "pending" || status == "approved" ? true : false
-              }
-              onClick={(e) => {
-                handlePublish(id);
-              }}
-            >
-              &nbsp;Send for approval &nbsp;
-              <LockClosedIcon className="h-5 " />
-            </button>
-          </>
-        ) : (
-          <></>
-        )}
-        {mode == "approve" ? (
-          <>
-            <button
-              className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto `}
-              onClick={() => {
-                handleApprove(id);
-              }}
-            >
-              &nbsp;Approve &nbsp;
-              <CheckCircleIcon className="h-5 " />
-            </button>
-            <button
-              className="drop-shadow-sm font-bold text-gray-50 bg-red-600 my-6 mx-auto"
-              onClick={() => {
-                setreturnBack(!returnBack);
-                //handleDeapprove(id);
-              }}
-            >
-              &nbsp;Send Back &nbsp;
-              <ExclamationCircleIcon className="h-5 " />
-            </button>
-          </>
-        ) : (
-          <></>
-        )}
-        {returnBack ? (
-          <>
-            <SubmitModal
-              text="Sure you want to deapprove this form?"
-              close={() => setreturnBack(!returnBack)}
-              callback={() => deapproveForm(id, reason)}
-              reqReason={true}
-              reasoncallback={(value) => {
-                reason = value;
-              }}
-            />
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
     </div>
   );
 }

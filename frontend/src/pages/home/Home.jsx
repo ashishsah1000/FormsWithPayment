@@ -68,7 +68,7 @@ export default function Home() {
       <div>
         <Navbar />
       </div>
-      <div className="my-6" style={{ marginTop: "90px" }}>
+      <div className="my-6" style={{ marginTop: "40px" }}>
         <Routes>
           {/* <Route path="/create" element={<Creator />} /> */}
           <Route path="/create" element={<Create />} />
