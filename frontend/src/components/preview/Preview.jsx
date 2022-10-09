@@ -151,8 +151,6 @@ export default function Preview({
   //handle can be used to get the value of react selector
   const handleOptionChange = (selectedOption) => {
     approvers = selectedOption.map((x) => x.value).join(" ");
-
-    console.log("all approver", approvers);
   };
 
   // handle approve only for the approver
@@ -623,7 +621,12 @@ export default function Preview({
               <hr />
               <br />
               <div className="w-96 mx-auto ">
-                <AllCheckers callback={handleOptionChange} />
+                {status == "pending" || status == "approved" ? (
+                  <></>
+                ) : (
+                  <AllCheckers callback={handleOptionChange} />
+                )}
+                {/* <AllCheckers callback={handleOptionChange} /> */}
               </div>
               <button
                 className={`drop-shadow-sm font-bold text-gray-50 bg-violet-900 my-6 mx-auto  text-ellipsis whitespace-nowrap 

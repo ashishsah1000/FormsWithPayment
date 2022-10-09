@@ -97,7 +97,7 @@ export default function Forms({ mode = "" }) {
         </Link>
       </div>
       {data != "error" ? (
-        <div className="container w-full mx-auto p-8">
+        <div className="container w-full mx-auto p-8 ">
           {data.length > 0 ? (
             <>
               <div className="p-3">
@@ -106,7 +106,7 @@ export default function Forms({ mode = "" }) {
                 </h1> */}
               </div>
               <div className="w-full table-forms shadow-lg overflow-y-scroll flex flex-wrap">
-                <table class="  w-full   rounded shadow-lg">
+                <table class="w-full   rounded shadow-lg">
                   <thead className="p-3 rounded ">
                     <tr className="bg-gray-900 text-blue-100">
                       <th align="center" className="p-3">

@@ -109,7 +109,7 @@ router.get("/all/approve", (req, res, next) => {
   if (req.user) {
     // has to be checker and admin
     if (req.user.role == "admin" || req.user.role == "checker") {
-      var sql = `SELECT * from allforms WHERE publish='pending';`;
+      var sql = `SELECT * from allforms WHERE publish='pending' ORDER BY createon DESC;`;
       database.query(sql, (err, doc) => {
         if (err) {
           res.send({ status: "error", text: "some database error happened" });

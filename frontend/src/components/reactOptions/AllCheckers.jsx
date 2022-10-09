@@ -4,7 +4,11 @@ import Select from "react-select";
 import { getAllChecker } from "../../axios/users";
 
 // multiple select of the options
-export default function AllCheckers({ options = [{}], callback = () => {} }) {
+export default function AllCheckers({
+  options = [{}],
+  callback = () => {},
+  isDisabled = false,
+}) {
   const [data, setdata] = useState([]);
 
   const getCheckers = async () => {
