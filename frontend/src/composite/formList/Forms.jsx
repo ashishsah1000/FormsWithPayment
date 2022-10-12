@@ -118,7 +118,7 @@ export default function Forms({ mode = "" }) {
                       ) : (
                         <th className="p-3">Status</th>
                       )}
-                      <th className="p-3">Created On</th>
+                      <th className="p-3">Created / Modified</th>
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>

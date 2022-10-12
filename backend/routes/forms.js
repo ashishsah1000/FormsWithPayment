@@ -76,7 +76,7 @@ router.post("/edit/save/:id", (req, res, next) => {
     req.body.data
   )}',description='${req.body.description}',title='${
     req.body.title
-  }' WHERE id=${id};`;
+  }', createon=NOW() WHERE id=${id};`;
   database.query(sql, (err, doc) => {
     if (err) {
       res.send({ status: "error" });
