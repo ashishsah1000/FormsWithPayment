@@ -2,6 +2,7 @@ import React from "react";
 import "./TextBox.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateResponse } from "../../features/preview/preview";
+import { useEffect } from "react";
 
 export default function TextBox({
   // mode = edit/show
@@ -15,6 +16,7 @@ export default function TextBox({
   padding = 3,
   otherClass = "",
   disabled = false,
+  clear = false,
   callback = () => {},
 }) {
   const dispatch = useDispatch();
@@ -25,6 +27,15 @@ export default function TextBox({
     );
     console.log(response);
   };
+  const reduxQuestion = useSelector((state) => state.component.question);
+
+  let quest = "";
+  useEffect(() => {
+    if (reduxQuestion == "") {
+      console.log(true);
+      document.querySelector(".addquestionController").value = "";
+    }
+  }, [reduxQuestion]);
 
   const editView = false;
   if (mode == "submit") {
@@ -46,9 +57,12 @@ export default function TextBox({
         type="text"
         name="question"
         id=""
-        className={`w-${width} my-2  px-2 py-3 py-${padding}   rounded ${otherClass}`}
+        className={`w-${width} my-2  px-2 py-3 py-${padding}   rounded ${otherClass} addquestionController`}
         placeholder={placeholder}
-        onKeyUp={(e) => callback(e.target.value)}
+        onKeyUp={(e) => {
+          quest = e.target.value;
+          callback(e.target.value);
+        }}
         disabled={disabled}
       />
     );

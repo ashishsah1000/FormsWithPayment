@@ -45,7 +45,7 @@ export default function Controller({
   const question = useSelector((state) => state.component.question);
 
   const getquestion = (value) => {
-    dispatch(addQuestion(value)); // this will dispatch the question value to redux
+    dispatch(addQuestion(value)); // this will dispatch the question value to reduxx
   };
   // check the data of options this will only be used in radio and options time
   let optionData = {};
@@ -55,7 +55,6 @@ export default function Controller({
       data: array,
     };
   };
-
   // functions for getting the section data
   let sectionData = {};
   let getSection = (data) => {
@@ -84,6 +83,7 @@ export default function Controller({
           data: sectionData,
         })
       );
+      dispatch(addQuestion("")); // this will dispatch the question value to reduxx
     } else if (selected == "options" || selected == "radio") {
       // check if options data in missing
       let flag = 0;
@@ -98,6 +98,7 @@ export default function Controller({
             options: optionData,
           })
         );
+        dispatch(addQuestion("")); // this will dispatch the question value to reduxx
       } else {
         console.log("options are missing");
       }
@@ -106,10 +107,7 @@ export default function Controller({
       dispatch(addComponent({ question: question, type: selected }));
       // for options dispatch it in some other way
       // scroll down to bottom
-      var previewElement = document.querySelector(".preview");
-      console.log(previewElement);
-
-      console.log(previewElement.scrollHeight);
+      dispatch(addQuestion("")); // this will dispatch the question value to reduxx
     }
   };
 

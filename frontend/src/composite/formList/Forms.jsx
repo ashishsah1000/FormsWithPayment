@@ -106,7 +106,7 @@ export default function Forms({ mode = "" }) {
                 </h1> */}
               </div>
               <div className="w-full table-forms shadow-lg overflow-y-scroll flex flex-wrap">
-                <table class="w-full   rounded shadow-lg">
+                <table class="table-auto w-full   rounded shadow-lg">
                   <thead className="p-3 rounded ">
                     <tr className="bg-gray-900 text-blue-100">
                       <th align="center" className="p-3">
@@ -130,7 +130,7 @@ export default function Forms({ mode = "" }) {
                             x.publish == "approved" ? "bg-green-100" : ""
                           } ${x.publish == "pending" ? "bg-yellow-100" : ""} ${
                             x.publish == "deapproved" ? "bg-red-200" : ""
-                          } `}
+                          } table-row`}
                         >
                           <td align="center" className="p-3">
                             {i + 1}
@@ -170,11 +170,8 @@ export default function Forms({ mode = "" }) {
                               .add(1, "days")
                               .format("MMM Do YY")}
                           </td>
-                          <td
-                            align="right"
-                            className="p-3 flex flex-wrap flex-row-reverse "
-                          >
-                            <div className="flex ">
+                          <td align="right" className="p-3 ">
+                            <div className="flex flex-wrap flex-row-reverse  ">
                               {mode !== "publish" ? (
                                 <>
                                   <Link to={`/preview/${x.id}`}>

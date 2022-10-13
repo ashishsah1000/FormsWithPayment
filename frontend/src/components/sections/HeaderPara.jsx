@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Textarea, Chips } from "../";
 import "./sections.css";
+import { createError } from "../../features/component/components";
 
 export default function HeaderPara({ callback = () => {} }) {
   const [lable, setLable] = useState("");
-  const [background, setBackground] = useState("dodgerblue");
-  const [textColor, settextColor] = useState("slate-gray");
+  const [background, setBackground] = useState("");
+  const [textColor, settextColor] = useState("");
+  const dispatch = useDispatch();
+
   const callCallback = () => {
     callback({
       lable: lable,
@@ -50,8 +54,9 @@ export default function HeaderPara({ callback = () => {} }) {
               type="color"
               name="textcolor"
               onChange={(e) => {
-                console.log(e.target.value);
                 settextColor(e.target.value);
+                console.log("actual color", e.target.value);
+                console.log("this is the texcolor", textColor);
                 callCallback();
               }}
             ></input>

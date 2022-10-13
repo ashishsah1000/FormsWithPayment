@@ -552,7 +552,7 @@ export default function Preview({
             if (x.type == "section") {
               return (
                 <div
-                  className={`preview-elements  sectionPreview mt-24`}
+                  className={`preview-elements  sectionPreview mt-16`}
                   style={{
                     background: x.data.properties.background,
                     color: x.data.properties.color,
