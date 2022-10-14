@@ -38,7 +38,7 @@ export default function Chips({
   return (
     <div>
       <div
-        className={`info-chip  ${fade.fade} ${badgeColor} basic-grad text-white w-80 py-1 px-1 mx-3 my-3 rounded flex text-sm shadow-md ${type}`}
+        className={`info-chip  ${fade.fade} ${badgeColor} basic-grad text-white w-80 py-1 px-1 mx-3 my-3 rounded flex text-sm shadow-md ${type} `}
       >
         <div className="mt-1 ">
           <p className="flex">

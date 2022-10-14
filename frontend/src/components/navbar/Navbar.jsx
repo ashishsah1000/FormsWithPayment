@@ -66,13 +66,13 @@ export default function Navbar({
       <div className="grow h-14 options"></div>
       <div className=" profile mx-6">
         <div className="m-auto flex flex-wrap text-blue-200">
-          <button className="mx-3">
+          <button className="mx-3 rounded ease-in duration-300 hover:bg-sky-700 hover:scale-110">
             <Link to="/forms">
-              <ArchiveIcon className="h-6  mx-3" />
+              <ArchiveIcon className="h-6  " />
             </Link>
           </button>
           {user?.role == "checker" || user.role == "admin" ? (
-            <button className="mx-3">
+            <button className="mx-3 rounded ease-in duration-300 hover:bg-sky-700 hover:scale-110">
               <Link to="/check/all">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,16 +103,16 @@ export default function Navbar({
           )}
 
           {user?.role == "admin" ? (
-            <button className="mx-3">
+            <button className="mx-3 rounded ease-in duration-300 hover:bg-sky-700 hover:scale-110 ">
               <Link to="/users/all">
-                <CogIcon className="h-6  mx-3" />
+                <CogIcon className="h-6 " />
               </Link>
             </button>
           ) : (
             <></>
           )}
           {user?.role == "publisher" ? (
-            <button className="mx-3">
+            <button className="mx-3 rounded ease-in duration-300 hover:bg-sky-700 hover:scale-110">
               <Link to="/approve/all">
                 <LightningBoltIcon className="h-6  mx-3" />
               </Link>
@@ -125,7 +125,7 @@ export default function Navbar({
             onClick={() => {
               handleLogOut();
             }}
-            className="mx-3"
+            className="mx-3 rounded ease-in duration-300 hover:bg-sky-700 hover:scale-110"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@ export default function Navbar({
               />
             </svg>
           </button>
-          <button className="mx-3">
+          <button className="mx-3 font-thin" style={{ fontSize: "16px" }}>
             <Link to="/forms">
               {user.username.length > 0
                 ? user?.username.toUpperCase()

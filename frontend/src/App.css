@@ -46,3 +46,19 @@ body {
   background-color: #000000;
   border: 2px solid #555555;
 }
+
+.z-1 {
+  z-index: 101;
+}
+.z-2 {
+  z-index: 102;
+}
+.z-3 {
+  z-index: 103;
+}
+.z-4 {
+  z-index: 104;
+}
+.z-max {
+  z-index: 1000;
+}

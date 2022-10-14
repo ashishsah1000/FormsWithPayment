@@ -88,7 +88,7 @@ export default function Forms({ mode = "" }) {
       <div className="create-new ">
         <Link to="/create">
           <button
-            className=" drop-shadow-sm bg-red-500 mx-auto my-3  text-gray-100"
+            className=" drop-shadow-sm bg-red-500 mx-auto my-3  text-gray-100 z-max"
             onClick={(e) => {}}
             title="New Form"
           >
@@ -96,18 +96,19 @@ export default function Forms({ mode = "" }) {
           </button>
         </Link>
       </div>
+
       {data != "error" ? (
-        <div className="container w-full mx-auto p-8 ">
+        <div className="container w-full mx-auto  overflow-y-scroll table-forms mt-24">
           {data.length > 0 ? (
             <>
-              <div className="p-3">
+              <div className="">
                 {/* <h1 className="font-bold text-3xl text-gray-700 ">
                   List of all forms created:
                 </h1> */}
               </div>
-              <div className="w-full table-forms shadow-lg overflow-y-scroll flex flex-wrap">
-                <table class="table-auto w-full   rounded shadow-lg">
-                  <thead className="p-3 rounded ">
+              <div className="w-full  shadow-lg  flex flex-wrap">
+                <table class="table-auto w-full    rounded shadow-lg">
+                  <thead className=" rounded sticky top-0 z-4 ">
                     <tr className="bg-gray-900 text-blue-100">
                       <th align="center" className="p-3">
                         Index
@@ -171,7 +172,7 @@ export default function Forms({ mode = "" }) {
                               .format("MMM Do YY")}
                           </td>
                           <td align="right" className="p-3 ">
-                            <div className="flex flex-wrap flex-row-reverse  ">
+                            <div className="flex flex-wrap w-36   ">
                               {mode !== "publish" ? (
                                 <>
                                   <Link to={`/preview/${x.id}`}>

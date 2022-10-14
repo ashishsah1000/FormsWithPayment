@@ -31,7 +31,7 @@ export default function TextBox({
 
   let quest = "";
   useEffect(() => {
-    if (reduxQuestion == "") {
+    if (reduxQuestion == "" && mode == "edit") {
       console.log(true);
       document.querySelector(".addquestionController").value = "";
     }
