@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getResponse, getForm } from "../../axios/forms";
 import { TextBoxView, OptionView, Rating } from "../../components";
-
+import { getAttachmentFile } from "../../axios/response";
+import { PaperClipIcon } from "@heroicons/react/solid/";
 export default function Response() {
   // get the specific id of the form
   const [data, setData] = useState([]);
@@ -31,12 +32,21 @@ export default function Response() {
     }
   };
 
+  // function that will download the attachment
+
+  const getAttachment = async (x) => {
+    // x should have the value /uploads/dir/something
+    console.log("getting the attachment");
+    const res = await getAttachmentFile(x);
+    console.log(res);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <div className="mt-24">
-      <div className=" w-11/12 lg:max-w-6xl bg-grey-100 text-gray-700 shadow-lg   preview ">
+      <div className=" w-11/12 lg:max-w-6xl  text-gray-700  preview ">
         <div className="title">
           <div className="content">
             <h1 className="text-4xl font-bold my-4">{mainTitle}</h1>
@@ -49,7 +59,6 @@ export default function Response() {
               if (x.type == "textbox") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
                     <TextBoxView question={x.question} answer={x.value} />
                   </div>
                 );
@@ -57,7 +66,6 @@ export default function Response() {
               if (x.type == "rating") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
                       <Rating viewValue={x.value} mode="response" />
@@ -65,10 +73,27 @@ export default function Response() {
                   </div>
                 );
               }
+              if (x.type == "file") {
+                return (
+                  <div className="preview-elements  bg-gray-50 p-3">
+                    <div className="p-3">
+                      <h1 className="font-bold text-xl">{x.question}</h1>
+                      <button
+                        className="bg-teal-700 text-teal-200 mt-3 ml-3"
+                        onClick={() => {
+                          getAttachment(x.value);
+                        }}
+                      >
+                        <PaperClipIcon className="h-4 " />
+                        &nbsp; Attachment
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
               if (x.type == "textarea") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
                       <h3 className="mx-3 mt-3 ">{x.value}</h3>
@@ -79,7 +104,6 @@ export default function Response() {
               if (x.type == "datepick") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
                     <div className="p-3">
                       <h1 className="font-bold text-xl">{x.question}</h1>
                       <span className="p-6 ">{x.value}</span>
@@ -90,8 +114,6 @@ export default function Response() {
               if (x.type == "options") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
-
                     <OptionView
                       array={x.value}
                       mode="response"
@@ -104,8 +126,6 @@ export default function Response() {
               if (x.type == "radio") {
                 return (
                   <div className="preview-elements  bg-gray-50 p-3">
-                    <h1 className="font-bold">Question </h1>
-
                     <OptionView
                       array={x.value}
                       mode="response"
@@ -134,7 +154,7 @@ export default function Response() {
             <>Data is being fetched</>
           )}
         </div>
-        <div className="p-6">
+        <div className="p-6 mb-8">
           <button
             className="m-auto bg-blue-500 text-gray-100 font-bold  "
             onClick={() => {

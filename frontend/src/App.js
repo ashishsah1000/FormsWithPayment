@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="home-error">
+      <div className="home-error z-max">
         {errors.map((x, i) => {
           if (errors.length - 1 == i) {
             return (

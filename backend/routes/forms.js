@@ -1,6 +1,22 @@
 var express = require("express");
 var router = express.Router();
 var { database } = require("../database/pgdatabase");
+const fs = require("fs");
+const path = require("path");
+// var storage = multer.diskStorage({
+//   destination: (req, file, callback) => {
+//     var dir = "./uploads";
+
+//     if (!fs.existsSync(dir)) {
+//       fs.mkdirSync(dir);
+//     }
+//     callback(null, dir);
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+// var upload = multer({ dest: "/uploads/docs" });
 
 // connect to database
 const createConnection = () => {
@@ -240,7 +256,7 @@ router.post("/submit/response", function (req, res, next) {
   var formid = parseInt(req.body.formid);
   var sql = `UPDATE formresponse SET forms ='${JSON.stringify(
     req.body.form
-  )}' WHERE email='${email}';`;
+  )}' WHERE email='${email}' and formid=${formid};`;
   database.query(sql, (err, results) => {
     if (err) {
       res.send({ data: "error", text: "some error happened" });
@@ -345,14 +361,13 @@ router.post("/collect/response/:id", function (req, res, next) {
           } else {
             if (doc.rows.length == 0) {
               // start saving data into form
-              // createConnection();
               console.log("logging req body", req.body);
               var email = req.body.username;
               var userid = 100; // todo it has to be user login id
               var formid = req.body.formid;
               var sql2 = `INSERT INTO formresponse (formid,userid,email,forms,createon) VALUES ('${formid}','${userid}','${email}','${JSON.stringify(
                 []
-              )}',NOW());`;
+              )}',NOW())`;
               database.query(sql2, (err, results) => {
                 if (err) {
                   console.log(err);
@@ -376,6 +391,66 @@ router.post("/collect/response/:id", function (req, res, next) {
   });
 
   //   add index to the form and save the data
+});
+
+// upload for the specific file
+router.post("/response/file/upload", (req, res, next) => {
+  if (req.user) {
+    // this will drop  row from database
+    console.log(req.files.file);
+    console.log(typeof req.files.file);
+    console.log("req body", req.body);
+    const file = req.files.file;
+    const name = req.files.file.name.split(".")[0].split(" ")[1];
+    var last = file.name.lastIndexOf(".");
+    var front = file.name.slice(0, last - 1);
+    var ext = file.name.slice(last + 1);
+    var dir = `./uploads/docs/${"fBuild" + front + "" + Date.now()}.${ext}`;
+
+    file.mv(dir, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("we exectued it file was shifted ");
+
+        var sql = `INSERT INTO docsupload (docurl,username,qid) VALUES ('${dir}','newuser',1 ) RETURNING docurl;`;
+        database.query(sql, [], (err, doc) => {
+          if (err) {
+            console.log(err);
+            res.send("error from database");
+          } else {
+            console.log(doc.rows[0].docurl);
+            res.send({ status: "success", url: doc.rows[0].docurl });
+          }
+        });
+      }
+    });
+  } else {
+    console.log("authorization error");
+
+    res.send({ status: "failed", error: "authorization error" });
+  }
+});
+// download the file that has been uploaded with the help of the url
+router.post("/response/get/upload", (req, res, next) => {
+  console.log(req.user);
+  if (req.user) {
+    console.log("this we are reciving", req.body);
+    var checkPath = path.dirname(`${req.body.dir}`);
+    // fs.readdir("./uploads/docs/", (err, filename) => console.log(filename));
+    if (fs.existsSync(checkPath)) {
+      try {
+        const file = req.body.dir;
+        res.download(file, `${req.body.dir.split(".")[0]}`);
+        console.log("downloading");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  } else {
+    console.log("authorization error");
+    res.send({ status: "failed", error: "authorization error" });
+  }
 });
 
 module.exports = router;

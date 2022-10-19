@@ -386,7 +386,13 @@ export default function Preview({
                   )}
                   {/* <h1 className="font-bold">Question </h1> */}
                   <h1 className="my-4 mx-3">{x.question}</h1>
-                  <Files type={x.type} id={i} />
+                  <Files
+                    type={x.type}
+                    id={i}
+                    mode={mode}
+                    question={x.question}
+                    formId={id}
+                  />
                 </div>
               );
             }

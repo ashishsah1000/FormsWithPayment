@@ -1,12 +1,15 @@
 var createError = require("http-errors");
 var cors = require("cors");
 var express = require("express");
+const fileUpload = require("express-fileupload");
+
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 var session = require("express-session");
 var logger = require("morgan");
+const multer = require("multer");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -28,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// app.use(multer({ dest: "./uploads/" }));
 
 app.use(
   cors({
@@ -36,6 +40,7 @@ app.use(
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
   })
 );
+app.use(fileUpload());
 
 app.use(
   session({
@@ -58,7 +63,7 @@ require("./auth/passportConfig")(passport);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/forms", formsRouter);
-app.use("/mail",mailRouter);
+app.use("/mail", mailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
